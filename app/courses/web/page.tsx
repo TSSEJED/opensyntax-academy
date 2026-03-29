@@ -3,172 +3,270 @@ import { LessonPlayer, type Module } from "@/components/lesson-player"
 
 const webModules: Module[] = [
   {
-    id: "app-router",
-    title: "Module 1 — App Router Mastery",
+    id: "app-router", title: "Module 1 — App Router Mastery",
     lessons: [
       {
-        id: "parallel-routes",
-        title: "Parallel Routes & Intercepted Routes",
-        description: "Build complex UI patterns like modals that preserve URL state with App Router.",
-        duration: "20 min",
-        content: `
-          <h2 class="text-lg font-semibold text-foreground mb-3">App Router Mastery</h2>
-          <p>Next.js 16 App Router unlocks powerful layout patterns impossible in the Pages Router. Two of the most important are <strong>Parallel Routes</strong> and <strong>Intercepted Routes</strong>.</p>
-          <br/>
-          <h3 class="text-sm font-semibold text-foreground mb-2">Parallel Routes (@slot)</h3>
-          <p>Parallel routes let you render multiple pages in the same layout simultaneously. Use the <code class="bg-card border border-border rounded px-1 py-0.5 text-xs font-mono">@folder</code> convention to create named slots.</p>
-          <br/>
-          <pre class="rounded-lg bg-card border border-border p-4 text-xs font-mono text-foreground overflow-auto"><code>// app/dashboard/layout.tsx
+        id: "parallel-routes", title: "Parallel & Intercepted Routes", duration: "20 min",
+        description: "Build complex UI patterns like modals that preserve URL state using App Router's slot system.",
+        content: `<h2>Parallel & Intercepted Routes</h2>
+<p>Next.js 16 App Router unlocks powerful layout patterns impossible in the Pages Router. Two of the most important are <strong>Parallel Routes</strong> and <strong>Intercepted Routes</strong> — together they enable Instagram-style photo modals and multi-panel dashboards.</p>
+<h3>Parallel Routes — @slot Convention</h3>
+<p>Parallel routes let you render multiple pages in the same layout simultaneously using the <code>@folder</code> convention.</p>
+<pre><code>// app/dashboard/layout.tsx
 export default function DashboardLayout({
   children,
-  analytics,   // @analytics slot
-  team,        // @team slot
+  analytics,   // maps to app/dashboard/@analytics/page.tsx
+  team,        // maps to app/dashboard/@team/page.tsx
 }: {
   children: React.ReactNode
   analytics: React.ReactNode
   team: React.ReactNode
 }) {
   return (
-    &lt;div className="grid grid-cols-2 gap-4"&gt;
-      {children}
-      {analytics}
-      {team}
+    &lt;div className="grid grid-cols-[1fr_320px] gap-6"&gt;
+      &lt;div&gt;{children}&lt;/div&gt;
+      &lt;aside className="space-y-4"&gt;
+        {analytics}
+        {team}
+      &lt;/aside&gt;
     &lt;/div&gt;
   )
 }</code></pre>
-          <br/>
-          <h3 class="text-sm font-semibold text-foreground mb-2">Intercepted Routes (..)</h3>
-          <p>Intercepted routes let you show a route inside a different context — like rendering a photo in a modal when navigated from a feed, while still being a full page when directly accessed via URL.</p>
-          <br/>
-          <pre class="rounded-lg bg-card border border-border p-4 text-xs font-mono text-foreground overflow-auto"><code>// app/feed/@modal/(..)photos/[id]/page.tsx
-// This intercepts /photos/[id] when navigated from /feed
+<h3>Intercepted Routes — (..) Segments</h3>
+<p>Intercepted routes show a route inside a different context. Navigate from /feed to a photo and see a modal. Access /photos/[id] directly and see the full page — same component, different context.</p>
+<pre><code>// app/feed/@modal/(..)photos/[id]/page.tsx
 export default function PhotoModal({ params }: { params: { id: string } }) {
-  return &lt;Modal&gt;&lt;Photo id={params.id} /&gt;&lt;/Modal&gt;
-}</code></pre>
-        `,
+  return (
+    &lt;Modal&gt;
+      &lt;Photo id={params.id} /&gt;
+    &lt;/Modal&gt;
+  )
+}
+
+// app/dashboard/@analytics/default.tsx  — prevents crash on hard nav
+export default function AnalyticsDefault() {
+  return &lt;div className="animate-pulse h-64 rounded-xl bg-card" /&gt;
+}</code></pre>`
       },
       {
-        id: "use-cache",
-        title: "Cache Components & use cache",
-        description: "Master Next.js 16 cache components for granular, explicit caching control.",
-        duration: "15 min",
-        content: `
-          <h2 class="text-lg font-semibold text-foreground mb-3">Cache Components in Next.js 16</h2>
-          <p>Next.js 16 introduced the <code class="bg-card border border-border rounded px-1 py-0.5 text-xs font-mono">'use cache'</code> directive — a compiler-level primitive for explicit, granular caching of pages, components, and functions.</p>
-          <br/>
-          <pre class="rounded-lg bg-card border border-border p-4 text-xs font-mono text-foreground overflow-auto"><code>// next.config.mjs
+        id: "use-cache", title: "The 'use cache' Directive", duration: "15 min",
+        description: "Master Next.js 16 explicit caching primitives for page, component, and function level control.",
+        content: `<h2>The 'use cache' Directive in Next.js 16</h2>
+<p>Next.js 16 introduced <code>'use cache'</code> — a compiler-level primitive for explicit, granular caching. Unlike implicit fetch caching, it gives you per-component and per-function control with structured expiry.</p>
+<h3>Enabling & Page-Level Caching</h3>
+<pre><code>// next.config.mjs
 const nextConfig = {
-  cacheComponents: true, // enable the feature
+  experimental: { cacheComponents: true },
 }
 
 // app/blog/[slug]/page.tsx
 'use cache'
+import { cacheLife } from 'next/cache'
 
 export default async function BlogPost({ params }) {
-  const post = await fetchPost(params.slug)
+  cacheLife('hours')
+  const post = await db.post.findUnique({ where: { slug: params.slug } })
   return &lt;article&gt;{post.content}&lt;/article&gt;
+}</code></pre>
+<h3>Component & Function-Level Caching</h3>
+<pre><code>// components/trending-sidebar.tsx
+'use cache'
+import { cacheTag, cacheLife } from 'next/cache'
+
+export async function TrendingSidebar() {
+  cacheTag('trending')
+  cacheLife('minutes')
+  const data = await fetchTrending()
+  return &lt;aside&gt;{data.map(item =&gt; &lt;Item key={item.id} {...item} /&gt;)}&lt;/aside&gt;
 }
 
-// Or at function level:
+// lib/queries.ts
 export async function getTopPosts() {
   'use cache'
-  return await db.query("SELECT * FROM posts ORDER BY views DESC LIMIT 10")
+  cacheTag('posts')
+  cacheLife('days')
+  return db.post.findMany({ orderBy: { views: 'desc' }, take: 10 })
+}
+
+// Invalidate on mutation
+'use server'
+import { revalidateTag } from 'next/cache'
+export async function publishPost(data) {
+  await db.post.create({ data })
+  revalidateTag('posts')
+  revalidateTag('trending')
+}</code></pre>`
+      },
+      {
+        id: "edge-middleware", title: "Edge Middleware & Geolocation", duration: "18 min",
+        description: "Build authentication, A/B testing, and geo-routing that runs at the CDN edge before any page renders.",
+        content: `<h2>Edge Middleware</h2>
+<p>Edge Middleware runs before a request hits your server — at the CDN edge — with zero cold start. Perfect for auth guards, locale detection, and feature flags.</p>
+<h3>Auth Guard + Geo-Routing</h3>
+<pre><code>// middleware.ts
+import { NextRequest, NextResponse } from 'next/server'
+import { verifyJWT } from '@/lib/auth'
+
+export async function middleware(req: NextRequest) {
+  const { pathname, nextUrl } = req
+  const country = req.geo?.country ?? 'US'
+
+  // Geo-based locale redirect
+  if (country === 'TN' && !pathname.startsWith('/ar')) {
+    const url = nextUrl.clone()
+    url.pathname = '/ar' + pathname
+    return NextResponse.redirect(url)
+  }
+
+  // Auth guard on dashboard routes
+  if (pathname.startsWith('/dashboard')) {
+    const token = req.cookies.get('auth-token')?.value
+    if (!token) return NextResponse.redirect(new URL('/login', req.url))
+
+    const payload = await verifyJWT(token)
+    if (!payload) return NextResponse.redirect(new URL('/login', req.url))
+
+    const res = NextResponse.next()
+    res.headers.set('x-user-id', payload.sub as string)
+    return res
+  }
+
+  return NextResponse.next()
+}
+
+export const config = {
+  matcher: ['/dashboard/:path*', '/((?!_next|api|favicon).*)'],
 }</code></pre>
-          <br/>
-          <p>Use <code class="bg-card border border-border rounded px-1 py-0.5 text-xs font-mono">revalidateTag('posts', 'max')</code> in a Server Action to invalidate cached content and trigger background revalidation.</p>
-        `,
+<h3>A/B Testing at the Edge</h3>
+<pre><code>export async function middleware(req: NextRequest) {
+  const bucket = req.cookies.get('ab-bucket')?.value
+  const variant = bucket ?? (Math.random() > 0.5 ? 'a' : 'b')
+
+  const url = req.nextUrl.clone()
+  url.pathname = \`/_experiments/\${variant}\${url.pathname}\`
+
+  const res = NextResponse.rewrite(url)
+  if (!bucket) res.cookies.set('ab-bucket', variant, { maxAge: 86400 * 30 })
+  return res
+}</code></pre>`
       },
     ],
   },
   {
-    id: "server-actions",
-    title: "Module 2 — Server-Side Logic",
+    id: "server-actions", title: "Module 2 — Server-Side Logic",
     lessons: [
       {
-        id: "server-actions-deep",
-        title: "Server Actions Without Client JS",
-        description: "Handle complex form submissions entirely on the server with zero client-side JavaScript.",
-        duration: "18 min",
-        content: `
-          <h2 class="text-lg font-semibold text-foreground mb-3">Server Actions for Progressive Enhancement</h2>
-          <p>Server Actions are async functions that run on the server. When used with HTML forms, they work even with JavaScript disabled — true progressive enhancement.</p>
-          <br/>
-          <pre class="rounded-lg bg-card border border-border p-4 text-xs font-mono text-foreground overflow-auto"><code>"use server"
-
-import { revalidateTag } from "next/cache"
-import { redirect } from "next/navigation"
-import { z } from "zod"
+        id: "server-actions-deep", title: "Server Actions Deep Dive", duration: "22 min",
+        description: "Handle complex mutations on the server with zero client JS using progressive enhancement and Zod validation.",
+        content: `<h2>Server Actions — Progressive Enhancement at Scale</h2>
+<p>Server Actions are async functions that run on the server. When bound to HTML forms they work even with JavaScript disabled — true progressive enhancement.</p>
+<h3>Validated Form Actions with useActionState</h3>
+<pre><code>// app/actions/waitlist.ts
+'use server'
+import { revalidateTag } from 'next/cache'
+import { redirect } from 'next/navigation'
+import { z } from 'zod'
 
 const schema = z.object({
   email: z.string().email(),
   name: z.string().min(2),
+  role: z.enum(['developer', 'designer', 'manager']),
 })
 
-export async function submitWaitlist(formData: FormData) {
-  const parsed = schema.safeParse({
-    email: formData.get("email"),
-    name: formData.get("name"),
-  })
+type State = { error?: string; success?: boolean }
 
-  if (!parsed.success) {
-    return { error: "Invalid input" }
-  }
+export async function submitWaitlist(
+  _prev: State, formData: FormData
+): Promise&lt;State&gt; {
+  const parsed = schema.safeParse(Object.fromEntries(formData))
+  if (!parsed.success) return { error: parsed.error.issues[0].message }
+
+  const exists = await db.waitlist.findUnique({ where: { email: parsed.data.email } })
+  if (exists) return { error: 'Already registered' }
 
   await db.waitlist.create({ data: parsed.data })
-  revalidateTag("waitlist-count", "hours")
-  redirect("/thank-you")
-}</code></pre>
-          <br/>
-          <p>Pair with <code class="bg-card border border-border rounded px-1 py-0.5 text-xs font-mono">useActionState</code> on the client to get pending and error states without writing custom fetch logic.</p>
-        `,
+  revalidateTag('waitlist-count')
+  redirect('/thank-you')
+}
+
+// Client component using useActionState
+'use client'
+import { useActionState } from 'react'
+
+export function WaitlistForm() {
+  const [state, action, isPending] = useActionState(submitWaitlist, {})
+  return (
+    &lt;form action={action} className="flex flex-col gap-4"&gt;
+      &lt;input name="email" type="email" required /&gt;
+      &lt;input name="name" required /&gt;
+      {state.error &amp;&amp; &lt;p className="text-destructive text-sm"&gt;{state.error}&lt;/p&gt;}
+      &lt;button disabled={isPending}&gt;{isPending ? 'Joining...' : 'Join Waitlist'}&lt;/button&gt;
+    &lt;/form&gt;
+  )
+}</code></pre>`
       },
     ],
   },
   {
-    id: "pwa",
-    title: "Module 3 — PWA & Offline Sync",
+    id: "pwa", title: "Module 3 — PWA & Offline Sync",
     lessons: [
       {
-        id: "pwa-offline",
-        title: "PWA & Offline Sync",
-        description: "Make the platform work in low-connectivity environments with service workers and background sync.",
-        duration: "25 min",
-        content: `
-          <h2 class="text-lg font-semibold text-foreground mb-3">Progressive Web App & Offline First</h2>
-          <p>A PWA allows users in low-connectivity areas — like parts of Tunisia or rural regions — to access course content without an active internet connection. The two key APIs are <strong>Cache Storage</strong> and <strong>Background Sync</strong>.</p>
-          <br/>
-          <pre class="rounded-lg bg-card border border-border p-4 text-xs font-mono text-foreground overflow-auto"><code>// public/sw.js — Service Worker
-const CACHE_NAME = "opensyntax-v1"
-const OFFLINE_URLS = ["/", "/courses/discord", "/courses/web"]
-
-self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(OFFLINE_URLS))
-  )
-})
-
-self.addEventListener("fetch", (event) => {
-  event.respondWith(
-    caches.match(event.request).then(
-      (cached) => cached ?? fetch(event.request)
-    )
-  )
-})</code></pre>
-          <br/>
-          <h3 class="text-sm font-semibold text-foreground mb-2">next-pwa Integration</h3>
-          <pre class="rounded-lg bg-card border border-border p-4 text-xs font-mono text-foreground overflow-auto"><code>// next.config.mjs
-import withPWA from "next-pwa"
+        id: "pwa-offline", title: "PWA & Service Worker Caching", duration: "25 min",
+        description: "Make your Next.js app installable and work offline with service workers and background sync.",
+        content: `<h2>Progressive Web App with next-pwa</h2>
+<p>A PWA makes your app installable on any device and functional offline. The two key browser APIs are <strong>Cache Storage</strong> and <strong>Background Sync</strong>.</p>
+<h3>next-pwa Setup</h3>
+<pre><code>// next.config.mjs
+import withPWA from 'next-pwa'
 
 export default withPWA({
-  dest: "public",
-  disable: process.env.NODE_ENV === "development",
-  runtimeCaching: [/* ... */],
+  dest: 'public',
+  disable: process.env.NODE_ENV === 'development',
+  runtimeCaching: [
+    {
+      urlPattern: /^https:\/\/api\.example\.com\/.*/,
+      handler: 'NetworkFirst',
+      options: {
+        cacheName: 'api-cache',
+        expiration: { maxAgeSeconds: 60 * 60 * 24 },
+      },
+    },
+    {
+      urlPattern: /\.(png|jpg|jpeg|svg|gif|webp)$/,
+      handler: 'CacheFirst',
+      options: { cacheName: 'images', expiration: { maxAgeSeconds: 60 * 60 * 24 * 30 } },
+    },
+  ],
 })({
   // your existing next config
 })</code></pre>
-          <br/>
-          <p>Add a <code class="bg-card border border-border rounded px-1 py-0.5 text-xs font-mono">manifest.json</code> and <code class="bg-card border border-border rounded px-1 py-0.5 text-xs font-mono">icon-192x192.png</code> to <code class="bg-card border border-border rounded px-1 py-0.5 text-xs font-mono">public/</code> to make the app installable on mobile and desktop.</p>
-        `,
+<h3>Web App Manifest</h3>
+<pre><code>// public/manifest.json
+{
+  "name": "OpenSyntax Academy",
+  "short_name": "OpenSyntax",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "icons": [
+    { "src": "/icon-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}</code></pre>
+<h3>Background Sync — Queue Offline Actions</h3>
+<pre><code>// Register sync in your component
+async function submitOfflineForm(data) {
+  if (!navigator.onLine) {
+    const db = await openDB('offline-queue', 1)
+    await db.add('queue', { ...data, timestamp: Date.now() })
+    await navigator.serviceWorker.ready.then(
+      (sw) => sw.sync.register('submit-form')
+    )
+    return { queued: true }
+  }
+  return fetch('/api/submit', { method: 'POST', body: JSON.stringify(data) })
+}</code></pre>`
       },
     ],
   },
@@ -180,7 +278,9 @@ export default function WebCoursePage() {
       <Navbar />
       <LessonPlayer
         title="Full-Stack Web Engineering"
-        description="Next.js 16, Server Actions, Edge Middleware, PWA, and offline sync — the complete web track."
+        description="Next.js 16, Server Actions, Edge Middleware, PWA, and offline sync — the complete modern web track."
+        category="Web"
+        accentColor="oklch(0.72 0.17 196)"
         modules={webModules}
       />
     </div>

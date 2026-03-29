@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/navbar"
 import { Hero } from "@/components/hero"
+import { CoursesCatalog } from "@/components/courses-catalog"
 import { FeaturesSection } from "@/components/features-section"
 import { CommunityCTA } from "@/components/community-cta"
 import { Footer } from "@/components/footer"
@@ -10,6 +11,7 @@ export default function HomePage() {
       <Navbar />
       <main>
         <Hero />
+        <CoursesCatalog />
         <FeaturesSection />
         <CommunityCTA />
       </main>

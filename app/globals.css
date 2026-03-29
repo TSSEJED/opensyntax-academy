@@ -4,44 +4,40 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* OpenSyntax — pure black Linear/Vercel aesthetic */
-  --background: oklch(0 0 0);          /* #000000 */
-  --foreground: oklch(0.985 0 0);      /* near-white */
-  --card: oklch(0.09 0 0);             /* #1A1A1A */
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.09 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.985 0 0);         /* white — primary CTA */
-  --primary-foreground: oklch(0 0 0);  /* black text on white */
-  --secondary: oklch(0.13 0 0);        /* #222 subtle surface */
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.13 0 0);
-  --muted-foreground: oklch(0.55 0 0); /* #888 */
-  --accent: oklch(0.65 0.18 195);      /* teal-cyan glow accent */
+  --background: oklch(0 0 0);
+  --foreground: oklch(0.97 0 0);
+  --card: oklch(0.07 0 0);
+  --card-foreground: oklch(0.97 0 0);
+  --popover: oklch(0.07 0 0);
+  --popover-foreground: oklch(0.97 0 0);
+  --primary: oklch(0.97 0 0);
+  --primary-foreground: oklch(0 0 0);
+  --secondary: oklch(0.11 0 0);
+  --secondary-foreground: oklch(0.97 0 0);
+  --muted: oklch(0.11 0 0);
+  --muted-foreground: oklch(0.52 0 0);
+  --accent: oklch(0.72 0.17 196);
   --accent-foreground: oklch(0 0 0);
   --destructive: oklch(0.55 0.22 27);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.18 0 0);           /* #2e2e2e subtle border */
-  --input: oklch(0.13 0 0);
-  --ring: oklch(0.65 0.18 195);
-  --radius: 0.5rem;
-  /* Sidebar tokens */
-  --sidebar: oklch(0.06 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.985 0 0);
+  --destructive-foreground: oklch(0.97 0 0);
+  --border: oklch(0.16 0 0);
+  --input: oklch(0.11 0 0);
+  --ring: oklch(0.72 0.17 196);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.04 0 0);
+  --sidebar-foreground: oklch(0.97 0 0);
+  --sidebar-primary: oklch(0.97 0 0);
   --sidebar-primary-foreground: oklch(0 0 0);
-  --sidebar-accent: oklch(0.13 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.18 0 0);
-  --sidebar-ring: oklch(0.65 0.18 195);
-  /* Extra brand tokens */
-  --glow: oklch(0.65 0.18 195 / 0.15);
-  --discord: oklch(0.55 0.18 270);     /* Discord blurple */
+  --sidebar-accent: oklch(0.11 0 0);
+  --sidebar-accent-foreground: oklch(0.97 0 0);
+  --sidebar-border: oklch(0.14 0 0);
+  --sidebar-ring: oklch(0.72 0.17 196);
+  --discord: oklch(0.57 0.18 272);
 }
 
 @theme inline {
-  --font-sans: 'Geist', 'Geist Fallback';
-  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --font-sans: 'Geist', 'Inter', 'Geist Fallback', system-ui;
+  --font-mono: 'Geist Mono', 'Fira Code', 'Geist Mono Fallback', monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -61,11 +57,6 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -81,10 +72,23 @@
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+  * { @apply border-border outline-ring/50; }
+  body { @apply bg-background text-foreground; }
 }
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: oklch(0.22 0 0); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: oklch(0.30 0 0); }
+
+.lesson-content h2 { font-size: 1.2rem; font-weight: 700; color: oklch(0.97 0 0); margin: 0 0 1rem; letter-spacing: -0.03em; }
+.lesson-content h3 { font-size: 0.78rem; font-weight: 700; color: oklch(0.52 0 0); margin: 1.5rem 0 0.6rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.lesson-content p { margin-bottom: 0.85rem; line-height: 1.75; }
+.lesson-content pre { background: oklch(0.06 0 0); border: 1px solid oklch(0.16 0 0); border-radius: 10px; padding: 1.1rem 1.25rem; overflow-x: auto; margin: 0 0 1rem; }
+.lesson-content code { font-family: var(--font-mono); font-size: 0.775rem; color: oklch(0.80 0 0); line-height: 1.75; }
+.lesson-content p code { background: oklch(0.12 0 0); border: 1px solid oklch(0.2 0 0); border-radius: 4px; padding: 1px 6px; color: oklch(0.72 0.17 196); font-size: 0.75rem; }
+.lesson-content strong { color: oklch(0.97 0 0); font-weight: 600; }
+
+@keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:0.3} }
+@keyframes fadeInUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+.animate-fade-in-up { animation: fadeInUp 0.45s ease both; }
