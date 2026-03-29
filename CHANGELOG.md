@@ -9,8 +9,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 _This section collects work-in-progress changes for the upcoming v3.0 milestone._
 
-## [Unreleased] — v3.0
-
 ### Added
 - **Global Search Palette**: Implemented a blazing-fast command palette (`Ctrl+K` or `Cmd+K`) to search across all 50+ lessons. Features query highlighting, keyboard navigation, and instant redirection.
 - **Student Progress Dashboard**: New `/dashboard` page that aggregates `localStorage` completion data from all 11 course paths into a unified visual overview with XP tracking.
