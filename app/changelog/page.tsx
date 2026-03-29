@@ -7,13 +7,18 @@ export const metadata = {
   description: "Recent updates and architectural changes to the platform.",
 }
 
+const v3Added = [
+  { label: "Global Search Palette", detail: "Universal command palette (Ctrl+K) for instant lesson lookup across 50+ modules with query highlighting." },
+  { label: "Student Dashboard", detail: "A centralized hub to track progress across all 11 paths, visualize completion rates, and track XP." },
+  { label: "Client Interaction Wrapper", detail: "Optimized global state management for search and shortcuts without sacrificing SEO performance." },
+]
+
 const v3Planned = [
-  "User authentication and persistent accounts",
-  "Course completion certificates",
+  "User authentication and persistent accounts (Cloud sync)",
+  "Course completion certificates (PDF/SVG generation)",
   "Community lesson submissions and review workflow",
-  "Full-text search across all course content",
-  "Comment threads on individual lessons",
-  "Instructor profiles and multi-author support",
+  "Comment threads and student discussions",
+  "Instructor profiles and secondary author support",
 ]
 
 const v2Added = [
@@ -60,22 +65,40 @@ export default function ChangelogPage() {
           <section>
             <div className="flex items-center gap-3 mb-6">
               <div className="w-2.5 h-2.5 rounded-full bg-accent animate-pulse" />
-              <h2 className="text-xl font-bold text-foreground">v3.0 — In Development</h2>
-              <span className="px-2.5 py-1 rounded-md bg-accent/10 text-accent text-[10px] font-mono font-bold tracking-wider uppercase">Upcoming</span>
+              <h2 className="text-xl font-bold text-foreground">v3.0 — Platform Intelligence</h2>
+              <span className="px-2.5 py-1 rounded-md bg-accent/10 text-accent text-[10px] font-mono font-bold tracking-wider uppercase">In Development</span>
             </div>
-            <div className="bg-card/40 border border-dashed border-accent/30 rounded-2xl p-6 backdrop-blur-sm">
-              <div className="flex items-center gap-2 text-accent mb-4">
-                <Rocket size={16} />
-                <h3 className="font-semibold text-sm">Planned for v3.0</h3>
+            
+            <div className="space-y-6">
+              {/* Added to v3.0 so far */}
+              <div className="bg-card/40 border border-border/60 rounded-2xl p-6 backdrop-blur-sm">
+                <div className="flex items-center gap-2 text-emerald-600 mb-5">
+                  <Plus size={18} />
+                  <h3 className="font-semibold">Added</h3>
+                </div>
+                <ul className="space-y-4 text-sm text-muted-foreground">
+                  {v3Added.map((item, i) => (
+                    <li key={i}>
+                      <strong className="text-foreground">{item.label}:</strong> {item.detail}
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                {v3Planned.map((item, i) => (
-                  <li key={i} className="flex items-start gap-2">
-                    <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent/40 flex-shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
+
+              <div className="bg-card/40 border border-dashed border-accent/30 rounded-2xl p-6 backdrop-blur-sm">
+                <div className="flex items-center gap-2 text-accent mb-4">
+                  <Rocket size={16} />
+                  <h3 className="font-semibold text-sm">Planned for v3.0</h3>
+                </div>
+                <ul className="space-y-2 text-sm text-muted-foreground text-xs leading-relaxed">
+                  {v3Planned.map((item, i) => (
+                    <li key={i} className="flex items-start gap-2">
+                      <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent/40 flex-shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </section>
 
