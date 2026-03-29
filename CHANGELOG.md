@@ -5,7 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [Unreleased] — v3.0
+
+_This section collects work-in-progress changes for the upcoming v3.0 milestone._
+
+### Planned
+- User authentication & persistent accounts
+- Course completion certificates
+- Community lesson submissions & review workflow
+- Search across all course content
+- Dark/light mode toggle preference persistence
+
+---
+
+## [2.0.0] — 2026-03-29
 
 ### Added
 - **Course Metadata**: Added `instructor`, `rating`, `reviewCount`, and `prerequisites` to all courses.
@@ -18,17 +31,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Framer Motion Lesson Transitions**: Clicking a lesson now triggers a smooth slide-in/out animation via `AnimatePresence`, eliminating jarring content snaps.
 - **Persistent Progress via localStorage**: Lesson completion state now persists across page refreshes and browser restarts, fully client-side with zero tracking.
 - **Contributing Page**: Added `/contributing` as a fully-designed page mirroring `CONTRIBUTING.md` with formatted code blocks, commit type tables, and a PR checklist.
-- **Changelog Page**: Added `/changelog` as a styled, bento-card formatted page displaying platform version history.
-- **Rich Social Presence**: Added `openGraph` and `twitter` card metadata to `layout.tsx` so link previews render properly on Discord, X, and LinkedIn.
-- **SEO Sitemap** (`/sitemap.xml`): Dynamically generated via Next.js `app/sitemap.ts`, covering all 11 course routes, static pages, and legal pages with correct priorities and change frequencies.
-- **robots.txt** (`/robots.txt`): Configured for Google, Bing, DuckDuckGo, and AI crawlers (GPTBot, OAI-SearchBot, Claude-Web) via `app/robots.ts`.
-- **Schema.org JSON-LD**: Added `components/SEO/JsonLd.tsx` exporting `OrganizationJsonLd`, `CourseJsonLd`, and `WebsiteJsonLd` for rich search results eligibility.
-- **Full Metadata Overhaul**: `layout.tsx` now includes `metadataBase`, `title.template`, `keywords`, `authors`, `alternates.canonical`, and explicit `robots` directives for Googlebot.
+- **Changelog Page**: Added `/changelog` displaying the full platform version history.
+- **Rich Social Presence**: Added `openGraph` and `twitter` card metadata for proper link previews on Discord, X, and LinkedIn.
+- **SEO Sitemap** (`/sitemap.xml`): Dynamically generated, covering all 11 course routes and static pages.
+- **robots.txt** (`/robots.txt`): Configured for all major crawlers and AI bots via `app/robots.ts`.
+- **Schema.org JSON-LD**: `OrganizationJsonLd`, `CourseJsonLd`, and `WebsiteJsonLd` for rich search result eligibility.
+- **Full Metadata Overhaul**: `metadataBase`, `title.template`, `keywords`, `authors`, `alternates.canonical`, and Googlebot directives.
+- **Massive Content Scale**: Over 50 immersive HTML lessons across 11 course paths.
+- **Deno Lint Compliance**: Replaced all `window` references with `globalThis` and removed unused imports.
 
 ### Changed
-- **Forced Light Mode**: Permanently replaced dark mode themes with a vibrant, high-contrast OKLCH light mode color palette for maximum readability and a premium feel.
-- **Terms of Service**: Updated to reflect community-aggregated course metadata and ratings.
-- **Privacy Policy**: Updated to explicitly state that all interactive features (3D assets, framer-motion animations) are fully client-sided and do not track user input.
+- **Forced Light Mode**: Permanently replaced dark mode with a vibrant, high-contrast OKLCH light mode palette.
+- **Terms of Service**: Updated to reflect community-aggregated metadata and ratings.
+- **Privacy Policy**: Clarified that all interactive features are fully client-side and do not track user input.
+- **Performance**: 3D hero geometry reduced from 12 to 4 segments; DPR clamped to reduce GPU load on mobile.
 
 ### Removed
-- Removed legacy Next-Themes dark mode variant implementations across the UI components.
+- Removed legacy `next-themes` dark mode variant implementations.
+- Removed generic dummy placeholders in favor of fully flushed syllabus paths.
+
+---
+
+## [1.0.0] — 2026-01-01
+
+### Added
+- Initial platform launch with Discord Development and Full-Stack Web Engineering paths.
+- Sidebar-driven lesson player with basic progress tracking.
+- Community Discord integration.
+- Apache 2.0 license.
