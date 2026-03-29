@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { SearchPalette } from "@/components/search-palette"
+import { Prompts } from "@/components/prompts"
 
 export function ClientWrapper({ children }: { children: React.ReactNode }) {
   const [searchOpen, setSearchOpen] = useState(false)
@@ -20,6 +21,7 @@ export function ClientWrapper({ children }: { children: React.ReactNode }) {
   return (
     <>
       <SearchPalette open={searchOpen} onClose={() => setSearchOpen(false)} />
+      <Prompts />
       {children}
     </>
   )

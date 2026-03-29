@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { motion } from "framer-motion"
-import { BookOpen, CheckCircle2, Trophy, ArrowRight, LayoutDashboard, Search, Command } from "lucide-react"
+import { BookOpen, CheckCircle2, Trophy, ArrowRight, LayoutDashboard, Search, Command, AlertCircle } from "lucide-react"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 
@@ -56,7 +56,7 @@ export default function DashboardPage() {
     <div className="min-h-screen bg-background text-foreground font-sans">
       <Navbar />
       <main className="mx-auto max-w-6xl px-6 pt-28 pb-20">
-        <header className="mb-12 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+        <header className="mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <div>
             <div className="flex items-center gap-2 mb-3">
               <LayoutDashboard size={14} className="text-accent" />
@@ -79,6 +79,22 @@ export default function DashboardPage() {
              </div>
           </div>
         </header>
+
+        {/* Known Bug Alert Section */}
+        <section className="mb-10 animate-in fade-in slide-in-from-top-4 duration-700">
+           <Link href="/bugs" className="group flex items-center justify-between gap-4 p-4 bg-red-500/5 border border-red-500/10 rounded-2xl hover:bg-red-500/10 transition-all">
+              <div className="flex items-center gap-3">
+                 <div className="p-2 bg-red-500/20 rounded-lg text-red-600 group-hover:scale-110 transition-transform">
+                    <AlertCircle size={18} />
+                 </div>
+                 <div>
+                    <p className="text-xs font-bold text-red-600 uppercase tracking-widest mb-0.5">Known Platform Issue</p>
+                    <p className="text-sm text-red-600/80 font-medium leading-relaxed">Dashboard completion counts may occasionally lag behind course progress. We are standardizing keys in v3.1.0.</p>
+                 </div>
+              </div>
+              <ArrowRight size={20} className="text-red-500/40 group-hover:translate-x-1 transition-transform" />
+           </Link>
+        </section>
 
         <section className="mb-10 min-h-[4px] bg-secondary rounded-full overflow-hidden relative">
            <motion.div 

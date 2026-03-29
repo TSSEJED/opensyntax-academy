@@ -62,6 +62,11 @@ export function Footer() {
           <Link href="/contributing" className="text-xs text-muted-foreground hover:text-foreground transition-colors">Contributing</Link>
           <Link href="/terms"   className="text-xs text-muted-foreground hover:text-foreground transition-colors">Terms of Service</Link>
           <Link href="/privacy" className="text-xs text-muted-foreground hover:text-foreground transition-colors">Privacy Policy</Link>
+          
+          <div className="h-px bg-border my-1" />
+          <p className="text-[10px] font-bold text-red-500 uppercase tracking-widest mb-1">Issues</p>
+          <Link href="/bugs" className="text-xs text-red-500/80 hover:text-red-500 font-medium transition-colors animate-pulse">Known Bugs</Link>
+          <a href="https://github.com/TSSEJED/opensyntax-academy/issues" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-foreground transition-colors">Report a Bug ↗</a>
           <p className="text-xs text-muted-foreground/50">Apache 2.0 License</p>
         </div>
       </div>

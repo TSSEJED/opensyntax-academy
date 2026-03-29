@@ -23,6 +23,12 @@ _This section collects work-in-progress changes for the upcoming v3.0 milestone.
 
 ---
 
+### ⚠️ Known Bugs
+- **[DSB-001] Dashboard Progress Desync**: Dashboard completion counts may appear as 0% even after completing lessons. This is a synchronization issue that will be resolved in **v3.1.0** by standardizing storage keys.
+  - *Workaround*: Real progress is always visible is visible on the individual course pages.
+
+---
+
 ## [2.0.0] — 2026-03-29
 
 ### Added
