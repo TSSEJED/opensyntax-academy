@@ -18,7 +18,7 @@ function MorphingBlob() {
   return (
     <Float speed={2} rotationIntensity={1} floatIntensity={2}>
       <mesh ref={meshRef} scale={1.5}>
-        <icosahedronGeometry args={[1, 12]} />
+        <icosahedronGeometry args={[1, 4]} />
         <MeshDistortMaterial
           color="#8b5cf6"
           envMapIntensity={1}
@@ -27,7 +27,7 @@ function MorphingBlob() {
           metalness={0.2}
           roughness={0.1}
           distort={0.4}
-          speed={2}
+          speed={1.5}
         />
       </mesh>
     </Float>
@@ -37,7 +37,7 @@ function MorphingBlob() {
 export function Hero3DScene() {
   return (
     <div className="absolute inset-0 -z-10 h-full w-full opacity-60 pointer-events-none">
-      <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
+      <Canvas camera={{ position: [0, 0, 5], fov: 45 }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>
         <ambientLight intensity={0.5} />
         <directionalLight position={[10, 10, 5]} intensity={1} />
         <Environment preset="city" />
