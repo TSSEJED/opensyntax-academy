@@ -24,7 +24,31 @@ print(result)
 #  [1. 2. 3.]
 #  [1. 2. 3.]]
 </code></pre>
-<p>Instead of mapping over rows, NumPy conceptually "stretches" the vector across the matrix instantly. This is the cornerstone of processing data without hardware-bound delays.</p>`
+<p>Instead of mapping over rows, NumPy conceptually "stretches" the vector across the matrix instantly. This is the cornerstone of processing data without hardware-bound delays.</p>`,
+        quiz: [
+          {
+            question: "What is the key performance advantage of NumPy vectorization over native Python for loops?",
+            options: [
+              "It uses multiple CPU cores automatically",
+              "It compiles Python to machine code at runtime",
+              "It offloads operations to optimized C code with contiguous memory",
+              "It caches results in Redis"
+            ],
+            correctIndex: 2,
+            explanation: "NumPy arrays are stored in contiguous C memory blocks, so element-wise operations are executed by pre-compiled C routines — orders of magnitude faster than Python's interpreted loops."
+          },
+          {
+            question: "In broadcasting, what happens when a (3, 3) matrix is multiplied against a (3,) vector?",
+            options: [
+              "A ValueError is raised — shapes must match exactly",
+              "The vector is conceptually stretched to (3, 3) and the operation is applied row-wise",
+              "Only the first row of the matrix is multiplied",
+              "The shapes are flattened to 1D first"
+            ],
+            correctIndex: 1,
+            explanation: "Broadcasting 'virtually' stretches compatible shapes without copying data in memory, applying the operation row-wise across the matrix."
+          }
+        ]
       },
       {
         id: "pandas-multiindex", title: "MultiIndex & Advanced Grouping", duration: "30 min",

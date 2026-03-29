@@ -50,7 +50,26 @@ class Moderation(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(Moderation(bot))</code></pre>
-<p>You can hot-reload this file in production using <code>await bot.reload_extension('cogs.moderation')</code>, applying code updates without taking the bot offline!</p>`
+<p>You can hot-reload this file in production using <code>await bot.reload_extension('cogs.moderation')</code>, applying code updates without taking the bot offline!</p>`,
+        quiz: [
+          {
+            question: "How do you hot-reload a Cog called 'moderation' from the cogs folder without restarting the bot?",
+            options: [
+              "bot.reload_cog('moderation')",
+              "await bot.reload_extension('cogs.moderation')",
+              "bot.refresh_module('cogs/moderation.py')",
+              "import importlib; importlib.reload(cogs.moderation)"
+            ],
+            correctIndex: 1,
+            explanation: "reload_extension uses Python's module import path notation (dots, not slashes), and must be awaited since it's an async operation."
+          },
+          {
+            question: "What decorator restricts the kick command to users with the kick_members permission?",
+            options: ["@commands.admin_only()", "@commands.has_role('Moderator')", "@commands.has_permissions(kick_members=True)", "@app_commands.check(is_mod)"],
+            correctIndex: 2,
+            explanation: "@commands.has_permissions() checks a user's guild permissions before executing the command."
+          }
+        ]
       },
     ],
   },
