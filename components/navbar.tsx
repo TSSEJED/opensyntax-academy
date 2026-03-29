@@ -2,10 +2,9 @@
 
 import Link from "next/link"
 import { useState } from "react"
-import { Menu, X, ChevronDown, LayoutDashboard, Search as SearchIcon, Command } from "lucide-react"
+import { Menu, X, ChevronDown, LayoutDashboard, Search as SearchIcon, Command, ArrowRight } from "lucide-react"
 
 const courses = [
-  // ... (keep existing courses)
   { href: "/courses/web",           label: "Web Engineering",       tag: "Next.js 16"   },
   { href: "/courses/discord",       label: "Discord Development",   tag: "discord.py"   },
   { href: "/courses/python",        label: "Python & Data Science", tag: "Pandas · ML"  },
@@ -26,7 +25,7 @@ export function Navbar() {
   const toggleSearch = () => {
     const e = new KeyboardEvent('keydown', { key: 'k', ctrlKey: true, metaKey: true });
     document.dispatchEvent(e);
-  };
+  }
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
@@ -65,8 +64,8 @@ export function Navbar() {
             )}
           </div>
 
-          <Link href="/dashboard" className="flex items-center gap-1.5 px-3 py-2 rounded-md hover:text-foreground hover:bg-secondary transition-colors">
-             <LayoutDashboard size={14} className="text-accent/70" />
+          <Link href="/dashboard" className="flex items-center gap-1.5 px-3 py-2 rounded-md hover:text-foreground hover:bg-secondary transition-colors text-foreground font-medium">
+             <LayoutDashboard size={14} className="text-accent" />
              Dashboard
           </Link>
 
@@ -78,9 +77,9 @@ export function Navbar() {
           >
             <SearchIcon size={14} className="group-hover:text-accent transition-colors" />
             <span className="text-xs flex-1 text-left">Search...</span>
-            <div className="flex items-center gap-0.5 opacity-40 group-hover:opacity-70 transition-opacity">
+            <div className="flex items-center gap-0.5 opacity-40 group-hover:opacity-70 transition-opacity text-[10px] font-mono">
                <Command size={10} />
-               <span className="text-[10px] font-mono">K</span>
+               <span>K</span>
             </div>
           </button>
 
@@ -108,12 +107,12 @@ export function Navbar() {
           </Link>
 
           <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50 px-3 pb-2">Explore Paths</p>
-          <div className="grid grid-cols-1 gap-1 mb-4 overflow-y-auto max-h-[40vh] pr-2 custom-scrollbar">
+          <div className="grid grid-cols-1 gap-1 mb-4 overflow-y-auto max-h-[40vh] pr-2 custom-scrollbar text-foreground">
             {courses.map((c) => (
               <Link key={c.href} href={c.href}
                 className="flex items-center justify-between px-3 py-2.5 rounded-lg hover:bg-secondary transition-colors"
                 onClick={() => setOpen(false)}>
-                <span className="text-xs font-medium text-foreground">{c.label}</span>
+                <span className="text-xs font-medium">{c.label}</span>
                 <span className="text-[10px] text-muted-foreground font-mono">{c.tag}</span>
               </Link>
             ))}
@@ -136,7 +135,5 @@ export function Navbar() {
         </div>
       )}
     </header>
-  )
-}
   )
 }
