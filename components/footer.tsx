@@ -40,7 +40,7 @@ export function Footer() {
         <div className="flex flex-col gap-3">
           <p className="text-xs font-semibold text-foreground uppercase tracking-widest">Community</p>
           <a href="https://discord.gg/66GA8MNPeB" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-foreground transition-colors">Support Server</a>
-          <a href="https://github.com/" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-foreground transition-colors">GitHub</a>
+          <a href="https://github.com/TSSEJED/opensyntax-academy" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-foreground transition-colors">GitHub</a>
           <Link href="/" className="text-xs text-muted-foreground hover:text-foreground transition-colors">Contributing</Link>
         </div>
 
