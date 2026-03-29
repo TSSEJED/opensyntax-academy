@@ -14,6 +14,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Framer Motion Animations**: Introduced high-end transition animations, stagger effects, and hover states using `framer-motion` across the catalog.
 - **3D Hero Integration**: Replaced the static hero section with an immersive, time-reactive 3D scene driven by `@react-three/fiber` and `@react-three/drei`.
 - **Lesson Player Meta View**: The `LessonPlayer` component now displays the newly populated course metadata directly within the sidebar header.
+- **Interactive Knowledge Checks**: Lessons now feature optional end-of-lesson quizzes with instant feedback, correct/incorrect answer highlighting, and explanations. Shipped to Web, Discord, and Python tracks.
+- **Framer Motion Lesson Transitions**: Clicking a lesson now triggers a smooth slide-in/out animation via `AnimatePresence`, eliminating jarring content snaps.
+- **Persistent Progress via localStorage**: Lesson completion state now persists across page refreshes and browser restarts, fully client-side with zero tracking.
+- **Contributing Page**: Added `/contributing` as a fully-designed page mirroring `CONTRIBUTING.md` with formatted code blocks, commit type tables, and a PR checklist.
+- **Changelog Page**: Added `/changelog` as a styled, bento-card formatted page displaying platform version history.
+- **Rich Social Presence**: Added `openGraph` and `twitter` card metadata to `layout.tsx` so link previews render properly on Discord, X, and LinkedIn.
 
 ### Changed
 - **Forced Light Mode**: Permanently replaced dark mode themes with a vibrant, high-contrast OKLCH light mode color palette for maximum readability and a premium feel.
