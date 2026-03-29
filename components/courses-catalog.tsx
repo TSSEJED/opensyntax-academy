@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Clock, Layers, BookOpen, Star, User } from "lucide-react"
+import { Clock, BookOpen, Star, User } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 
 type Course = {
