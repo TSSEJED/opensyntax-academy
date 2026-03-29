@@ -59,6 +59,7 @@ export function Footer() {
           <div className="h-px bg-border my-1" />
           <p className="text-[10px] font-bold text-foreground uppercase tracking-widest mb-1">Legal</p>
           <Link href="/changelog" className="text-xs text-muted-foreground hover:text-foreground transition-colors">Changelog</Link>
+          <Link href="/contributing" className="text-xs text-muted-foreground hover:text-foreground transition-colors">Contributing</Link>
           <Link href="/terms"   className="text-xs text-muted-foreground hover:text-foreground transition-colors">Terms of Service</Link>
           <Link href="/privacy" className="text-xs text-muted-foreground hover:text-foreground transition-colors">Privacy Policy</Link>
           <p className="text-xs text-muted-foreground/50">Apache 2.0 License</p>

@@ -60,6 +60,7 @@ export function Navbar() {
           </div>
 
           <Link href="/changelog" className="px-3 py-2 rounded-md hover:text-foreground hover:bg-secondary transition-colors">Changelog</Link>
+          <Link href="/contributing" className="px-3 py-2 rounded-md hover:text-foreground hover:bg-secondary transition-colors">Contributing</Link>
           <Link href="/terms"   className="px-3 py-2 rounded-md hover:text-foreground hover:bg-secondary transition-colors">Terms</Link>
           <Link href="/privacy" className="px-3 py-2 rounded-md hover:text-foreground hover:bg-secondary transition-colors">Privacy</Link>
 
@@ -89,6 +90,7 @@ export function Navbar() {
           ))}
           <div className="h-px bg-border my-2" />
           <Link href="/changelog" className="px-2 py-2 text-xs text-muted-foreground hover:text-foreground" onClick={() => setOpen(false)}>Changelog</Link>
+          <Link href="/contributing" className="px-2 py-2 text-xs text-muted-foreground hover:text-foreground" onClick={() => setOpen(false)}>Contributing</Link>
           <Link href="/terms"   className="px-2 py-2 text-xs text-muted-foreground hover:text-foreground" onClick={() => setOpen(false)}>Terms</Link>
           <Link href="/privacy" className="px-2 py-2 text-xs text-muted-foreground hover:text-foreground" onClick={() => setOpen(false)}>Privacy</Link>
           <a href="https://discord.gg/66GA8MNPeB" target="_blank" rel="noopener noreferrer" className="mt-1 px-2 py-2 text-xs text-accent font-medium">Join Community →</a>

@@ -9,6 +9,19 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: 'OpenSyntax — Premium Open-Source Learning Platform',
   description: 'Master Advanced Discord Development and Full-Stack Web Engineering. Free, community-funded, and open-source.',
+  openGraph: {
+    title: 'OpenSyntax — Premium Open-Source Learning Platform',
+    description: 'Master Advanced Discord Development and Full-Stack Web Engineering. Free, community-funded, and open-source. Level up your programming career.',
+    url: 'https://opensyntax-academy.vercel.app',
+    siteName: 'OpenSyntax Academy',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'OpenSyntax — Premium Open-Source Learning Platform',
+    description: 'Master Advanced Discord Development and Full-Stack Web Engineering. Free, community-funded, and open-source.',
+  },
   generator: 'v0.app',
   icons: {
     icon: [
