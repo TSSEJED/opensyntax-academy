@@ -20,6 +20,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Contributing Page**: Added `/contributing` as a fully-designed page mirroring `CONTRIBUTING.md` with formatted code blocks, commit type tables, and a PR checklist.
 - **Changelog Page**: Added `/changelog` as a styled, bento-card formatted page displaying platform version history.
 - **Rich Social Presence**: Added `openGraph` and `twitter` card metadata to `layout.tsx` so link previews render properly on Discord, X, and LinkedIn.
+- **SEO Sitemap** (`/sitemap.xml`): Dynamically generated via Next.js `app/sitemap.ts`, covering all 11 course routes, static pages, and legal pages with correct priorities and change frequencies.
+- **robots.txt** (`/robots.txt`): Configured for Google, Bing, DuckDuckGo, and AI crawlers (GPTBot, OAI-SearchBot, Claude-Web) via `app/robots.ts`.
+- **Schema.org JSON-LD**: Added `components/SEO/JsonLd.tsx` exporting `OrganizationJsonLd`, `CourseJsonLd`, and `WebsiteJsonLd` for rich search results eligibility.
+- **Full Metadata Overhaul**: `layout.tsx` now includes `metadataBase`, `title.template`, `keywords`, `authors`, `alternates.canonical`, and explicit `robots` directives for Googlebot.
 
 ### Changed
 - **Forced Light Mode**: Permanently replaced dark mode themes with a vibrant, high-contrast OKLCH light mode color palette for maximum readability and a premium feel.
