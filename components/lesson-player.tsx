@@ -1,9 +1,17 @@
 "use client"
 
-import { useState } from "react"
-import { ChevronRight, ChevronLeft, CheckCircle2, Circle, BookOpen, Menu, X, ArrowLeft, User, Star, Clock } from "lucide-react"
+import { useState, useEffect, JSX } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { ChevronRight, ChevronLeft, CheckCircle2, Circle, BookOpen, Menu, X, ArrowLeft, User, Star, Clock, HelpCircle } from "lucide-react"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
+
+export type QuizQuestion = {
+  question: string
+  options: string[]
+  correctIndex: number
+  explanation?: string
+}
 
 export type Lesson = {
   id: string
@@ -12,6 +20,7 @@ export type Lesson = {
   content: string
   duration: string
   completed?: boolean
+  quiz?: QuizQuestion[]
 }
 
 export type Module = {
@@ -32,87 +41,219 @@ interface LessonPlayerProps {
   lastUpdated?: string
 }
 
-export function LessonPlayer({ 
+function InteractiveQuiz({ quiz, accentColor }: { quiz: QuizQuestion[], accentColor: string }): JSX.Element {
+  const [answers, setAnswers] = useState<Record<number, number>>({})
+  const [showResults, setShowResults] = useState<Record<number, boolean>>({})
+
+  const handleSelect = (qIndex: number, optIndex: number) => {
+    if (showResults[qIndex]) return
+    setAnswers(prev => ({ ...prev, [qIndex]: optIndex }))
+  }
+
+  const checkAnswer = (qIndex: number) => {
+    if (answers[qIndex] !== undefined) {
+      setShowResults(prev => ({ ...prev, [qIndex]: true }))
+    }
+  }
+
+  return (
+    <div className="mt-16 space-y-6">
+      <div className="flex items-center gap-2 mb-6">
+        <HelpCircle size={20} style={{ color: accentColor }} />
+        <h2 className="text-xl font-bold text-foreground">Knowledge Check</h2>
+      </div>
+      {quiz.map((q, qIdx) => {
+        const hasAnswered = showResults[qIdx]
+        const isCorrect = answers[qIdx] === q.correctIndex
+
+        return (
+          <div key={qIdx} className="bg-card border border-border rounded-2xl p-6 sm:p-8 hover:border-border/80 transition-colors shadow-sm">
+            <p className="text-sm font-semibold text-foreground mb-5 leading-relaxed">{qIdx + 1}. {q.question}</p>
+            <div className="space-y-3 pl-1">
+              {q.options.map((opt, oIdx) => {
+                const isSelected = answers[qIdx] === oIdx
+                let optionClass = "border-border hover:bg-secondary text-muted-foreground"
+                let optionStyle: React.CSSProperties = {}
+
+                if (isSelected && !hasAnswered) {
+                  optionClass = "border-2 bg-accent/10 text-foreground"
+                  optionStyle = { borderColor: accentColor }
+                }
+
+                if (hasAnswered) {
+                  if (oIdx === q.correctIndex) {
+                    optionClass = "border-emerald-500 bg-emerald-500/10 text-emerald-700 font-medium"
+                  } else if (isSelected && !isCorrect) {
+                    optionClass = "border-red-500 bg-red-500/10 text-red-700 opacity-80"
+                  } else {
+                    optionClass = "border-border opacity-40 text-muted-foreground"
+                  }
+                  optionStyle = {}
+                }
+
+                return (
+                  <button
+                    key={oIdx}
+                    onClick={() => handleSelect(qIdx, oIdx)}
+                    disabled={hasAnswered}
+                    style={optionStyle}
+                    className={cn("w-full text-left px-5 py-3.5 rounded-xl border transition-all text-sm", optionClass)}
+                  >
+                    {opt}
+                  </button>
+                )
+              })}
+            </div>
+
+            <div className="mt-6 flex flex-col sm:flex-row items-start justify-between gap-4">
+              {!hasAnswered ? (
+                <button
+                  onClick={() => checkAnswer(qIdx)}
+                  disabled={answers[qIdx] === undefined}
+                  className="px-6 py-2.5 rounded-lg text-xs font-bold bg-secondary tracking-wide text-foreground hover:bg-muted-foreground/20 disabled:opacity-30 transition-colors uppercase"
+                >
+                  Verify Answer
+                </button>
+              ) : (
+                <div className="flex-1 animate-in fade-in slide-in-from-bottom-2 duration-500">
+                  <div className={cn(
+                    "p-5 rounded-xl text-sm border",
+                    isCorrect
+                      ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-700"
+                      : "bg-red-500/10 border-red-500/20 text-red-700"
+                  )}>
+                    <p className="mb-1.5 font-bold uppercase tracking-wide text-xs">
+                      {isCorrect ? "✓ Correct!" : "✗ Incorrect"}
+                    </p>
+                    {q.explanation && (
+                      <p className="opacity-90 font-normal leading-relaxed text-xs">{q.explanation}</p>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+export function LessonPlayer({
   title, description, category, accentColor = "oklch(0.72 0.17 196)", modules,
   instructor = "Sarah Drasner", rating = 4.9, reviewCount = 1250, lastUpdated = "Mar 2026"
-}: LessonPlayerProps) {
+}: LessonPlayerProps): JSX.Element {
   const allLessons = modules.flatMap((m) => m.lessons)
   const [activeId, setActiveId] = useState(allLessons[0]?.id ?? "")
   const [completed, setCompleted] = useState<Set<string>>(new Set())
   const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [mounted, setMounted] = useState(false)
 
-  const activeLesson = allLessons.find((l) => l.id === activeId)
-  const activeIdx   = allLessons.findIndex((l) => l.id === activeId)
-  const progress    = allLessons.length > 0 ? (completed.size / allLessons.length) * 100 : 0
+  const storageKey = "opensyntax-progress-" + title.toLowerCase().replace(/\s+/g, "-")
+
+  useEffect(() => {
+    setMounted(true)
+    try {
+      const saved = localStorage.getItem(storageKey)
+      if (saved) {
+        setCompleted(new Set(JSON.parse(saved) as string[]))
+      }
+    } catch { /* ignore */ }
+  }, [storageKey])
 
   const toggle = (id: string) => setCompleted((prev) => {
     const next = new Set(prev)
     next.has(id) ? next.delete(id) : next.add(id)
+    if (mounted) {
+      try { localStorage.setItem(storageKey, JSON.stringify(Array.from(next))) } catch { /* ignore */ }
+    }
     return next
   })
 
+  const completedCount = mounted ? completed.size : 0
+  const activeLesson = allLessons.find((l) => l.id === activeId)
+  const activeIdx = allLessons.findIndex((l) => l.id === activeId)
+  const progress = allLessons.length > 0 ? (completedCount / allLessons.length) * 100 : 0
+
+  const gradientStyle = { width: progress + "%", background: "linear-gradient(90deg, " + accentColor + ", oklch(0.60 0.22 295))" }
+  const accentBgStyle = { background: accentColor }
+  const accentTextStyle = { color: accentColor }
+
   return (
     <div className="flex min-h-screen pt-[60px]">
-      {/* ── SIDEBAR ──────────────────────────────────────── */}
+      {/* ── SIDEBAR ───────────────── */}
       <aside className={cn(
         "flex-shrink-0 border-r border-border bg-sidebar sticky top-[60px] h-[calc(100vh-60px)] overflow-y-auto overflow-x-hidden transition-[width] duration-250 z-20",
         sidebarOpen ? "w-72 lg:w-80" : "w-0"
       )}>
         <div className="min-w-72 lg:min-w-80">
-          {/* Header */}
+          {/* Sidebar Header */}
           <div className="px-5 py-5 border-b border-sidebar-border relative overflow-hidden">
             <div className="relative z-10">
               <div className="flex items-center gap-2 mb-2">
-                <BookOpen size={13} style={{ color: accentColor }} aria-hidden="true" />
-                <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: accentColor }}>{category}</span>
+                <BookOpen size={13} style={accentTextStyle} aria-hidden="true" />
+                <span className="text-[10px] font-bold uppercase tracking-widest" style={accentTextStyle}>{category}</span>
               </div>
               <p className="text-xs font-semibold text-foreground leading-snug mb-1">{title}</p>
               <p className="text-[11px] text-muted-foreground leading-relaxed mb-3">{description}</p>
-              
-              {/* Meta information */}
+
               <div className="flex flex-col gap-1.5 mb-4 text-[10px] text-muted-foreground">
                 <div className="flex items-center justify-between">
-                  <span className="flex items-center gap-1 font-medium"><User className="w-3 h-3" /> {instructor}</span>
+                  <span className="flex items-center gap-1 font-medium">
+                    <User className="w-3 h-3" /> {instructor}
+                  </span>
                   <span className="flex items-center gap-1 bg-amber-50 rounded-full px-1.5 py-0.5 border border-amber-100 text-amber-700 font-bold">
-                    <Star className="w-2.5 h-2.5 fill-amber-500 text-amber-500" /> {rating} <span className="text-[9px] text-amber-600/60 font-medium">({reviewCount})</span>
+                    <Star className="w-2.5 h-2.5 fill-amber-500 text-amber-500" />
+                    {rating}
+                    <span className="text-[9px] text-amber-600/60 font-medium">({reviewCount})</span>
                   </span>
                 </div>
-                <div className="flex items-center gap-1"><Clock className="w-3 h-3" /> Updated {lastUpdated}</div>
+                <div className="flex items-center gap-1">
+                  <Clock className="w-3 h-3" /> Updated {lastUpdated}
+                </div>
               </div>
 
-              {/* Progress */}
               <div className="flex justify-between text-[11px] text-muted-foreground mb-2">
                 <span>Progress</span>
-                <span className="text-foreground font-medium">{completed.size}/{allLessons.length} lessons</span>
+                <span className="text-foreground font-medium">{completedCount}/{allLessons.length} lessons</span>
               </div>
               <div className="h-1.5 rounded-full bg-secondary overflow-hidden">
                 <div
                   className="h-full rounded-full transition-all duration-500"
-                  style={{ width: `${progress}%`, background: `linear-gradient(90deg, ${accentColor}, oklch(0.60 0.22 295))` }}
-                  role="progressbar" aria-valuenow={completed.size} aria-valuemin={0} aria-valuemax={allLessons.length}
+                  style={gradientStyle}
+                  role="progressbar"
+                  aria-valuenow={completedCount}
+                  aria-valuemin={0}
+                  aria-valuemax={allLessons.length}
                 />
               </div>
             </div>
-            {/* Background flourish */}
-            <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full opacity-10 blur-2xl z-0" style={{ background: accentColor }} />
+            <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full opacity-10 blur-2xl z-0" style={accentBgStyle} />
           </div>
 
-          {/* Modules */}
+          {/* Module navigation */}
           <nav aria-label="Course modules">
             {modules.map((mod) => (
               <div key={mod.id} className="border-b border-sidebar-border last:border-b-0">
-                <p className="px-5 py-3 text-[10px] font-bold text-muted-foreground/60 uppercase tracking-widest">{mod.title}</p>
+                <p className="px-5 py-3 text-[10px] font-bold text-muted-foreground/60 uppercase tracking-widest">
+                  {mod.title}
+                </p>
                 {mod.lessons.map((lesson) => {
                   const isActive = lesson.id === activeId
-                  const isDone   = completed.has(lesson.id)
+                  const isDone = completed.has(lesson.id)
                   return (
-                    <button key={lesson.id} onClick={() => setActiveId(lesson.id)}
+                    <button
+                      key={lesson.id}
+                      onClick={() => setActiveId(lesson.id)}
                       className={cn(
                         "w-full flex items-start gap-3 px-5 py-3 text-left transition-colors",
-                        isActive ? "bg-accent/8 border-l-2" : "border-l-2 border-transparent hover:bg-secondary/50"
+                        isActive
+                          ? "bg-accent/8 border-l-2"
+                          : "border-l-2 border-transparent hover:bg-secondary/50"
                       )}
-                      style={isActive ? { borderLeftColor: accentColor } : {}}>
-                      <div className={cn("mt-0.5 flex-shrink-0 transition-colors", isDone ? "text-accent" : "text-muted-foreground/40")}>
+                      style={isActive ? { borderLeftColor: accentColor } : {}}
+                    >
+                      <div className={cn("mt-0.5 flex-shrink-0 transition-colors", isDone ? "text-emerald-600" : "text-muted-foreground/40")}>
                         {isDone ? <CheckCircle2 size={14} /> : <Circle size={14} />}
                       </div>
                       <div className="min-w-0">
@@ -121,7 +262,9 @@ export function LessonPlayer({
                         </p>
                         <p className="text-[10px] text-muted-foreground/50 mt-0.5">{lesson.duration}</p>
                       </div>
-                      {isActive && <ChevronRight size={12} className="ml-auto mt-0.5 flex-shrink-0" style={{ color: accentColor }} />}
+                      {isActive && (
+                        <ChevronRight size={12} className="ml-auto mt-0.5 flex-shrink-0" style={accentTextStyle} />
+                      )}
                     </button>
                   )
                 })}
@@ -131,12 +274,15 @@ export function LessonPlayer({
         </div>
       </aside>
 
-      {/* ── MAIN ─────────────────────────────────────────── */}
+      {/* ── MAIN ───────────────────── */}
       <main className="flex-1 min-w-0 px-6 md:px-10 lg:px-16 py-8 max-w-3xl overflow-y-auto">
         {/* Toolbar */}
         <div className="flex items-center gap-3 mb-8">
-          <button onClick={() => setSidebarOpen(!sidebarOpen)} aria-label="Toggle sidebar"
-            className="w-8 h-8 flex items-center justify-center rounded-lg border border-border bg-secondary hover:bg-card transition-colors text-muted-foreground hover:text-foreground flex-shrink-0">
+          <button
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            aria-label="Toggle sidebar"
+            className="w-8 h-8 flex items-center justify-center rounded-lg border border-border bg-secondary hover:bg-card transition-colors text-muted-foreground hover:text-foreground flex-shrink-0"
+          >
             {sidebarOpen ? <X size={14} /> : <Menu size={14} />}
           </button>
           <nav className="flex items-center gap-1.5 text-xs text-muted-foreground overflow-hidden">
@@ -154,76 +300,110 @@ export function LessonPlayer({
           </nav>
         </div>
 
-        {activeLesson ? (
-          <article>
-            {/* Lesson header */}
-            <div className="mb-8">
-              <div className="flex flex-wrap items-center gap-2 mb-4">
-                <span className="text-[10px] font-bold px-2.5 py-1 rounded-full border"
-                  style={{ background: `color-mix(in oklch, ${accentColor} 12%, transparent)`, color: accentColor, borderColor: `color-mix(in oklch, ${accentColor} 28%, transparent)` }}>
-                  {category}
-                </span>
-                <span className="text-[11px] text-muted-foreground">
-                  {activeLesson.duration} · Lesson {activeIdx + 1} of {allLessons.length}
-                </span>
-              </div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-3" style={{ letterSpacing: "-0.04em" }}>
-                {activeLesson.title}
-              </h1>
-              <p className="text-sm text-muted-foreground leading-relaxed">{activeLesson.description}</p>
-            </div>
-
-            <div className="h-px bg-border mb-8" />
-
-            {/* Content */}
-            <div
-              className="lesson-content text-muted-foreground text-sm"
-              dangerouslySetInnerHTML={{ __html: activeLesson.content }}
-            />
-
-            {/* Navigation bar */}
-            <div className="mt-14 pt-6 border-t border-border flex flex-wrap items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                {activeIdx > 0 && (
-                  <button onClick={() => setActiveId(allLessons[activeIdx - 1].id)}
-                    className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-medium border border-border bg-secondary hover:bg-card text-muted-foreground hover:text-foreground transition-colors">
-                    <ChevronLeft size={13} />Prev
-                  </button>
-                )}
-                <button onClick={() => toggle(activeLesson.id)}
-                  className={cn("flex items-center gap-1.5 rounded-xl px-5 py-2.5 text-xs font-semibold transition-all",
-                    completed.has(activeLesson.id)
-                      ? "bg-secondary text-muted-foreground hover:text-foreground border border-border"
-                      : "text-primary-foreground hover:opacity-90"
-                  )}
-                  style={completed.has(activeLesson.id) ? {} : { background: accentColor }}>
-                  <CheckCircle2 size={14} />
-                  {completed.has(activeLesson.id) ? "Mark Incomplete" : "Mark Complete"}
-                </button>
+        <AnimatePresence mode="wait">
+          {activeLesson ? (
+            <motion.article
+              key={activeLesson.id}
+              initial={{ opacity: 0, x: 16 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -16 }}
+              transition={{ duration: 0.22, ease: "easeOut" }}
+            >
+              {/* Lesson header */}
+              <div className="mb-8">
+                <div className="flex flex-wrap items-center gap-2 mb-4">
+                  <span
+                    className="text-[10px] font-bold px-2.5 py-1 rounded-full border"
+                    style={{
+                      background: "color-mix(in oklch, " + accentColor + " 12%, transparent)",
+                      color: accentColor,
+                      borderColor: "color-mix(in oklch, " + accentColor + " 28%, transparent)"
+                    }}
+                  >
+                    {category}
+                  </span>
+                  <span className="text-[11px] text-muted-foreground">
+                    {activeLesson.duration} · Lesson {activeIdx + 1} of {allLessons.length}
+                  </span>
+                </div>
+                <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-3" style={{ letterSpacing: "-0.04em" }}>
+                  {activeLesson.title}
+                </h1>
+                <p className="text-sm text-muted-foreground leading-relaxed">{activeLesson.description}</p>
               </div>
 
-              {activeIdx < allLessons.length - 1 ? (
-                <button onClick={() => { toggle(activeLesson.id); setActiveId(allLessons[activeIdx + 1].id) }}
-                  className="flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-xs font-semibold border border-border bg-secondary text-foreground hover:bg-card transition-colors">
-                  Next Lesson <ChevronRight size={13} />
-                </button>
-              ) : (
-                <Link href="/"
-                  className="flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-xs font-bold text-primary-foreground hover:opacity-90 transition-opacity"
-                  style={{ background: "linear-gradient(135deg, oklch(0.72 0.17 196), oklch(0.60 0.22 295))" }}>
-                  ✓ Course Complete — Browse More
-                </Link>
+              <div className="h-px bg-border mb-8" />
+
+              {/* Lesson body */}
+              <div
+                className="lesson-content text-muted-foreground text-sm"
+                dangerouslySetInnerHTML={{ __html: activeLesson.content }}
+              />
+
+              {/* Interactive Quiz */}
+              {activeLesson.quiz && activeLesson.quiz.length > 0 && (
+                <InteractiveQuiz quiz={activeLesson.quiz} accentColor={accentColor} />
               )}
-            </div>
-          </article>
-        ) : (
-          <div className="flex items-center justify-center h-64 text-muted-foreground">
-            <div className="text-center">
-              <BookOpen size={32} className="mx-auto mb-3 opacity-20" />
-              <p className="text-sm">Select a lesson from the sidebar to begin</p>
-            </div>
-          </div>
-        )}
+
+              {/* Navigation footer */}
+              <div className="mt-14 pt-6 border-t border-border flex flex-wrap items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  {activeIdx > 0 && (
+                    <button
+                      onClick={() => setActiveId(allLessons[activeIdx - 1].id)}
+                      className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-medium border border-border bg-secondary hover:bg-card text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      <ChevronLeft size={13} />Prev
+                    </button>
+                  )}
+                  <button
+                    onClick={() => toggle(activeLesson.id)}
+                    className={cn(
+                      "flex items-center gap-1.5 rounded-xl px-5 py-2.5 text-xs font-semibold transition-all",
+                      completed.has(activeLesson.id)
+                        ? "bg-secondary text-muted-foreground hover:text-foreground border border-border"
+                        : "text-white hover:opacity-90"
+                    )}
+                    style={completed.has(activeLesson.id) ? {} : accentBgStyle}
+                  >
+                    <CheckCircle2 size={14} />
+                    {completed.has(activeLesson.id) ? "Mark Incomplete" : "Mark Complete"}
+                  </button>
+                </div>
+
+                {activeIdx < allLessons.length - 1 ? (
+                  <button
+                    onClick={() => { toggle(activeLesson.id); setActiveId(allLessons[activeIdx + 1].id) }}
+                    className="flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-xs font-semibold border border-border bg-secondary text-foreground hover:bg-card transition-colors"
+                  >
+                    Next Lesson <ChevronRight size={13} />
+                  </button>
+                ) : (
+                  <Link
+                    href="/"
+                    className="flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-xs font-bold text-white hover:opacity-90 transition-opacity"
+                    style={{ background: "linear-gradient(135deg, oklch(0.72 0.17 196), oklch(0.60 0.22 295))" }}
+                  >
+                    ✓ Course Complete — Browse More
+                  </Link>
+                )}
+              </div>
+            </motion.article>
+          ) : (
+            <motion.div
+              key="empty"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="flex items-center justify-center h-64 text-muted-foreground"
+            >
+              <div className="text-center">
+                <BookOpen size={32} className="mx-auto mb-3 opacity-20" />
+                <p className="text-sm">Select a lesson from the sidebar to begin</p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </main>
     </div>
   )

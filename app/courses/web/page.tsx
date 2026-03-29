@@ -46,7 +46,21 @@ export default function PhotoModal({ params }: { params: { id: string } }) {
 // app/dashboard/@analytics/default.tsx  — prevents crash on hard nav
 export default function AnalyticsDefault() {
   return &lt;div className="animate-pulse h-64 rounded-xl bg-card" /&gt;
-}</code></pre>`
+}</code></pre>`,
+        quiz: [
+          {
+            question: "Which folder convention is used to define Parallel Routes in Next.js App Router?",
+            options: ["(folder)", "[folder]", "@folder", "_folder"],
+            correctIndex: 2,
+            explanation: "The @folder convention maps a directory into a named slot prop in its parent layout.tsx."
+          },
+          {
+            question: "What does the (..) notation do in Intercepted Routes?",
+            options: ["Creates an API route", "Matches a segment exactly one level above", "Defines a dynamic parameter", "Creates a catch-all route"],
+            correctIndex: 1,
+            explanation: "Similar to relative pathing in the terminal (..), in routing it intercepts an existing route one segment up the tree."
+          }
+        ]
       },
       {
         id: "use-cache", title: "The 'use cache' Directive", duration: "15 min",
@@ -95,7 +109,15 @@ export async function publishPost(data) {
   await db.post.create({ data })
   revalidateTag('posts')
   revalidateTag('trending')
-}</code></pre>`
+}</code></pre>`,
+        quiz: [
+          {
+            question: "Instead of implicit fetch caching, what does the 'use cache' directive offer?",
+            options: ["Global layout immutability", "Per-component and per-function level caching control", "Client-side browser cache control", "Service worker generation"],
+            correctIndex: 1,
+            explanation: "It allows you to specify caching directives explicitly at the component or function level returning complex objects."
+          }
+        ]
       },
       {
         id: "edge-middleware", title: "Edge Middleware & Geolocation", duration: "18 min",
