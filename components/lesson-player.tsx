@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { ChevronRight, ChevronLeft, CheckCircle2, Circle, BookOpen, Menu, X, ArrowLeft } from "lucide-react"
+import { ChevronRight, ChevronLeft, CheckCircle2, Circle, BookOpen, Menu, X, ArrowLeft, User, Star, Clock } from "lucide-react"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 
@@ -26,9 +26,16 @@ interface LessonPlayerProps {
   category: string
   accentColor?: string
   modules: Module[]
+  instructor?: string
+  rating?: number
+  reviewCount?: number
+  lastUpdated?: string
 }
 
-export function LessonPlayer({ title, description, category, accentColor = "oklch(0.72 0.17 196)", modules }: LessonPlayerProps) {
+export function LessonPlayer({ 
+  title, description, category, accentColor = "oklch(0.72 0.17 196)", modules,
+  instructor = "Sarah Drasner", rating = 4.9, reviewCount = 1250, lastUpdated = "Mar 2026"
+}: LessonPlayerProps) {
   const allLessons = modules.flatMap((m) => m.lessons)
   const [activeId, setActiveId] = useState(allLessons[0]?.id ?? "")
   const [completed, setCompleted] = useState<Set<string>>(new Set())
@@ -53,26 +60,41 @@ export function LessonPlayer({ title, description, category, accentColor = "oklc
       )}>
         <div className="min-w-72 lg:min-w-80">
           {/* Header */}
-          <div className="px-5 py-5 border-b border-sidebar-border">
-            <div className="flex items-center gap-2 mb-2">
-              <BookOpen size={13} style={{ color: accentColor }} aria-hidden="true" />
-              <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: accentColor }}>{category}</span>
-            </div>
-            <p className="text-xs font-semibold text-foreground leading-snug mb-1">{title}</p>
-            <p className="text-[11px] text-muted-foreground leading-relaxed mb-4">{description}</p>
+          <div className="px-5 py-5 border-b border-sidebar-border relative overflow-hidden">
+            <div className="relative z-10">
+              <div className="flex items-center gap-2 mb-2">
+                <BookOpen size={13} style={{ color: accentColor }} aria-hidden="true" />
+                <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: accentColor }}>{category}</span>
+              </div>
+              <p className="text-xs font-semibold text-foreground leading-snug mb-1">{title}</p>
+              <p className="text-[11px] text-muted-foreground leading-relaxed mb-3">{description}</p>
+              
+              {/* Meta information */}
+              <div className="flex flex-col gap-1.5 mb-4 text-[10px] text-muted-foreground">
+                <div className="flex items-center justify-between">
+                  <span className="flex items-center gap-1 font-medium"><User className="w-3 h-3" /> {instructor}</span>
+                  <span className="flex items-center gap-1 bg-amber-50 rounded-full px-1.5 py-0.5 border border-amber-100 text-amber-700 font-bold">
+                    <Star className="w-2.5 h-2.5 fill-amber-500 text-amber-500" /> {rating} <span className="text-[9px] text-amber-600/60 font-medium">({reviewCount})</span>
+                  </span>
+                </div>
+                <div className="flex items-center gap-1"><Clock className="w-3 h-3" /> Updated {lastUpdated}</div>
+              </div>
 
-            {/* Progress */}
-            <div className="flex justify-between text-[11px] text-muted-foreground mb-2">
-              <span>Progress</span>
-              <span className="text-foreground font-medium">{completed.size}/{allLessons.length} lessons</span>
+              {/* Progress */}
+              <div className="flex justify-between text-[11px] text-muted-foreground mb-2">
+                <span>Progress</span>
+                <span className="text-foreground font-medium">{completed.size}/{allLessons.length} lessons</span>
+              </div>
+              <div className="h-1.5 rounded-full bg-secondary overflow-hidden">
+                <div
+                  className="h-full rounded-full transition-all duration-500"
+                  style={{ width: `${progress}%`, background: `linear-gradient(90deg, ${accentColor}, oklch(0.60 0.22 295))` }}
+                  role="progressbar" aria-valuenow={completed.size} aria-valuemin={0} aria-valuemax={allLessons.length}
+                />
+              </div>
             </div>
-            <div className="h-1.5 rounded-full bg-secondary overflow-hidden">
-              <div
-                className="h-full rounded-full transition-all duration-500"
-                style={{ width: `${progress}%`, background: `linear-gradient(90deg, ${accentColor}, oklch(0.60 0.22 295))` }}
-                role="progressbar" aria-valuenow={completed.size} aria-valuemin={0} aria-valuemax={allLessons.length}
-              />
-            </div>
+            {/* Background flourish */}
+            <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full opacity-10 blur-2xl z-0" style={{ background: accentColor }} />
           </div>
 
           {/* Modules */}

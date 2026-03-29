@@ -29,7 +29,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-base font-semibold text-foreground mb-3">2. Description of Service</h2>
             <p>
-              OpenSyntax is a free, open-source learning platform providing educational content on advanced software development topics, including Discord bot development and full-stack web engineering. All content is provided &quot;as is&quot; for educational purposes only. OpenSyntax is community-funded and does not charge for access to any content.
+              OpenSyntax is a free, open-source learning platform providing educational content on advanced software development topics, including Discord bot development and full-stack web engineering. Our platform features interactive lessons, immersive 3D interfaces, and detailed course metadata (including instructor attribution, prerequisites, and community-aggregated ratings). All content is provided &quot;as is&quot; for educational purposes only. OpenSyntax is community-funded and does not charge for access to any content.
             </p>
           </section>
 

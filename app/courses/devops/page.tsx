@@ -1,134 +1,163 @@
 import { Navbar } from "@/components/navbar"
 import { LessonPlayer, type Module } from "@/components/lesson-player"
 
-const modules: Module[] = [
+const devopsModules: Module[] = [
   {
-    id: "k8s",
-    title: "Module 1 \u2014 Kubernetes Production",
+    id: "containers", title: "Module 1 — Containerization",
     lessons: [
       {
-        id: "zero-downtime",
-        title: "Zero-Downtime Deployments",
-        duration: "30 min",
-        description: "Rolling updates, PodDisruptionBudgets, readiness probes, and graceful shutdown in Node.js.",
-        content: `<h2>Zero-Downtime Kubernetes Deployments</h2>
-<p>A production Kubernetes deployment requires careful orchestration of readiness probes, resource limits, PodDisruptionBudgets, and rollout strategies.</p>
-<h3>Production Deployment Manifest</h3>
-<pre><code>apiVersion: apps/v1
+        id: "docker-multistage", title: "Multi-stage Docker Builds", duration: "25 min",
+        description: "Reduce Docker image sizes by 90% by discarding build dependencies in production.",
+        content: `<h2>Multi-Stage builds</h2>
+<p>A Node.js or Rust application requires massive toolchains to compile, but the final binary only requires the minimal runtime.</p>
+<p>Multi-stage builds let you compile the app in a "builder" image, and copy only the final artifact into a tiny production image.</p>
+<pre><code class="language-dockerfile"># STAGE 1: Build
+FROM node:18-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# STAGE 2: Production
+FROM node:18-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV production
+
+# Copy only the compiled next folder and node_modules
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+
+EXPOSE 3000
+CMD ["npm", "start"]
+</code></pre>
+<p>The resulting \`runner\` image size drops drastically, meaning faster pulls across CI/CD and smaller vulnerability footprints.</p>`
+      },
+      {
+        id: "k8s-deployments", title: "Kubernetes Rolling Updates", duration: "35 min",
+        description: "Deploy and scale stateless applications securely across nodes with zero downtime.",
+        content: `<h2>Kubernetes Deployments</h2>
+<p>K8s uses Deployments to ensure a specific state is met cluster-wide. When releasing a new version, it utilizes a <strong>RollingUpdate</strong> strategy to swap Pods incrementally without dropping traffic.</p>
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api-server
+  name: api-backend
 spec:
   replicas: 4
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 1        # allow 1 extra pod during rollout
-      maxUnavailable: 0  # never remove a pod before a new one is ready
-  template:
-    spec:
-      terminationGracePeriodSeconds: 60
-      containers:
-        - name: api
-          image: ghcr.io/org/api:$(IMAGE_TAG)
-          resources:
-            requests: { memory: "256Mi", cpu: "125m" }
-            limits:   { memory: "512Mi", cpu: "500m" }
-          readinessProbe:
-            httpGet: { path: /healthz/ready, port: 3000 }
-            initialDelaySeconds: 5
-            periodSeconds: 5
-            failureThreshold: 3</code></pre>
-<h3>PodDisruptionBudget</h3>
-<pre><code>apiVersion: policy/v1
-kind: PodDisruptionBudget
-metadata:
-  name: api-pdb
-spec:
-  minAvailable: 3  # always keep 3+ pods running
+      maxSurge: 1       # Allow 1 extra pod to spin up
+      maxUnavailable: 0 # Never drop below configured replicas during update
   selector:
     matchLabels:
-      app: api-server</code></pre>
-<h3>Graceful Shutdown in Node.js</h3>
-<pre><code>const server = app.listen(3000)
-
-process.on("SIGTERM", () => {
-  server.close(async () => {
-    await db.destroy()
-    await redis.quit()
-    process.exit(0)
-  })
-  setTimeout(() => process.exit(1), 55_000)
-})</code></pre>`,
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: api
+        image: api-backend:v2.0
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 5
+</code></pre>
+<p>The <code>readinessProbe</code> is critical; K8s won't route traffic to the new Pods until it returns a 200 OK status from the health endpoint.</p>`
       },
     ],
   },
   {
-    id: "terraform",
-    title: "Module 2 \u2014 Infrastructure as Code",
+    id: "iac-observability", title: "Module 2 — IaC & Observability",
     lessons: [
       {
-        id: "terraform-modules",
-        title: "Terraform Modules & State",
-        duration: "28 min",
-        description: "Build reusable Terraform modules, manage remote state with S3+DynamoDB locking, and use workspaces.",
-        content: `<h2>Terraform Modules & Remote State</h2>
-<h3>Reusable Module Structure</h3>
-<pre><code># modules/eks-cluster/main.tf
-variable "cluster_name" { type = string }
-variable "node_count"   { type = number; default = 3 }
-variable "instance_type"{ type = string; default = "t3.medium" }
-
-resource "aws_eks_cluster" "this" {
-  name     = var.cluster_name
-  role_arn = aws_iam_role.cluster.arn
-  version  = "1.29"
-  vpc_config {
-    subnet_ids = var.subnet_ids
-  }
-}
-
-output "cluster_endpoint" { value = aws_eks_cluster.this.endpoint }
-output "cluster_name"     { value = aws_eks_cluster.this.name }</code></pre>
-<h3>Remote State with S3 + DynamoDB Locking</h3>
-<pre><code># backend.tf
-terraform {
+        id: "terraform-state", title: "Terraform State & Modules", duration: "30 min",
+        description: "Lock infrastructure states remotely in S3 buckets and compose reusable infrastructure.",
+        content: `<h2>Terraform State Management</h2>
+<p>Terraform maps your HCL code to the real-world resources via a <code>.tfstate</code> file. In teams, keeping this file local creates massive conflict. You must configure remote state locking.</p>
+<pre><code class="language-hcl">terraform {
   backend "s3" {
-    bucket         = "my-terraform-state"
-    key            = "production/eks/terraform.tfstate"
+    bucket         = "production-tfstate-bucket"
+    key            = "global/s3/terraform.tfstate"
     region         = "us-east-1"
-    dynamodb_table = "terraform-state-lock"  # prevents concurrent applies
+    
+    # DynamoDB handles the atomic locking mechanism
+    dynamodb_table = "terraform-locks"
     encrypt        = true
   }
-}</code></pre>
-<h3>Workspaces for Multi-Environment</h3>
-<pre><code># Create environments
-terraform workspace new staging
-terraform workspace new production
+}
+</code></pre>
+<p>When someone executes <code>terraform apply</code>, DynamoDB locks the state. If another developer runs apply simultaneously, Terraform politely rejects the request to prevent cloud corruption.</p>`
+      },
+      {
+        id: "github-actions", title: "GitHub Actions Matrices", duration: "25 min",
+        description: "Run test suites across massive combinations of OS and Node.js versions in parallel.",
+        content: `<h2>Matrix Builds</h2>
+<p>Testing against different environments sequentially takes hours. A <code>matrix</code> automatically spawns parallel jobs combining different versions.</p>
+<pre><code class="language-yaml">name: CI
 
-# Environment-specific variables
-locals {
-  env_config = {
-    staging    = { node_count = 2, instance_type = "t3.small" }
-    production = { node_count = 6, instance_type = "m5.large" }
-  }
-  config = local.env_config[terraform.workspace]
-}</code></pre>`,
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x, 20.x]
+        os: [ubuntu-latest, windows-latest]
+        
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js \${{ matrix.node-version }} on \${{ matrix.os }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: \${{ matrix.node-version }}
+    - run: npm ci
+    - run: npm test
+</code></pre>
+<p>This YAML instantly fans out into <strong>6 parallel jobs</strong>. Note the caching mechanism built into <code>setup-node@v3</code> to prevent redownloading dependencies on every step.</p>`
+      },
+      {
+        id: "prometheus", title: "Prometheus & Grafana", duration: "20 min",
+        description: "Scrape metrics from your microservices and build alerting dashboards.",
+        content: `<h2>Metrics Engineering</h2>
+<p>Uptime monitoring isn't enough. You need to log deep application metrics like 99th-percentile response times or database connection pool starvation.</p>
+<p>Prometheus acts as a pull-model scraper. Your application exposes an endpoint (e.g., <code>/metrics</code>):</p>
+<pre><code># HELP api_requests_total Total API requests
+# TYPE api_requests_total counter
+api_requests_total{method="GET",route="/users"} 12404
+api_requests_total{method="POST",route="/users"} 314
+</code></pre>
+<p>Prometheus servers poll this endpoint every 15 seconds. Then, you write PromQL queries inside Grafana:</p>
+<pre><code class="language-sql">rate(api_requests_total[5m])
+</code></pre>
+<p>This calculates the requests-per-second happening in a rolling 5-minute window!</p>`
       },
     ],
   },
 ]
 
-export default function CoursePage() {
+export default function DevopsPage() {
   return (
     <div className="bg-background text-foreground font-sans">
       <Navbar />
       <LessonPlayer
         title="DevOps & Cloud Engineering"
-        description="Kubernetes production patterns, Terraform IaC, GitOps with ArgoCD, and OpenTelemetry observability."
+        description="Design and operate production infrastructure. Kubernetes rolling deployments with PodDisruptionBudgets, Terraform IaC, GitOps with ArgoCD, and full-stack observability with OpenTelemetry."
         category="DevOps"
-        accentColor="oklch(0.68 0.14 210)"
-        modules={modules}
+        accentColor="#0DB7ED"
+        modules={devopsModules}
+        instructor="Kelsey Hightower"
+        rating={4.8}
+        reviewCount={1600}
+        lastUpdated="Feb 2026"
       />
     </div>
   )

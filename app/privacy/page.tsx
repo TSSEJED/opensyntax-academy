@@ -31,6 +31,7 @@ export default function PrivacyPage() {
             <p>OpenSyntax collects minimal data. As an open-source, client-side learning platform:</p>
             <ul className="mt-3 space-y-2 list-disc list-inside">
               <li><strong className="text-foreground">Usage Analytics:</strong> Anonymous, aggregated page view data via Vercel Analytics. No personally identifiable information is collected.</li>
+              <li><strong className="text-foreground">Interactive Features:</strong> We do not track individual interactions (clicks, hovers) with our 3D assets, animated bento-box layouts, or course catalog filters. These are rendered purely on your local device.</li>
               <li><strong className="text-foreground">Cookies:</strong> We do not set any first-party tracking cookies. Third-party services (e.g., Vercel) may set technical cookies necessary for platform operation.</li>
               <li><strong className="text-foreground">No Account System:</strong> OpenSyntax currently has no user registration. Your lesson progress is stored locally in your browser&apos;s session state only.</li>
             </ul>

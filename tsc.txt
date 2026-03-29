@@ -1,0 +1,51 @@
+﻿app/courses/devops/page.tsx(36,21): error TS1005: ',' expected.
+app/courses/devops/page.tsx(36,27): error TS1127: Invalid character.
+app/courses/devops/page.tsx(36,28): error TS1127: Invalid character.
+app/courses/devops/page.tsx(36,29): error TS1136: Property assignment expected.
+app/courses/devops/page.tsx(37,7): error TS1005: ',' expected.
+app/courses/devops/page.tsx(76,3): error TS1128: Declaration or statement expected.
+app/courses/devops/page.tsx(76,4): error TS1128: Declaration or statement expected.
+app/courses/devops/page.tsx(78,35): error TS1005: ';' expected.
+app/courses/devops/page.tsx(79,12): error TS1005: ';' expected.
+app/courses/devops/page.tsx(144,3): error TS1109: Expression expected.
+app/courses/devops/page.tsx(144,4): error TS1128: Declaration or statement expected.
+app/courses/devops/page.tsx(145,1): error TS1128: Declaration or statement expected.
+app/courses/typescript/page.tsx(71,35): error TS1005: ',' expected.
+app/courses/typescript/page.tsx(71,38): error TS1127: Invalid character.
+app/courses/typescript/page.tsx(71,40): error TS1005: ',' expected.
+app/courses/typescript/page.tsx(71,51): error TS1005: ',' expected.
+app/courses/typescript/page.tsx(71,54): error TS1005: ',' expected.
+app/courses/typescript/page.tsx(71,62): error TS1005: ',' expected.
+app/courses/typescript/page.tsx(71,66): error TS1005: ',' expected.
+app/courses/typescript/page.tsx(71,80): error TS1128: Declaration or statement expected.
+app/courses/typescript/page.tsx(71,81): error TS1127: Invalid character.
+app/courses/typescript/page.tsx(71,82): error TS1127: Invalid character.
+app/courses/typescript/page.tsx(77,7): error TS1128: Declaration or statement expected.
+app/courses/typescript/page.tsx(77,8): error TS1128: Declaration or statement expected.
+app/courses/typescript/page.tsx(78,5): error TS1128: Declaration or statement expected.
+app/courses/typescript/page.tsx(78,6): error TS1128: Declaration or statement expected.
+app/courses/typescript/page.tsx(79,3): error TS1128: Declaration or statement expected.
+app/courses/typescript/page.tsx(79,4): error TS1128: Declaration or statement expected.
+app/courses/typescript/page.tsx(81,28): error TS1005: ';' expected.
+app/courses/typescript/page.tsx(82,12): error TS1005: ';' expected.
+app/courses/typescript/page.tsx(145,3): error TS1109: Expression expected.
+app/courses/typescript/page.tsx(145,4): error TS1128: Declaration or statement expected.
+app/courses/typescript/page.tsx(146,1): error TS1128: Declaration or statement expected.
+app/courses/web/page.tsx(146,35): error TS1127: Invalid character.
+app/courses/web/page.tsx(146,37): error TS1005: ',' expected.
+app/courses/web/page.tsx(146,46): error TS1127: Invalid character.
+app/courses/web/page.tsx(146,48): error TS1005: ',' expected.
+app/courses/web/page.tsx(146,52): error TS1005: ',' expected.
+app/courses/web/page.tsx(146,62): error TS1127: Invalid character.
+app/courses/web/page.tsx(152,7): error TS1005: ',' expected.
+app/courses/web/page.tsx(154,3): error TS1128: Declaration or statement expected.
+app/courses/web/page.tsx(154,4): error TS1128: Declaration or statement expected.
+app/courses/web/page.tsx(156,32): error TS1005: ';' expected.
+app/courses/web/page.tsx(157,12): error TS1005: ';' expected.
+app/courses/web/page.tsx(209,3): error TS1109: Expression expected.
+app/courses/web/page.tsx(209,4): error TS1128: Declaration or statement expected.
+app/courses/web/page.tsx(211,21): error TS1005: ';' expected.
+app/courses/web/page.tsx(212,12): error TS1005: ';' expected.
+app/courses/web/page.tsx(272,3): error TS1109: Expression expected.
+app/courses/web/page.tsx(272,4): error TS1128: Declaration or statement expected.
+app/courses/web/page.tsx(273,1): error TS1128: Declaration or statement expected.
