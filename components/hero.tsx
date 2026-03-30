@@ -5,6 +5,8 @@ import { ArrowRight, Play } from "lucide-react"
 import { motion, Variants } from "framer-motion"
 import { Hero3DScene } from "./hero-3d-scene"
 
+import { InteractiveTerminal } from "./interactive-terminal"
+
 export function Hero() {
   const container: Variants = {
     hidden: { opacity: 0 },
@@ -74,6 +76,11 @@ export function Hero() {
             <Play className="w-5 h-5 fill-current" />
             Watch Trailer
           </a>
+        </motion.div>
+
+        {/* Terminal Widget */}
+        <motion.div variants={item} className="w-full mt-20 z-20">
+           <InteractiveTerminal />
         </motion.div>
 
         {/* Stats */}

@@ -181,12 +181,25 @@ export function LessonPlayer({
 
   return (
     <div className="flex min-h-screen pt-[60px]">
+      {/* Mobile Backdrop */}
+      <AnimatePresence>
+        {sidebarOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-30 bg-background/80 backdrop-blur-sm lg:hidden mt-[60px]"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
+      </AnimatePresence>
+
       {/* ── SIDEBAR ───────────────── */}
       <aside className={cn(
-        "flex-shrink-0 border-r border-border bg-sidebar sticky top-[60px] h-[calc(100vh-60px)] overflow-y-auto overflow-x-hidden transition-[width] duration-250 z-20",
-        sidebarOpen ? "w-72 lg:w-80" : "w-0"
+        "flex-shrink-0 border-r border-border bg-sidebar h-[calc(100vh-60px)] overflow-y-auto overflow-x-hidden transition-all duration-300 z-40 fixed lg:sticky top-[60px] left-0",
+        sidebarOpen ? "w-[85vw] md:w-80 translate-x-0" : "w-0 -translate-x-full lg:translate-x-0"
       )}>
-        <div className="min-w-72 lg:min-w-80">
+        <div className="min-w-[85vw] md:min-w-80">
           {/* Sidebar Header */}
           <div className="px-5 py-5 border-b border-sidebar-border relative overflow-hidden">
             <div className="relative z-10">

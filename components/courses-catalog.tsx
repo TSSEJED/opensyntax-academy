@@ -228,83 +228,109 @@ export function CoursesCatalog() {
         {/* Grid Engine */}
         <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <AnimatePresence>
-            {filteredCourses.map((course, idx) => (
+            {filteredCourses.length > 0 ? (
+              filteredCourses.map((course, idx) => (
+                <motion.div
+                  key={course.href}
+                  layout
+                  initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
+                  transition={{ duration: 0.4, delay: idx * 0.05 }}
+                >
+                  <Link
+                    href={course.href}
+                    className="group relative flex flex-col h-full rounded-3xl border border-border bg-background p-6 shadow-sm hover:shadow-xl hover:border-primary/50 transition-all duration-300 overflow-hidden"
+                  >
+                    {/* Premium Subtle Gradient Top Border */}
+                    <div className="absolute inset-x-0 top-0 h-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      style={{ background: `linear-gradient(90deg, transparent, ${course.iconColor}, transparent)` }} />
+
+                    {/* Header: Icon, Difficulty, Rating */}
+                    <div className="flex items-start justify-between mb-5">
+                      <div className="flex items-center justify-center w-12 h-12 rounded-2xl border border-border text-2xl shadow-sm bg-gradient-to-br from-background to-secondary group-hover:scale-110 transition-transform duration-300"
+                        style={{ color: course.iconColor }}>
+                        {course.icon}
+                      </div>
+                      <div className="flex flex-col items-end gap-2">
+                         <span className={`text-[10px] font-bold px-3 py-1 rounded-full border ${DIFFICULTY_STYLES[course.difficulty]}`}>
+                          {course.difficulty}
+                        </span>
+                        <div className="flex items-center gap-1 bg-amber-50 rounded-full px-2 py-0.5 border border-amber-100">
+                          <Star className="w-3 h-3 text-amber-500 fill-amber-500" />
+                          <span className="text-[10px] font-bold text-amber-700">{course.rating}</span>
+                          <span className="text-[10px] text-amber-600/60">({course.reviewCount})</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Title Area */}
+                    <div className="mb-4 flex-1">
+                      <h3 className="font-black text-xl text-foreground mb-2 group-hover:text-primary transition-colors">
+                        {course.title}
+                      </h3>
+                      <p className="text-xs font-bold uppercase tracking-wider mb-3" style={{ color: course.iconColor }}>
+                        {course.subtitle}
+                      </p>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {course.description}
+                      </p>
+                    </div>
+
+                    <div className="space-y-4 pt-4 border-t border-border">
+                      {/* Tags */}
+                      <div className="flex flex-wrap gap-2">
+                        {course.tags.slice(0, 3).map((t) => (
+                          <span key={t} className="text-[10px] px-2.5 py-1 rounded-md bg-secondary font-mono text-muted-foreground font-semibold">
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* Meta: Instructor, Duration, Lessons */}
+                      <div className="flex flex-wrap items-center justify-between text-xs text-muted-foreground">
+                         <div className="flex items-center gap-1.5">
+                           <User className="w-3.5 h-3.5" />
+                           <span className="font-bold">{course.instructor}</span>
+                         </div>
+                         <div className="flex items-center gap-3">
+                          <span className="flex items-center gap-1">
+                            <Clock className="w-3.5 h-3.5" />{course.duration}
+                          </span>
+                          <span className="flex items-center gap-1 font-bold text-foreground">
+                            <BookOpen className="w-3.5 h-3.5" />{course.lessons}
+                          </span>
+                         </div>
+                      </div>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))
+            ) : (
               <motion.div
-                key={course.href}
-                layout
+                key="empty-state"
                 initial={{ opacity: 0, scale: 0.95, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
-                transition={{ duration: 0.4, delay: idx * 0.05 }}
+                className="col-span-full py-20 px-6 flex flex-col items-center justify-center text-center border-2 border-dashed border-border rounded-3xl bg-secondary/10"
               >
-                <Link
-                  href={course.href}
-                  className="group relative flex flex-col h-full rounded-3xl border border-border bg-background p-6 shadow-sm hover:shadow-xl hover:border-primary/50 transition-all duration-300 overflow-hidden"
+                <div className="w-16 h-16 rounded-2xl bg-secondary flex items-center justify-center mb-6 shadow-inner text-primary">
+                  <Star className="w-8 h-8 opacity-80" />
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-black text-foreground mb-3 tracking-tight">Course in Development</h3>
+                <p className="text-muted-foreground max-w-md mb-8 leading-relaxed">
+                  We are currently crafting high-quality lessons for the <span className="font-bold text-foreground">{activeCategory}</span> category. Want to speed things up or request a specific topic?
+                </p>
+                <a
+                  href="https://discord.gg/66GA8MNPeB"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
                 >
-                  {/* Premium Subtle Gradient Top Border */}
-                  <div className="absolute inset-x-0 top-0 h-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{ background: `linear-gradient(90deg, transparent, ${course.iconColor}, transparent)` }} />
-
-                  {/* Header: Icon, Difficulty, Rating */}
-                  <div className="flex items-start justify-between mb-5">
-                    <div className="flex items-center justify-center w-12 h-12 rounded-2xl border border-border text-2xl shadow-sm bg-gradient-to-br from-background to-secondary group-hover:scale-110 transition-transform duration-300"
-                      style={{ color: course.iconColor }}>
-                      {course.icon}
-                    </div>
-                    <div className="flex flex-col items-end gap-2">
-                       <span className={`text-[10px] font-bold px-3 py-1 rounded-full border ${DIFFICULTY_STYLES[course.difficulty]}`}>
-                        {course.difficulty}
-                      </span>
-                      <div className="flex items-center gap-1 bg-amber-50 rounded-full px-2 py-0.5 border border-amber-100">
-                        <Star className="w-3 h-3 text-amber-500 fill-amber-500" />
-                        <span className="text-[10px] font-bold text-amber-700">{course.rating}</span>
-                        <span className="text-[10px] text-amber-600/60">({course.reviewCount})</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Title Area */}
-                  <div className="mb-4 flex-1">
-                    <h3 className="font-black text-xl text-foreground mb-2 group-hover:text-primary transition-colors">
-                      {course.title}
-                    </h3>
-                    <p className="text-xs font-bold uppercase tracking-wider mb-3" style={{ color: course.iconColor }}>
-                      {course.subtitle}
-                    </p>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {course.description}
-                    </p>
-                  </div>
-
-                  <div className="space-y-4 pt-4 border-t border-border">
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-2">
-                      {course.tags.slice(0, 3).map((t) => (
-                        <span key={t} className="text-[10px] px-2.5 py-1 rounded-md bg-secondary font-mono text-muted-foreground font-semibold">
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Meta: Instructor, Duration, Lessons */}
-                    <div className="flex flex-wrap items-center justify-between text-xs text-muted-foreground">
-                       <div className="flex items-center gap-1.5">
-                         <User className="w-3.5 h-3.5" />
-                         <span className="font-bold">{course.instructor}</span>
-                       </div>
-                       <div className="flex items-center gap-3">
-                        <span className="flex items-center gap-1">
-                          <Clock className="w-3.5 h-3.5" />{course.duration}
-                        </span>
-                        <span className="flex items-center gap-1 font-bold text-foreground">
-                          <BookOpen className="w-3.5 h-3.5" />{course.lessons}
-                        </span>
-                       </div>
-                    </div>
-                  </div>
-                </Link>
+                  Request on Discord
+                </a>
               </motion.div>
-            ))}
+            )}
           </AnimatePresence>
         </motion.div>
       </div>

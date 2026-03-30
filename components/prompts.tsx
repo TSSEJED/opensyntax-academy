@@ -109,7 +109,7 @@ export function Prompts() {
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: 20 }}
-          className="fixed bottom-6 right-6 z-[100] w-[300px] pointer-events-auto"
+          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[100] w-[calc(100vw-32px)] sm:w-[300px] pointer-events-auto"
         >
           <div className="bg-card border border-border rounded-2xl p-5 shadow-2xl overflow-hidden relative group">
             <button 
