@@ -20,7 +20,7 @@ const courses = [
 
 export function Navbar() {
   const [open, setOpen] = useState(false)
-  const [dropOpen, setDropOpen] = useState(false)
+  const [dropOpen, setDropOpen] = useState<string | false>(false)
 
   const toggleSearch = () => {
     const e = new KeyboardEvent('keydown', { key: 'k', ctrlKey: true, metaKey: true });
@@ -45,12 +45,12 @@ export function Navbar() {
           {/* Courses dropdown */}
           <div className="relative" onMouseLeave={() => setDropOpen(false)}>
             <button
-              onMouseEnter={() => setDropOpen(true)}
+              onMouseEnter={() => setDropOpen("courses")}
               className="flex items-center gap-1 px-3 py-2 rounded-md hover:text-foreground hover:bg-secondary transition-colors"
             >
-              Courses <ChevronDown size={13} className={`transition-transform ${dropOpen ? "rotate-180" : ""}`} />
+              Courses <ChevronDown size={13} className={`transition-transform ${dropOpen === "courses" ? "rotate-180" : ""}`} />
             </button>
-            {dropOpen && (
+            {dropOpen === "courses" && (
               <div className="absolute top-full left-0 mt-1 w-72 rounded-xl border border-border bg-card/95 backdrop-blur-lg p-2 shadow-2xl pulse-in">
                 {courses.map((c) => (
                   <Link key={c.href} href={c.href}
@@ -69,7 +69,29 @@ export function Navbar() {
              Dashboard
           </Link>
 
-          <Link href="/changelog" className="px-3 py-2 rounded-md hover:text-foreground hover:bg-secondary transition-colors">Changelog</Link>
+          {/* Resources dropdown */}
+          <div className="relative" onMouseLeave={() => setDropOpen(false)}>
+            <button
+              onMouseEnter={() => setDropOpen("resources")}
+              className="flex items-center gap-1 px-3 py-2 rounded-md hover:text-foreground hover:bg-secondary transition-colors"
+            >
+              Resources <ChevronDown size={13} className={`transition-transform ${dropOpen === "resources" ? "rotate-180" : ""}`} />
+            </button>
+            {dropOpen === "resources" && (
+              <div className="absolute top-full left-0 mt-1 w-48 rounded-xl border border-border bg-card/95 backdrop-blur-lg p-2 shadow-2xl pulse-in">
+                  <Link href="/status" className="flex justify-between items-center px-3 py-2.5 rounded-lg hover:bg-secondary transition-colors group" onClick={() => setDropOpen(false)}>
+                    <span className="text-xs font-medium text-foreground group-hover:text-accent transition-colors">Platform Status</span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                  </Link>
+                  <div className="h-px bg-border my-1 mx-2" />
+                  <Link href="/changelog" className="block px-3 py-2 rounded-lg hover:bg-secondary transition-colors text-xs font-medium text-foreground group-hover:text-accent" onClick={() => setDropOpen(false)}>Changelog</Link>
+                  <Link href="/contributing" className="block px-3 py-2 rounded-lg hover:bg-secondary transition-colors text-xs font-medium text-foreground group-hover:text-accent" onClick={() => setDropOpen(false)}>Contributing</Link>
+                  <div className="h-px bg-border my-1 mx-2" />
+                  <Link href="/terms" className="block px-3 py-2 rounded-lg hover:bg-secondary transition-colors text-[11px] text-muted-foreground" onClick={() => setDropOpen(false)}>Terms of Service</Link>
+                  <Link href="/privacy" className="block px-3 py-2 rounded-lg hover:bg-secondary transition-colors text-[11px] text-muted-foreground" onClick={() => setDropOpen(false)}>Privacy Policy</Link>
+              </div>
+            )}
+          </div>
           
           <button 
             onClick={toggleSearch}
@@ -97,7 +119,7 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden border-t border-border bg-background px-6 py-6 flex flex-col gap-1 text-sm shadow-xl animate-in slide-in-from-top duration-300">
+        <div className="md:hidden border-t border-border bg-background px-6 py-6 flex flex-col gap-1 text-sm shadow-xl animate-in slide-in-from-top duration-300 overflow-y-auto max-h-[85vh] custom-scrollbar">
           <Link href="/dashboard" className="flex items-center justify-between px-3 py-4 rounded-xl bg-accent/5 border border-accent/20 mb-4" onClick={() => setOpen(false)}>
              <div className="flex items-center gap-3">
                 <LayoutDashboard size={18} className="text-accent" />
@@ -107,7 +129,7 @@ export function Navbar() {
           </Link>
 
           <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50 px-3 pb-2">Explore Paths</p>
-          <div className="grid grid-cols-1 gap-1 mb-4 overflow-y-auto max-h-[40vh] pr-2 custom-scrollbar text-foreground">
+          <div className="grid grid-cols-1 gap-1 mb-4 text-foreground">
             {courses.map((c) => (
               <Link key={c.href} href={c.href}
                 className="flex items-center justify-between px-3 py-2.5 rounded-lg hover:bg-secondary transition-colors"
@@ -119,21 +141,34 @@ export function Navbar() {
           </div>
 
           <div className="h-px bg-border my-2" />
-          <div className="grid grid-cols-2 gap-2">
-            <Link href="/changelog" className="flex items-center gap-2 px-3 py-3 rounded-lg border border-border text-xs text-foreground font-medium" onClick={() => setOpen(false)}>Changelog</Link>
+          
+          <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/50 px-3 pb-2 pt-2">Resources & Status</p>
+          
+          <div className="grid grid-cols-2 gap-2 mb-2">
+            <Link href="/status" className="flex items-center justify-between px-3 py-3 rounded-lg border border-border bg-green-500/5 text-xs text-foreground font-medium" onClick={() => setOpen(false)}>
+              Status <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+            </Link>
             <Link href="/contributing" className="flex items-center gap-2 px-3 py-3 rounded-lg border border-border text-xs text-foreground font-medium" onClick={() => setOpen(false)}>Contributing</Link>
           </div>
+          
+          <div className="grid grid-cols-2 gap-2 mb-4">
+             <Link href="/changelog" className="flex items-center gap-2 px-3 py-3 rounded-lg border border-border text-xs text-foreground font-medium" onClick={() => setOpen(false)}>Changelog</Link>
+             <Link href="/terms" className="flex items-center gap-2 px-3 py-3 rounded-lg border border-border text-xs text-foreground font-medium" onClick={() => setOpen(false)}>Terms</Link>
+             <Link href="/privacy" className="flex items-center gap-2 px-3 py-3 rounded-lg border border-border text-xs text-foreground font-medium" onClick={() => setOpen(false)}>Privacy</Link>
+          </div>
+          
           <button 
             onClick={() => { setOpen(false); toggleSearch(); }}
-            className="w-full mt-2 flex items-center justify-center gap-2 px-3 py-4 rounded-xl bg-secondary text-foreground font-bold text-xs"
+            className="w-full mb-2 flex items-center justify-center gap-2 px-3 py-4 rounded-xl bg-secondary text-foreground font-bold text-xs"
           >
             <SearchIcon size={16} className="text-accent" />
             Search Platform
           </button>
           
-          <a href="https://discord.gg/66GA8MNPeB" target="_blank" rel="noopener noreferrer" className="mt-4 w-full flex items-center justify-center py-4 rounded-xl bg-foreground text-background font-bold text-sm shadow-lg">Join Community</a>
+          <a href="https://discord.gg/66GA8MNPeB" target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center py-4 rounded-xl bg-foreground text-background font-bold text-sm shadow-lg">Join Community</a>
         </div>
       )}
     </header>
   )
 }
+

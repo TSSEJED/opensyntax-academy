@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 _This section collects work-in-progress changes for the upcoming v3.0 milestone._
 
 ### Added
+- **System Status Page**: New `/status` page with real-time service health monitoring. Checks Website, API, CDN, Auth, Database, and GitHub Sync status live. Features a deployment synchronization panel that compares the latest GitHub commit against the Vercel-deployed version, a 90-day uptime visualization, and external links.
+- **Navbar Resources Dropdown**: Desktop header now features a "Resources" dropdown containing links to Platform Status, Changelog, Contributing, Terms of Service, and Privacy Policy.
+- **Mobile Navigation Overhaul**: Mobile menu now includes Status (with live green indicator), Contributing, Changelog, Terms, and Privacy links in a scrollable, organized layout.
 - **Course Content Overhaul**: Massively expanded the Cybersecurity and Blockchain courses with comprehensive content, including XSS deep-dives, Zero Trust frameworks, ZK-Rollups, and MEV. Added rich HTML and real-world code snippets.
 - **Page-Level SEO Metadata**: Exported contextual `metadata` tags (titles, descriptions, keywords) exclusively for individual dynamic and static course paths aiming to target high-intent SERP queries (e.g., "Learn Solidity Free").
 - **Global Search Palette**: Implemented a blazing-fast command palette (`Ctrl+K` or `Cmd+K`) to search across all 50+ lessons. Features query highlighting, keyboard navigation, and instant redirection.

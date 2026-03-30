@@ -8,6 +8,7 @@ const staticRoutes: Array<{ path: string; priority: number; changeFrequency: Met
   { path: "/dashboard",    priority: 0.8,  changeFrequency: "weekly"  },
   { path: "/changelog",    priority: 0.6,  changeFrequency: "monthly" },
   { path: "/contributing", priority: 0.6,  changeFrequency: "monthly" },
+  { path: "/status",       priority: 0.5,  changeFrequency: "daily"   },
   { path: "/terms",        priority: 0.3,  changeFrequency: "yearly"  },
   { path: "/privacy",      priority: 0.3,  changeFrequency: "yearly"  },
 ]
