@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import { OrganizationJsonLd, WebsiteJsonLd } from "@/components/SEO/JsonLd"
 import { ClientWrapper } from "@/components/client-wrapper"
 import "./globals.css"
@@ -86,6 +87,7 @@ export default function RootLayout({
           {children}
         </ClientWrapper>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )
