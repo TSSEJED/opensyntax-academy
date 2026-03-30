@@ -1,6 +1,6 @@
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { GitCommit, Plus, RefreshCw, Trash2, Rocket, Calendar } from "lucide-react"
+import { GitCommit, Plus, RefreshCw, Trash2, Rocket, Calendar, Wrench, Bug } from "lucide-react"
 
 export const metadata = {
   title: "Changelog — OpenSyntax Academy",
@@ -8,17 +8,40 @@ export const metadata = {
 }
 
 const v3Added = [
-  { label: "Global Search Palette", detail: "Universal command palette (Ctrl+K) for instant lesson lookup across 50+ modules with query highlighting." },
-  { label: "Student Dashboard", detail: "A centralized hub to track progress across all 11 paths, visualize completion rates, and track XP." },
-  { label: "Client Interaction Wrapper", detail: "Optimized global state management for search and shortcuts without sacrificing SEO performance." },
+  { label: "Certificates System", detail: "New /certificates page for unlocking and generating digital, beautifully crafted, cryptographic-style completion certificates using SVG for all 13 courses. Features real-time local state syncing and a dashboard integration to \"View Awards\"." },
+  { label: "Dashboard Synchronization", detail: "Upgraded /dashboard so all newest courses (System Design, Rust) seamlessly fetch user completion stats from active browser localStorage." },
+  { label: "Rust & Systems Programming Course", detail: "Added a comprehensive Rust course covering memory safety, the ownership model, fearless concurrency, async programming with Tokio, and compiling high-performance WebAssembly (WASM) modules." },
+  { label: "System Design Course", detail: "Added a highly requested, brand new 3-module System Design course. Covers Load Balancing, Database Sharding, Caching Strategies, Message Queues (Kafka), Rate Limiting algorithms, and real-world system design case studies (URL Shortener, Notification System)." },
+  { label: "Beautiful 404 Page", detail: "Designed a modern, branded 404 Not Found page with a massive glowing gradient background, animated elements, and quick links back to home and popular courses, preventing users from getting lost on missing pages." },
+  { label: "System Status Page", detail: "New /status page with real-time service health monitoring. Checks Website, API, CDN, Auth, Database, and GitHub Sync status live. Features a deployment synchronization panel that compares the latest GitHub commit against the Vercel-deployed version, a 90-day uptime visualization, and external links." },
+  { label: "Navbar Resources Dropdown", detail: "Desktop header now features a \"Resources\" dropdown containing links to Platform Status, Changelog, Contributing, Terms of Service, and Privacy Policy." },
+  { label: "Mobile Navigation Overhaul", detail: "Mobile menu now includes Status (with live green indicator), Contributing, Changelog, Terms, and Privacy links in a scrollable, organized layout." },
+  { label: "Course Content Overhaul", detail: "Massively expanded the Cybersecurity and Blockchain courses with comprehensive content, including XSS deep-dives, Zero Trust frameworks, ZK-Rollups, and MEV. Added rich HTML and real-world code snippets." },
+  { label: "Page-Level SEO Metadata", detail: "Exported contextual metadata tags (titles, descriptions, keywords) on all 11 course pages, targeting high-intent SERP queries. Every course now has contextual SEO titles, descriptions, and keyword arrays." },
+  { label: "PWA Manifest", detail: "Created public/manifest.json enabling Progressive Web App capabilities (installable on mobile/desktop devices)." },
+  { label: "Global Search Palette", detail: "Implemented a blazing-fast command palette (Ctrl+K or Cmd+K) to search across all 50+ lessons. Features query highlighting, keyboard navigation, and instant redirection." },
+  { label: "Student Progress Dashboard", detail: "New /dashboard page that aggregates localStorage completion data from all 11 course paths into a unified visual overview with XP tracking." },
+  { label: "Unified Client interactions", detail: "Moved global event listeners and persistent UI components (Search Palette) into a ClientWrapper to maintain high-performance server-side metadata defaults." },
+  { label: "Navbar Integration", detail: "Added permanent \"Dashboard\" and \"Search\" entry points to the primary navigation for improved platform discoverability." },
+]
+
+const v3Fixed = [
+  { label: "Mobile Sidebar Overlap", detail: "Fixed LessonPlayer mobile layout so the sidebar appears as an overlay with a backdrop rather than squishing the main reading content." },
+  { label: "Discord Popup Bounds", detail: "Refactored prompts.tsx notification to stay perfectly bounded within the screen width on mobile devices without causing horizontal overflow." },
+  { label: "Empty Category States", detail: "Added a gracefully styled \"Course in Development\" empty state fallback in the Course Catalog for categories that have no active courses." },
+  { label: "Discord Popup Persistence", detail: "Prompt popups now persist dismiss state in localStorage. Once dismissed, they stay dismissed across page reloads and navigation, preventing UX friction and content overlap." },
+  { label: "Missing manifest.json", detail: "Created public/manifest.json to resolve 404 console errors and enable PWA install capability." },
 ]
 
 const v3Planned = [
-  "User authentication and persistent accounts (Cloud sync)",
-  "Course completion certificates (PDF/SVG generation)",
-  "Community lesson submissions and review workflow",
-  "Comment threads and student discussions",
-  "Instructor profiles and secondary author support",
+  "User authentication & persistent accounts (Cloud sync)",
+  "Course completion certificates (Generated PDF/SVG)",
+  "Community lesson submissions & review workflow",
+  "Comment threads on individual lessons"
+]
+
+const v3KnownBugs = [
+  { label: "[DSB-001] Dashboard Progress Desync", detail: "Dashboard completion counts may appear as 0% even after completing lessons. This is a synchronization issue that will be resolved in v3.1.0 by standardizing storage keys. Workaround: Real progress is always visible is visible on the individual course pages." }
 ]
 
 const v2Added = [
@@ -85,6 +108,20 @@ export default function ChangelogPage() {
                 </ul>
               </div>
 
+              <div className="bg-card/40 border border-border/60 rounded-2xl p-6 backdrop-blur-sm">
+                <div className="flex items-center gap-2 text-blue-600 mb-5">
+                  <Wrench size={18} />
+                  <h3 className="font-semibold">Fixed</h3>
+                </div>
+                <ul className="space-y-4 text-sm text-muted-foreground">
+                  {v3Fixed.map((item, i) => (
+                    <li key={i}>
+                      <strong className="text-foreground">{item.label}:</strong> {item.detail}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
               <div className="bg-card/40 border border-dashed border-accent/30 rounded-2xl p-6 backdrop-blur-sm">
                 <div className="flex items-center gap-2 text-accent mb-4">
                   <Rocket size={16} />
@@ -95,6 +132,20 @@ export default function ChangelogPage() {
                     <li key={i} className="flex items-start gap-2">
                       <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent/40 flex-shrink-0" />
                       {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="bg-red-950/20 border border-red-900/40 rounded-2xl p-6 backdrop-blur-sm">
+                <div className="flex items-center gap-2 text-red-500 mb-4">
+                  <Bug size={16} />
+                  <h3 className="font-semibold text-sm">Known Bugs</h3>
+                </div>
+                <ul className="space-y-4 text-sm text-muted-foreground">
+                  {v3KnownBugs.map((item, i) => (
+                    <li key={i}>
+                      <strong className="text-foreground">{item.label}:</strong> {item.detail}
                     </li>
                   ))}
                 </ul>
