@@ -158,6 +158,18 @@ const COURSES: Course[] = [
     instructor: "Evan Bacon", rating: 4.8, reviewCount: 2040,
     prerequisites: ["React Basics"], lastUpdated: "Mar 2026"
   },
+  {
+    href: "/courses/system-design",
+    title: "System Design",
+    subtitle: "Load Balancers · Sharding · Queues · CDN",
+    description: "Master scalable distributed systems. Load balancers with consistent hashing, database sharding, multi-layer caching, message queues, rate limiting, and real-world case studies from companies serving billions.",
+    icon: "⬡", iconColor: "#E44D26",
+    category: "Systems", difficulty: "Advanced",
+    duration: "12h 20m", modules: 3, lessons: 8,
+    tags: ["Architecture", "Distributed Systems", "Redis", "Kafka"],
+    instructor: "Alex Xu", rating: 4.9, reviewCount: 5600,
+    prerequisites: ["Database Basics", "Networking"], lastUpdated: "Mar 2026"
+  },
 ]
 
 const DIFFICULTY_STYLES = {

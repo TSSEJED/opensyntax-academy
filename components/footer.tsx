@@ -49,6 +49,7 @@ export function Footer() {
           {COURSE_LINKS.slice(6).map((c) => (
             <Link key={c.href} href={c.href} className="text-xs text-muted-foreground hover:text-foreground transition-colors">{c.label}</Link>
           ))}
+          <Link href="/courses/system-design" className="text-xs text-muted-foreground hover:text-foreground transition-colors">System Design</Link>
         </div>
 
         {/* Community + Legal */}
@@ -57,7 +58,8 @@ export function Footer() {
           <a href="https://discord.gg/66GA8MNPeB" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-foreground transition-colors">Discord Server</a>
           <a href="https://github.com/TSSEJED/opensyntax-academy" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-foreground transition-colors">GitHub ↗</a>
           <div className="h-px bg-border my-1" />
-          <p className="text-[10px] font-bold text-foreground uppercase tracking-widest mb-1">Legal</p>
+          <p className="text-[10px] font-bold text-foreground uppercase tracking-widest mb-1">Legal & Platform</p>
+          <Link href="/status" className="text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>Platform Status</Link>
           <Link href="/changelog" className="text-xs text-muted-foreground hover:text-foreground transition-colors">Changelog</Link>
           <Link href="/contributing" className="text-xs text-muted-foreground hover:text-foreground transition-colors">Contributing</Link>
           <Link href="/terms"   className="text-xs text-muted-foreground hover:text-foreground transition-colors">Terms of Service</Link>

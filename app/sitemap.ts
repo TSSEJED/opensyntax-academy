@@ -25,6 +25,7 @@ const courseRoutes: Array<{ slug: string; title: string }> = [
   { slug: "cybersecurity",  title: "Cybersecurity"                 },
   { slug: "blockchain",     title: "Blockchain & Web3"             },
   { slug: "mobile",         title: "Mobile Engineering"            },
+  { slug: "system-design",  title: "System Design"                 },
 ]
 
 export default function sitemap(): MetadataRoute.Sitemap {
