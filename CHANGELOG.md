@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 _This section collects work-in-progress changes for the upcoming v3.0 milestone._
 
 ### Added
+- **Course Content Overhaul**: Massively expanded the Cybersecurity and Blockchain courses with comprehensive content, including XSS deep-dives, Zero Trust frameworks, ZK-Rollups, and MEV. Added rich HTML and real-world code snippets.
+- **Page-Level SEO Metadata**: Exported contextual `metadata` tags (titles, descriptions, keywords) exclusively for individual dynamic and static course paths aiming to target high-intent SERP queries (e.g., "Learn Solidity Free").
 - **Global Search Palette**: Implemented a blazing-fast command palette (`Ctrl+K` or `Cmd+K`) to search across all 50+ lessons. Features query highlighting, keyboard navigation, and instant redirection.
 - **Student Progress Dashboard**: New `/dashboard` page that aggregates `localStorage` completion data from all 11 course paths into a unified visual overview with XP tracking.
 - **Unified Client interactions**: Moved global event listeners and persistent UI components (Search Palette) into a `ClientWrapper` to maintain high-performance server-side metadata defaults.
