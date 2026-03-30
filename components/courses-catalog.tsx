@@ -170,6 +170,18 @@ const COURSES: Course[] = [
     instructor: "Alex Xu", rating: 4.9, reviewCount: 5600,
     prerequisites: ["Database Basics", "Networking"], lastUpdated: "Mar 2026"
   },
+  {
+    href: "/courses/rust",
+    title: "Rust & Systems Programming",
+    subtitle: "Borrow Checker · Tokio · WebAssembly",
+    description: "Master Rust's ownership model, compile-time memory safety, fearless threading, async programming with Tokio run-time, and compiling high-performance WebAssembly modules for the web.",
+    icon: "◈", iconColor: "#DEA584",
+    category: "Systems", difficulty: "Advanced",
+    duration: "14h 00m", modules: 3, lessons: 10,
+    tags: ["Rust", "WASM", "Tokio", "Concurrency"],
+    instructor: "Steve Klabnik", rating: 4.9, reviewCount: 4300,
+    prerequisites: ["Systems Knowledge"], lastUpdated: "Mar 2026"
+  },
 ]
 
 const DIFFICULTY_STYLES = {

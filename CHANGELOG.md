@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 _This section collects work-in-progress changes for the upcoming v3.0 milestone._
 
 ### Added
+- **Rust & Systems Programming Course**: Added a comprehensive Rust course covering memory safety, the ownership model, fearless concurrency, async programming with Tokio, and compiling high-performance WebAssembly (WASM) modules.
 - **System Design Course**: Added a highly requested, brand new 3-module System Design course. Covers Load Balancing, Database Sharding, Caching Strategies, Message Queues (Kafka), Rate Limiting algorithms, and real-world system design case studies (URL Shortener, Notification System). 
 - **Beautiful 404 Page**: Designed a modern, branded 404 Not Found page with a massive glowing gradient background, animated elements, and quick links back to home and popular courses, preventing users from getting lost on missing pages.
 - **System Status Page**: New `/status` page with real-time service health monitoring. Checks Website, API, CDN, Auth, Database, and GitHub Sync status live. Features a deployment synchronization panel that compares the latest GitHub commit against the Vercel-deployed version, a 90-day uptime visualization, and external links.

@@ -50,6 +50,7 @@ export function Footer() {
             <Link key={c.href} href={c.href} className="text-xs text-muted-foreground hover:text-foreground transition-colors">{c.label}</Link>
           ))}
           <Link href="/courses/system-design" className="text-xs text-muted-foreground hover:text-foreground transition-colors">System Design</Link>
+          <Link href="/courses/rust" className="text-xs text-muted-foreground hover:text-foreground transition-colors">Rust</Link>
         </div>
 
         {/* Community + Legal */}
