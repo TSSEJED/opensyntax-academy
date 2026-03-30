@@ -27,6 +27,9 @@ _This section collects work-in-progress changes for the upcoming v3.0 milestone.
 - **Navbar Integration**: Added permanent "Dashboard" and "Search" entry points to the primary navigation for improved platform discoverability.
 
 ### Fixed
+- **Mobile Sidebar Overlap**: Fixed `LessonPlayer` mobile layout so the sidebar appears as an overlay with a backdrop rather than squishing the main reading content.
+- **Discord Popup Bounds**: Refactored `prompts.tsx` notification to stay perfectly bounded within the screen width on mobile devices without causing horizontal overflow.
+- **Empty Category States**: Added a gracefully styled "Course in Development" empty state fallback in the Course Catalog for categories that have no active courses.
 - **Discord Popup Persistence**: Prompt popups now persist dismiss state in `localStorage`. Once dismissed, they stay dismissed across page reloads and navigation, preventing UX friction and content overlap.
 - **Missing manifest.json**: Created `public/manifest.json` to resolve 404 console errors and enable PWA install capability.
 

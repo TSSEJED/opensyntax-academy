@@ -7,7 +7,7 @@ export const metadata = {
 }
 
 export default function PrivacyPage() {
-  const lastUpdated = "March 29, 2026"
+  const lastUpdated = "March 30, 2026"
   return (
     <div className="min-h-screen bg-background text-foreground font-sans">
       <Navbar />
