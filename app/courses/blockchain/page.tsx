@@ -1,5 +1,12 @@
+import type { Metadata } from "next"
 import { Navbar } from "@/components/navbar"
 import { LessonPlayer, type Module } from "@/components/lesson-player"
+
+export const metadata: Metadata = {
+  title: "Blockchain & Web3 Engineering Course — Learn Solidity",
+  description: "Build production-grade smart contracts on EVM chains. Solidity security patterns, DeFi protocol design, OpenZeppelin modules, ZK-Rollups, and MEV.",
+  keywords: ["Blockchain Course", "Learn Solidity Free", "EVM Smart Contract Course", "DeFi Security Tutorials", "Web3 Engineering", "Ethereum Development"],
+}
 
 const blockchainModules: Module[] = [
   {
@@ -37,7 +44,9 @@ contract Vault {
     }
 }
 </code></pre>
-<p>Because there is no "devops" to patch a vulnerability later, smart contract code goes through intense financial auditing before mainnet deployment.</p>`
+<p>Because there is no "devops" to patch a vulnerability later, smart contract code goes through intense financial auditing before mainnet deployment.</p>
+<h3>EVM State Machine</h3>
+<p>The Ethereum Virtual Machine is a massive, distributed state machine. Nodes across the globe reach consensus on the exact state of your contract's memory slot 0 within 12 seconds. Every transaction acts as a state transition function against the global singleton.</p>`
       },
       {
         id: "gas-optimization", title: "Gas Constraints", duration: "20 min",
@@ -45,7 +54,9 @@ contract Vault {
         content: `<h2>Ethereum Gas Costs</h2>
 <p>Every computation <code>OPCODE</code> execution on the EVM costs a small amount of "Gas". Modifying permanent state variables (<code>SSTORE</code>) is extraordinarily expensive.</p>
 <h3>Memory vs Storage vs Calldata</h3>
-<p>Minimize accessing <code>storage</code>. If you loop through an array 10 times, reading a storage array 10 times costs immense gas. Read it into <code>memory</code> once, operate, and save the result back to <code>storage</code> once!</p>`
+<p>Minimize accessing <code>storage</code>. If you loop through an array 10 times, reading a storage array 10 times costs immense gas. Read it into <code>memory</code> once, operate, and save the result back to <code>storage</code> once!</p>
+<h3>Packing Variables</h3>
+<p>Ethereum storage slots are 256 bits (32 bytes). If you have two <code>uint128</code> variables next to each other in structural order, the Solidity compiler can pack them into a single 32-byte storage slot, turning two expensive <code>SSTORE</code> calls into one.</p>`
       },
     ],
   },
@@ -113,10 +124,24 @@ describe("SyntaxCoin", function () {
     expect(await token.totalSupply()).to.equal(ownerBalance);
   });
 });
-</code></pre>`
+</code></pre>
+<p>Every edge case must be mocked and mathematically validated up to the 18 decimals characteristic of ERC-20 tokens.</p>`
       },
     ],
   },
+  {
+    id: "l2-scaling", title: "Module 3 — Layer 2 Scaling",
+    lessons: [
+      {
+        id: "zk-rollups", title: "Zero-Knowledge Rollups", duration: "45 min",
+        description: "How mathematics compress massive transaction throughput down to a singular hash.",
+        content: `<h2>The Blockchain Trilemma</h2>
+<p>Blockchains struggle to achieve Security, Decentralization, and Scalability simultaneously. Layer 2 Rollups solve this by moving execution off-chain, while inheriting the robust Security of the Layer 1 Ethereum mainnet.</p>
+<h3>ZK-SNARKs and Validity Proofs</h3>
+<p>Zero-Knowledge Rollups execute thousands of transactions off-chain, compute the resulting state tree, and submit a cryptographic "Validity Proof" (a ZK-SNARK or STARK) back to the L1 contract. The math guarantees the computation was legitimate without the mainnet needing to re-run the thousands of transactions, dropping gas fees to pennies.</p>`
+      }
+    ]
+  }
 ]
 
 export default function BlockchainPage() {
@@ -125,7 +150,7 @@ export default function BlockchainPage() {
       <Navbar />
       <LessonPlayer
         title="Blockchain & Web3 Engineering"
-        description="Build production-grade smart contracts on EVM chains. Solidity security patterns, reentrancy guards, gas optimization, DeFi protocol design, OpenZeppelin modules, and Hardhat testing suites."
+        description="Build production-grade smart contracts on EVM chains. Solidity security patterns, reentrancy guards, gas optimization, DeFi protocol design, OpenZeppelin modules, L2 Rollups, and Hardhat testing suites."
         category="Blockchain"
         accentColor="#F6851B"
         modules={blockchainModules}
