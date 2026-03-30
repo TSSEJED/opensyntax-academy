@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 _This section collects work-in-progress changes for the upcoming v3.0 milestone._
 
 ### Added
+- **Certificates System**: New `/certificates` page for unlocking and generating digital, beautifully crafted, cryptographic-style completion certificates using SVG for all 13 courses. Features real-time local state syncing and a dashboard integration to "View Awards".
+- **Dashboard Synchronization**: Upgraded `/dashboard` so all newest courses (System Design, Rust) seamlessly fetch user completion stats from active browser `localStorage`.
 - **Rust & Systems Programming Course**: Added a comprehensive Rust course covering memory safety, the ownership model, fearless concurrency, async programming with Tokio, and compiling high-performance WebAssembly (WASM) modules.
 - **System Design Course**: Added a highly requested, brand new 3-module System Design course. Covers Load Balancing, Database Sharding, Caching Strategies, Message Queues (Kafka), Rate Limiting algorithms, and real-world system design case studies (URL Shortener, Notification System). 
 - **Beautiful 404 Page**: Designed a modern, branded 404 Not Found page with a massive glowing gradient background, animated elements, and quick links back to home and popular courses, preventing users from getting lost on missing pages.

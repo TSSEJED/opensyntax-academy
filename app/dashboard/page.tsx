@@ -10,16 +10,18 @@ import { cn } from "@/lib/utils"
 
 const courses = [
   { slug: "web", title: "Web Engineering", color: "oklch(0.72 0.17 196)", lessons: 6 },
+  { slug: "system-design", title: "System Design", color: "#E44D26", lessons: 8 },
+  { slug: "rust", title: "Rust & Systems", color: "#DEA584", lessons: 10 },
   { slug: "discord", title: "Discord Dev", color: "#7289DA", lessons: 5 },
   { slug: "python", title: "Python & Data", color: "#FFD43B", lessons: 6 },
   { slug: "ai-ml", title: "AI/ML Engineering", color: "oklch(0.70 0.20 300)", lessons: 5 },
   { slug: "typescript", title: "TS Mastery", color: "#3178C6", lessons: 5 },
-  { slug: "devops", title: "DevOps", color: "oklch(0.68 0.18 145)", lessons: 5 },
-  { slug: "databases", title: "Databases", color: "oklch(0.65 0.15 230)", lessons: 4 },
+  { slug: "devops", title: "DevOps", color: "oklch(0.68 0.18 145)", lessons: 6 },
+  { slug: "databases", title: "Databases", color: "oklch(0.65 0.15 230)", lessons: 5 },
   { slug: "react-patterns", title: "React Patterns", color: "#61DAFB", lessons: 5 },
   { slug: "cybersecurity", title: "Cybersecurity", color: "oklch(0.63 0.20 25)", lessons: 4 },
   { slug: "blockchain", title: "Web3/Blockchain", color: "oklch(0.72 0.17 55)", lessons: 4 },
-  { slug: "mobile", title: "Mobile Apps", color: "oklch(0.70 0.18 330)", lessons: 4 },
+  { slug: "mobile", title: "Mobile Apps", color: "oklch(0.70 0.18 330)", lessons: 5 },
 ]
 
 export default function DashboardPage() {
@@ -68,15 +70,29 @@ export default function DashboardPage() {
             </p>
           </div>
           
-          <div className="flex gap-4">
-             <div className="bg-card border border-border rounded-xl px-5 py-3 shadow-sm min-w-[140px]">
-                <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider mb-1">Total Completion</p>
-                <p className="text-2xl font-bold text-foreground">{mounted ? completedLessons : 0} / {totalLessons}</p>
+          <div className="flex flex-col sm:flex-row gap-4">
+             <div className="bg-card border border-border rounded-xl px-5 py-3 shadow-sm min-w-[140px] flex 1 items-center justify-between">
+                <div>
+                  <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider mb-1">Completion</p>
+                  <p className="text-2xl font-bold text-foreground">{mounted ? completedLessons : 0} / {totalLessons}</p>
+                </div>
              </div>
-             <div className="bg-accent/5 border border-accent/20 rounded-xl px-5 py-3 shadow-sm min-w-[140px]">
-                <p className="text-[10px] text-accent uppercase font-bold tracking-wider mb-1">XP Level</p>
-                <p className="text-2xl font-bold text-accent">{mounted ? Math.floor(completedLessons * 120) : 0}</p>
+             <div className="bg-accent/5 border border-accent/20 rounded-xl px-5 py-3 shadow-sm min-w-[140px] flex 1 items-center justify-between">
+                <div>
+                  <p className="text-[10px] text-accent uppercase font-bold tracking-wider mb-1">XP Level</p>
+                  <p className="text-2xl font-bold text-accent">{mounted ? Math.floor(completedLessons * 120) : 0}</p>
+                </div>
              </div>
+             
+             <Link href="/certificates" className="group flex flex-col justify-center bg-card border border-border hover:border-primary/50 hover:bg-secondary/50 rounded-xl px-5 py-3 shadow-sm min-w-[140px] transition-all">
+                <div className="flex items-center gap-2 mb-1">
+                  <div className="p-1.5 bg-primary/10 rounded-md text-primary">
+                     <Trophy size={14} />
+                  </div>
+                  <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider group-hover:text-primary transition-colors">Certifications</p>
+                </div>
+                <p className="text-sm font-bold text-foreground">View Awards <ArrowRight className="inline w-3 h-3 ml-1 text-muted-foreground/50 group-hover:translate-x-1 group-hover:text-primary transition-all" /></p>
+             </Link>
           </div>
         </header>
 
