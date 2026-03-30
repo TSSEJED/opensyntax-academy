@@ -16,6 +16,8 @@ const courses = [
   { href: "/courses/cybersecurity", label: "Cybersecurity",         tag: "OWASP · Auth" },
   { href: "/courses/blockchain",    label: "Blockchain & Web3",     tag: "Solidity"     },
   { href: "/courses/mobile",        label: "Mobile · React Native", tag: "Expo · Reanimated"},
+  { href: "/courses/system-design", label: "System Design",         tag: "Distributed"  },
+  { href: "/courses/rust",          label: "Rust & Systems",        tag: "WASM · Tokio" },
 ]
 
 export function Navbar() {

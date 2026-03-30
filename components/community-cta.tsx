@@ -14,7 +14,7 @@ export function CommunityCTA() {
           <div className="relative z-10 flex flex-col items-center gap-6 max-w-xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary px-4 py-1.5 text-xs text-muted-foreground">
               <span className="w-1.5 h-1.5 rounded-full bg-accent" style={{ animation: "pulse-dot 2s infinite" }} aria-hidden="true" />
-              Community Hub · 11 Courses · Always Free
+              Community Hub · 13 Courses · Always Free
             </div>
 
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground" style={{ letterSpacing: "-0.04em" }}>

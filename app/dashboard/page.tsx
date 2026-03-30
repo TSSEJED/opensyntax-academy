@@ -8,20 +8,22 @@ import { BookOpen, CheckCircle2, Trophy, ArrowRight, LayoutDashboard, Search, Co
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 
+// storageTitle must match exactly what LessonPlayer writes:
+// "opensyntax-progress-" + title.toLowerCase().replace(/\s+/g, "-")
 const courses = [
-  { slug: "web", title: "Web Engineering", color: "oklch(0.72 0.17 196)", lessons: 6 },
-  { slug: "system-design", title: "System Design", color: "#E44D26", lessons: 8 },
-  { slug: "rust", title: "Rust & Systems", color: "#DEA584", lessons: 10 },
-  { slug: "discord", title: "Discord Dev", color: "#7289DA", lessons: 5 },
-  { slug: "python", title: "Python & Data", color: "#FFD43B", lessons: 6 },
-  { slug: "ai-ml", title: "AI/ML Engineering", color: "oklch(0.70 0.20 300)", lessons: 5 },
-  { slug: "typescript", title: "TS Mastery", color: "#3178C6", lessons: 5 },
-  { slug: "devops", title: "DevOps", color: "oklch(0.68 0.18 145)", lessons: 6 },
-  { slug: "databases", title: "Databases", color: "oklch(0.65 0.15 230)", lessons: 5 },
-  { slug: "react-patterns", title: "React Patterns", color: "#61DAFB", lessons: 5 },
-  { slug: "cybersecurity", title: "Cybersecurity", color: "oklch(0.63 0.20 25)", lessons: 4 },
-  { slug: "blockchain", title: "Web3/Blockchain", color: "oklch(0.72 0.17 55)", lessons: 4 },
-  { slug: "mobile", title: "Mobile Apps", color: "oklch(0.70 0.18 330)", lessons: 5 },
+  { slug: "web", title: "Web Engineering", storageTitle: "full-stack-web-engineering", color: "oklch(0.72 0.17 196)", lessons: 6 },
+  { slug: "system-design", title: "System Design", storageTitle: "system-design", color: "#E44D26", lessons: 8 },
+  { slug: "rust", title: "Rust & Systems", storageTitle: "rust-&-systems-programming", color: "#DEA584", lessons: 10 },
+  { slug: "discord", title: "Discord Dev", storageTitle: "advanced-discord-development", color: "#7289DA", lessons: 5 },
+  { slug: "python", title: "Python & Data", storageTitle: "python-&-data-science", color: "#FFD43B", lessons: 6 },
+  { slug: "ai-ml", title: "AI/ML Engineering", storageTitle: "ai/ml-engineering", color: "oklch(0.70 0.20 300)", lessons: 5 },
+  { slug: "typescript", title: "TS Mastery", storageTitle: "typescript-mastery", color: "#3178C6", lessons: 5 },
+  { slug: "devops", title: "DevOps", storageTitle: "devops-&-cloud-engineering", color: "oklch(0.68 0.18 145)", lessons: 6 },
+  { slug: "databases", title: "Databases", storageTitle: "database-engineering", color: "oklch(0.65 0.15 230)", lessons: 5 },
+  { slug: "react-patterns", title: "React Patterns", storageTitle: "react-advanced-patterns", color: "#61DAFB", lessons: 5 },
+  { slug: "cybersecurity", title: "Cybersecurity", storageTitle: "cybersecurity-fundamentals", color: "oklch(0.63 0.20 25)", lessons: 4 },
+  { slug: "blockchain", title: "Web3/Blockchain", storageTitle: "blockchain-&-web3-engineering", color: "oklch(0.72 0.17 55)", lessons: 4 },
+  { slug: "mobile", title: "Mobile Apps", storageTitle: "mobile-engineering-·-react-native", color: "oklch(0.70 0.18 330)", lessons: 5 },
 ]
 
 export default function DashboardPage() {
@@ -33,7 +35,8 @@ export default function DashboardPage() {
     const data: Record<string, number> = {}
     
     courses.forEach(course => {
-      const storageKey = `opensyntax-progress-${course.slug}`
+      // Use storageTitle to match the key format written by LessonPlayer
+      const storageKey = `opensyntax-progress-${course.storageTitle}`
       try {
         const saved = localStorage.getItem(storageKey)
         if (saved) {

@@ -63,6 +63,7 @@ export function Footer() {
           <Link href="/status" className="text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>Platform Status</Link>
           <Link href="/changelog" className="text-xs text-muted-foreground hover:text-foreground transition-colors">Changelog</Link>
           <Link href="/contributing" className="text-xs text-muted-foreground hover:text-foreground transition-colors">Contributing</Link>
+          <Link href="/certificates" className="text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.5">🏆 Certificates</Link>
           <Link href="/terms"   className="text-xs text-muted-foreground hover:text-foreground transition-colors">Terms of Service</Link>
           <Link href="/privacy" className="text-xs text-muted-foreground hover:text-foreground transition-colors">Privacy Policy</Link>
           

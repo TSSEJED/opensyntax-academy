@@ -53,6 +53,10 @@ export function InteractiveTerminal() {
           <ul className="list-disc pl-4 mt-1 space-y-1">
             <li><span className="text-emerald-300 font-bold">whoami</span> - Display current user info</li>
             <li><span className="text-emerald-300 font-bold">courses</span> - List all available learning paths</li>
+            <li><span className="text-emerald-300 font-bold">stats</span> - Platform statistics</li>
+            <li><span className="text-emerald-300 font-bold">about</span> - About OpenSyntax Academy</li>
+            <li><span className="text-emerald-300 font-bold">latest</span> - Latest platform updates</li>
+            <li><span className="text-emerald-300 font-bold">version</span> - Show platform version</li>
             <li><span className="text-emerald-300 font-bold">enroll</span> - Start your journey</li>
             <li><span className="text-emerald-300 font-bold">clear</span> - Clear the terminal</li>
           </ul>
@@ -68,7 +72,49 @@ export function InteractiveTerminal() {
           <p>3. Rust & Systems Programming</p>
           <p>4. AI/ML Engineering</p>
           <p>5. DevOps & Cloud</p>
-          <p className="text-gray-400 italic mt-1">...and 8 more.</p>
+          <p>6. Advanced Discord Development</p>
+          <p>7. Database Engineering</p>
+          <p className="text-gray-400 italic mt-1">...and 6 more. 13 paths total.</p>
+        </div>
+      )
+    } else if (trimmed === "stats") {
+      output = (
+        <div className="text-cyan-300">
+          <p>📊 <span className="text-white font-bold">Platform Statistics</span></p>
+          <p className="mt-1">  Courses:    <span className="text-emerald-300 font-bold">13</span></p>
+          <p>  Lessons:    <span className="text-emerald-300 font-bold">250+</span></p>
+          <p>  Content:    <span className="text-emerald-300 font-bold">50h+</span></p>
+          <p>  License:    <span className="text-emerald-300 font-bold">Apache 2.0</span></p>
+          <p>  Price:      <span className="text-emerald-300 font-bold">$0 forever</span></p>
+        </div>
+      )
+    } else if (trimmed === "about") {
+      output = (
+        <div className="text-blue-200">
+          <p className="text-white font-bold">OpenSyntax Academy</p>
+          <p className="mt-1">A premium, completely free platform built to elevate your</p>
+          <p>development skills. Community-funded, open-source, and</p>
+          <p>designed for real-world engineering — not toy examples.</p>
+          <p className="mt-2 text-gray-400">→ https://opensyntax-academy.vercel.app</p>
+        </div>
+      )
+    } else if (trimmed === "latest") {
+      output = (
+        <div className="text-amber-200">
+          <p className="text-white font-bold">🚀 v3.0.0 — Latest Updates</p>
+          <p className="mt-1 text-emerald-300">+ Testimonials section with social proof</p>
+          <p className="text-emerald-300">+ Dashboard progress desync fixed (DSB-001)</p>
+          <p className="text-emerald-300">+ Scroll-to-top navigation button</p>
+          <p className="text-emerald-300">+ Reading progress bar in lessons</p>
+          <p className="text-emerald-300">+ Enhanced terminal commands</p>
+          <p className="text-gray-400 italic mt-1">Run 'enroll' to start learning.</p>
+        </div>
+      )
+    } else if (trimmed === "version") {
+      output = (
+        <div className="text-purple-300">
+          <p>OpenSyntax OS <span className="text-white font-bold">v3.0.0</span></p>
+          <p className="text-gray-500 text-xs mt-1">Built with Next.js 16 · React 19 · Framer Motion</p>
         </div>
       )
     } else if (trimmed === "enroll") {
@@ -117,7 +163,7 @@ export function InteractiveTerminal() {
         onClick={() => inputRef.current?.focus()}
       >
         <div className="text-gray-400 mb-4">
-          <p>Welcome to OpenSyntax OS v3.1.0.</p>
+          <p>Welcome to OpenSyntax OS v3.0.0.</p>
           <p>Type <span className="text-emerald-400 font-bold">'help'</span> to see available commands.</p>
         </div>
 

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, JSX } from "react"
+import { useState, useEffect, useRef, useCallback, JSX } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronRight, ChevronLeft, CheckCircle2, Circle, BookOpen, Menu, X, ArrowLeft, User, Star, Clock, HelpCircle } from "lucide-react"
 import Link from "next/link"
@@ -148,6 +148,18 @@ export function LessonPlayer({
   const [completed, setCompleted] = useState<Set<string>>(new Set())
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [mounted, setMounted] = useState(false)
+  const [readingProgress, setReadingProgress] = useState(0)
+  const mainRef = useRef<HTMLElement>(null)
+
+  const handleScroll = useCallback(() => {
+    const el = mainRef.current
+    if (!el) return
+    const scrollTop = el.scrollTop
+    const scrollHeight = el.scrollHeight - el.clientHeight
+    if (scrollHeight > 0) {
+      setReadingProgress(Math.min((scrollTop / scrollHeight) * 100, 100))
+    }
+  }, [])
 
   const storageKey = "opensyntax-progress-" + title.toLowerCase().replace(/\s+/g, "-")
 
@@ -288,7 +300,14 @@ export function LessonPlayer({
       </aside>
 
       {/* ── MAIN ───────────────────── */}
-      <main className="flex-1 min-w-0 px-6 md:px-10 lg:px-16 py-8 max-w-3xl overflow-y-auto">
+      <main ref={mainRef} onScroll={handleScroll} className="flex-1 min-w-0 px-6 md:px-10 lg:px-16 py-8 max-w-3xl overflow-y-auto relative">
+        {/* Reading Progress Bar */}
+        <div className="fixed top-[60px] left-0 right-0 z-50 h-[3px] bg-transparent pointer-events-none">
+          <div
+            className="h-full transition-all duration-150 ease-out rounded-r-full"
+            style={{ width: readingProgress + '%', background: `linear-gradient(90deg, ${accentColor}, oklch(0.60 0.22 295))` }}
+          />
+        </div>
         {/* Toolbar */}
         <div className="flex items-center gap-3 mb-8">
           <button
