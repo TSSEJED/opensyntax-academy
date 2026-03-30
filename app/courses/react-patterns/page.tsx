@@ -1,5 +1,12 @@
+import type { Metadata } from "next"
 import { Navbar } from "@/components/navbar"
 import { LessonPlayer, type Module } from "@/components/lesson-player"
+
+export const metadata: Metadata = {
+  title: "Advanced React Patterns — Compound Components & Suspense",
+  description: "Master patterns used by world-class React libraries. Compound components, render props, Suspense architecture, concurrent features, and performance optimization.",
+  keywords: ["React Course", "Advanced React", "Compound Components", "React Suspense", "useTransition", "React Performance"],
+}
 
 const reactPatternsModules: Module[] = [
   {

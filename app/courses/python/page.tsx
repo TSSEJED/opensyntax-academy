@@ -1,5 +1,12 @@
+import type { Metadata } from "next"
 import { Navbar } from "@/components/navbar"
 import { LessonPlayer, type Module } from "@/components/lesson-player"
+
+export const metadata: Metadata = {
+  title: "Python & Data Science — NumPy, Pandas & Scikit-learn",
+  description: "Build a complete data science toolkit. Vectorized computation with NumPy, Pandas MultiIndex, memory optimization, and ML pipelines with Scikit-learn.",
+  keywords: ["Python Course", "Data Science Tutorial", "NumPy", "Pandas", "Scikit-learn", "Machine Learning Python"],
+}
 
 const pythonModules: Module[] = [
   {

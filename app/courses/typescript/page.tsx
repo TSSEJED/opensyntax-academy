@@ -1,5 +1,12 @@
+import type { Metadata } from "next"
 import { Navbar } from "@/components/navbar"
 import { LessonPlayer, type Module } from "@/components/lesson-player"
+
+export const metadata: Metadata = {
+  title: "TypeScript Mastery — Generics, Conditional Types & tRPC",
+  description: "Move beyond basic TypeScript. Conditional types, infer keyword, mapped types, Zod validation, and end-to-end type safety with tRPC.",
+  keywords: ["TypeScript Course", "Advanced TypeScript", "tRPC Tutorial", "Zod Validation", "Type-Safe API", "Generics"],
+}
 
 const typescriptModules: Module[] = [
   {

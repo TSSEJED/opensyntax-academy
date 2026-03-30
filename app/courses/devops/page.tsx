@@ -1,5 +1,12 @@
+import type { Metadata } from "next"
 import { Navbar } from "@/components/navbar"
 import { LessonPlayer, type Module } from "@/components/lesson-player"
+
+export const metadata: Metadata = {
+  title: "DevOps & Cloud Engineering — Docker, Kubernetes & Terraform",
+  description: "Design production infrastructure with Docker, Kubernetes rolling deployments, Terraform IaC, GitHub Actions CI/CD, and Prometheus observability.",
+  keywords: ["DevOps Course", "Kubernetes Tutorial", "Docker Course", "Terraform", "CI/CD Pipeline", "Cloud Infrastructure"],
+}
 
 const devopsModules: Module[] = [
   {

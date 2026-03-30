@@ -1,5 +1,12 @@
+import type { Metadata } from "next"
 import { Navbar } from "@/components/navbar"
 import { LessonPlayer, type Module } from "@/components/lesson-player"
+
+export const metadata: Metadata = {
+  title: "Database Engineering — PostgreSQL Internals & Redis",
+  description: "Understand databases at the internals level. EXPLAIN ANALYZE, B-Tree indexes, MVCC, vacuum tuning, Redis data structures, and event streaming.",
+  keywords: ["Database Course", "PostgreSQL Tutorial", "Redis Course", "SQL Optimization", "B-Tree Index", "Database Engineering"],
+}
 
 const databasesModules: Module[] = [
   {

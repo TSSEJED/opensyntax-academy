@@ -51,32 +51,51 @@ const PROMPTS: PromptData[] = [
   },
 ]
 
+const STORAGE_KEY = "opensyntax-dismissed-prompts"
+
+function getDismissed(): Set<string> {
+  try {
+    const raw = globalThis.localStorage?.getItem(STORAGE_KEY)
+    return raw ? new Set(JSON.parse(raw)) : new Set()
+  } catch { return new Set() }
+}
+
+function saveDismissed(set: Set<string>) {
+  try {
+    globalThis.localStorage?.setItem(STORAGE_KEY, JSON.stringify([...set]))
+  } catch { /* noop */ }
+}
+
 export function Prompts() {
   const [active, setActive] = useState<PromptType | null>(null)
   const [dismissed, setDismissed] = useState<Set<string>>(new Set())
   const pathname = usePathname()
 
   useEffect(() => {
-    // Logic to decide when to show which prompt
-    // e.g., don't show bugs prompt on the bugs page
+    setDismissed(getDismissed())
+  }, [])
+
+  useEffect(() => {
+    const stored = getDismissed()
     const timer = setTimeout(() => {
-      if (pathname === "/bugs") {
-        setActive("discord")
-      } else if (pathname === "/dashboard") {
-        setActive("bugs")
-      } else if (pathname === "/") {
-        setActive("support")
-      } else {
-        setActive("discord")
-      }
-    }, 5000)
+      let pick: PromptType = "discord"
+      if (pathname === "/bugs") pick = "discord"
+      else if (pathname === "/dashboard") pick = "bugs"
+      else if (pathname === "/") pick = "support"
+      else pick = "discord"
+
+      if (!stored.has(pick)) setActive(pick)
+    }, 8000)
 
     return () => clearTimeout(timer)
   }, [pathname])
 
   const dismiss = () => {
     if (active) {
-      setDismissed(prev => new Set(prev).add(active))
+      const next = new Set(dismissed)
+      next.add(active)
+      setDismissed(next)
+      saveDismissed(next)
       setActive(null)
     }
   }
@@ -90,7 +109,7 @@ export function Prompts() {
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: 20 }}
-          className="fixed bottom-6 right-6 z-[100] w-[320px] pointer-events-auto"
+          className="fixed bottom-6 right-6 z-[100] w-[300px] pointer-events-auto"
         >
           <div className="bg-card border border-border rounded-2xl p-5 shadow-2xl overflow-hidden relative group">
             <button 
@@ -136,3 +155,4 @@ export function Prompts() {
     </AnimatePresence>
   )
 }
+

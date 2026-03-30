@@ -1,5 +1,12 @@
+import type { Metadata } from "next"
 import { Navbar } from "@/components/navbar"
 import { LessonPlayer, type Module } from "@/components/lesson-player"
+
+export const metadata: Metadata = {
+  title: "AI/ML Engineering Course — PyTorch, RAG & LLMs",
+  description: "Build production AI systems. PyTorch tensors, Transformer architecture, RAG pipelines with Qdrant, LoRA fine-tuning, and MLflow experiment tracking.",
+  keywords: ["AI Course", "Machine Learning Tutorial", "PyTorch Course", "RAG Pipeline", "LLM Fine-Tuning", "MLOps"],
+}
 
 const aimlModules: Module[] = [
   {

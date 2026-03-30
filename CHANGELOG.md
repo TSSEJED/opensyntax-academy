@@ -14,11 +14,16 @@ _This section collects work-in-progress changes for the upcoming v3.0 milestone.
 - **Navbar Resources Dropdown**: Desktop header now features a "Resources" dropdown containing links to Platform Status, Changelog, Contributing, Terms of Service, and Privacy Policy.
 - **Mobile Navigation Overhaul**: Mobile menu now includes Status (with live green indicator), Contributing, Changelog, Terms, and Privacy links in a scrollable, organized layout.
 - **Course Content Overhaul**: Massively expanded the Cybersecurity and Blockchain courses with comprehensive content, including XSS deep-dives, Zero Trust frameworks, ZK-Rollups, and MEV. Added rich HTML and real-world code snippets.
-- **Page-Level SEO Metadata**: Exported contextual `metadata` tags (titles, descriptions, keywords) exclusively for individual dynamic and static course paths aiming to target high-intent SERP queries (e.g., "Learn Solidity Free").
+- **Page-Level SEO Metadata**: Exported contextual `metadata` tags (titles, descriptions, keywords) on **all 11 course pages**, targeting high-intent SERP queries. Every course now has contextual SEO titles, descriptions, and keyword arrays.
+- **PWA Manifest**: Created `public/manifest.json` enabling Progressive Web App capabilities (installable on mobile/desktop devices).
 - **Global Search Palette**: Implemented a blazing-fast command palette (`Ctrl+K` or `Cmd+K`) to search across all 50+ lessons. Features query highlighting, keyboard navigation, and instant redirection.
 - **Student Progress Dashboard**: New `/dashboard` page that aggregates `localStorage` completion data from all 11 course paths into a unified visual overview with XP tracking.
 - **Unified Client interactions**: Moved global event listeners and persistent UI components (Search Palette) into a `ClientWrapper` to maintain high-performance server-side metadata defaults.
 - **Navbar Integration**: Added permanent "Dashboard" and "Search" entry points to the primary navigation for improved platform discoverability.
+
+### Fixed
+- **Discord Popup Persistence**: Prompt popups now persist dismiss state in `localStorage`. Once dismissed, they stay dismissed across page reloads and navigation, preventing UX friction and content overlap.
+- **Missing manifest.json**: Created `public/manifest.json` to resolve 404 console errors and enable PWA install capability.
 
 ### Planned
 - User authentication & persistent accounts (Cloud sync)

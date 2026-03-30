@@ -1,5 +1,12 @@
+import type { Metadata } from "next"
 import { Navbar } from "@/components/navbar"
 import { LessonPlayer, type Module } from "@/components/lesson-player"
+
+export const metadata: Metadata = {
+  title: "Discord Bot Development — discord.py, Sharding & asyncpg",
+  description: "Build production-grade Discord bots. Hot-reloadable Cogs, slash commands, PostgreSQL pooling with asyncpg, horizontal sharding, and Redis IPC.",
+  keywords: ["Discord Bot Course", "discord.py Tutorial", "Discord Bot Development", "Python Bot", "Slash Commands", "Bot Sharding"],
+}
 
 const discordModules: Module[] = [
   {

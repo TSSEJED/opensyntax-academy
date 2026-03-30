@@ -1,5 +1,12 @@
+import type { Metadata } from "next"
 import { Navbar } from "@/components/navbar"
 import { LessonPlayer, type Module } from "@/components/lesson-player"
+
+export const metadata: Metadata = {
+  title: "Mobile Engineering — React Native, Expo & Reanimated",
+  description: "Build production React Native apps. 60fps animations with Reanimated 3 worklets, Expo Router navigation, native module bridging, and EAS CI/CD.",
+  keywords: ["React Native Course", "Mobile Development", "Expo Tutorial", "Reanimated", "Mobile App Development", "iOS Android"],
+}
 
 const mobileModules: Module[] = [
   {

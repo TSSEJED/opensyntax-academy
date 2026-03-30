@@ -1,5 +1,12 @@
+import type { Metadata } from "next"
 import { Navbar } from "@/components/navbar"
 import { LessonPlayer, type Module } from "@/components/lesson-player"
+
+export const metadata: Metadata = {
+  title: "Full-Stack Web Engineering — Next.js 16, Server Actions & PWA",
+  description: "Master Next.js 16 App Router, Server Actions, Edge Middleware, PWA, and offline sync. The complete modern web development course.",
+  keywords: ["Next.js Course", "Full-Stack Web Development", "Server Actions", "App Router", "React Course", "PWA Tutorial"],
+}
 
 const webModules: Module[] = [
   {
