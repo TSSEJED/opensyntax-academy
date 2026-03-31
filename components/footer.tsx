@@ -6,6 +6,7 @@ import { Instagram } from "lucide-react"
 import { getTranslations, Locale, DEFAULT_LOCALE, I18N_STORAGE_KEY, LOCALES } from "@/lib/i18n"
 
 const COURSE_LINKS = [
+  { href: "/courses/foundations",    label: "Foundations (Minus Zero)" },
   { href: "/courses/web",            label: "Web Engineering" },
   { href: "/courses/discord",        label: "Discord Development" },
   { href: "/courses/python",         label: "Python & Data Science" },
