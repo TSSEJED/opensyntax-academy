@@ -7,8 +7,40 @@ export const metadata = {
   description: "Recent updates and architectural changes to the platform.",
 }
 
+// ── v4.3.0 ──
+const v43Added = [
+  { label: "\"Minus Zero\" Foundations Track", detail: "Introduced a mandatory onboarding track (/courses/foundations) covering Hardware Logic, Internet Protocols, and Terminal internals to bridge absolute beginners." },
+  { label: "Functional PWA Installation", detail: "Implemented a custom usePwaInstall hook and integrated it into the platform's prompt system. Users can now trigger a native browser installation dialog directly from the 'Download the App' popup." },
+  { label: "Universal 3-Tier Curriculum", detail: "All 11 core domain tracks (Web, Discord, AI/ML, DevOps, Databases, TypeScript, React Patterns, Cybersecurity, Blockchain, Mobile, Python) have been fully restructured into a synchronized 3-Tier model (Foundations, Intermediate, Production)." },
+]
+
+const v43Changed = [
+  { label: "Course Catalog Update", detail: "Expanded categories to include 'Foundations' and prioritized the new onboarding track for new users." },
+  { label: "Platform-wide Documentation", detail: "Updated Terms, Privacy, and README to reflect the hierarchical curriculum changes and local AI processing standards." },
+]
+
+// ── v4.2.0 ──
+const v42Added = [
+  { label: "Tier-3 Python Enhancements", detail: "Deployed advanced Production-Grade module to the Python course covering Dask distributed dataframes and integrated local SLM inference." },
+  { label: "PWA App Installation Prompts", detail: "Integrated a new 'Download the App' persistent popup into the prompts engine to encourage offline mobile usage." },
+]
+
+const v42Fixed = [
+  { label: "[LDG-005] Mobile UI Lag Smoothing", detail: "Conditionally removed heavy CSS backdrop-blur-sm instances in mobile viewing modes optimizing DOM repaints." },
+]
+
+// ── v4.1.0 ──
+const v41Added = [
+  { label: "\"Minus Zero to Hero\" Curriculum Architecture", detail: "Restructured the platform's learning paths to accommodate absolute beginners with introductory hardware and networking modules." },
+  { label: "3-Tier Track System", detail: "All 11 core domains explicitly tiered into Foundations, Intermediate, and Production-Grade." },
+]
+
+const v41Fixed = [
+  { label: "[HRO-002] 3D Hero Stutter on Mobile", detail: "Drastically improved mobile performance by conditionally disabling the 3D Canvas on viewports <768px, falling back to an optimized CSS-blurred rendering." },
+]
+
 // ── v4.0.0 ──
-const v4Added = [
+const v40Added = [
   { label: "Multi-Language Support (i18n)", detail: "The platform now fully supports English, Arabic (العربية), Tunisian Darija (تونسي), French (Français), and German (Deutsch). A globe-icon language switcher is embedded in the navbar and mobile menu. Locale preference is persisted in localStorage." },
   { label: "RTL Layout Engine", detail: "Arabic and Tunisian Darija selections automatically apply dir=\"rtl\" to the HTML root, delivering a proper right-to-left reading experience across all translated UI surfaces." },
   { label: "Language Switcher Component", detail: "New language-switcher.tsx dropdown component with locale flags, native language labels, and a localechange custom event bus that keeps the Navbar, Hero, Footer, and Terminal in sync without a full page reload." },
@@ -16,7 +48,7 @@ const v4Added = [
   { label: "Terminal lang Command", detail: "Added a new 'lang' command to the interactive terminal that lists all 5 supported languages with their native names and directionality." },
 ]
 
-const v4Fixed = [
+const v40Fixed = [
   { label: "[TRM-003] Terminal Scrolls Entire Page on Load", detail: "Removed autoFocus from the terminal input — this was causing the browser to scroll the full page down to the terminal on initial render, hiding the hero section. The scrollIntoView call was also replaced with direct container.scrollTop manipulation to prevent page-level scroll hijacking when users type commands." },
   { label: "[LDG-004] Landing Page Top Not Visible on Load", detail: "Root cause traced to autoFocus on the terminal input combined with scrollIntoView. Removing both and scoping the scroll to the terminal's own container div fixes the issue permanently." },
   { label: "Discord Link Audit", detail: "Performed a full codebase audit for any remaining discord.com or discord.gg links. All community-facing links now correctly point to the platform's Instagram profile (@http.sejed.official)." },
@@ -102,10 +134,136 @@ export default function ChangelogPage() {
 
         <div className="space-y-20">
 
-          {/* ── v4.0 Released ── */}
+          {/* ── v4.3 Released ── */}
           <section>
             <div className="flex items-center gap-3 mb-6">
               <div className="w-2.5 h-2.5 rounded-full bg-violet-500 animate-pulse" />
+              <h2 className="text-xl font-bold text-foreground">v4.3.0 — The "Minus Zero" & PWA Update</h2>
+              <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                <Calendar size={12} />
+                <span>Released March 31, 2026</span>
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <div className="bg-card/40 border border-border/60 rounded-2xl p-6 backdrop-blur-sm">
+                <div className="flex items-center gap-2 text-emerald-600 mb-5">
+                  <Plus size={18} />
+                  <h3 className="font-semibold">Added</h3>
+                </div>
+                <ul className="space-y-4 text-sm text-muted-foreground">
+                  {v43Added.map((item, i) => (
+                    <li key={i}>
+                      <strong className="text-foreground">{item.label}:</strong> {item.detail}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="bg-card/40 border border-border/60 rounded-2xl p-6 backdrop-blur-sm">
+                <div className="flex items-center gap-2 text-blue-600 mb-5">
+                  <RefreshCw size={18} />
+                  <h3 className="font-semibold">Changed</h3>
+                </div>
+                <ul className="space-y-4 text-sm text-muted-foreground">
+                  {v43Changed.map((item, i) => (
+                    <li key={i}>
+                      <strong className="text-foreground">{item.label}:</strong> {item.detail}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* ── v4.2 Released ── */}
+          <section>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-2.5 h-2.5 rounded-full bg-violet-500" />
+              <h2 className="text-xl font-bold text-foreground">v4.2.0 — PWA Optimization</h2>
+              <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                <Calendar size={12} />
+                <span>Released March 31, 2026</span>
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <div className="bg-card/40 border border-border/60 rounded-2xl p-6 backdrop-blur-sm">
+                <div className="flex items-center gap-2 text-emerald-600 mb-5">
+                  <Plus size={18} />
+                  <h3 className="font-semibold">Added</h3>
+                </div>
+                <ul className="space-y-4 text-sm text-muted-foreground">
+                  {v42Added.map((item, i) => (
+                    <li key={i}>
+                      <strong className="text-foreground">{item.label}:</strong> {item.detail}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="bg-card/40 border border-border/60 rounded-2xl p-6 backdrop-blur-sm">
+                <div className="flex items-center gap-2 text-blue-600 mb-5">
+                  <Wrench size={18} />
+                  <h3 className="font-semibold">Fixed</h3>
+                </div>
+                <ul className="space-y-4 text-sm text-muted-foreground">
+                  {v42Fixed.map((item, i) => (
+                    <li key={i}>
+                      <strong className="text-foreground">{item.label}:</strong> {item.detail}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* ── v4.1 Released ── */}
+          <section>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-2.5 h-2.5 rounded-full bg-violet-500" />
+              <h2 className="text-xl font-bold text-foreground">v4.1.0 — Architecture Pivot</h2>
+              <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                <Calendar size={12} />
+                <span>Released March 31, 2026</span>
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <div className="bg-card/40 border border-border/60 rounded-2xl p-6 backdrop-blur-sm">
+                <div className="flex items-center gap-2 text-emerald-600 mb-5">
+                  <Plus size={18} />
+                  <h3 className="font-semibold">Added</h3>
+                </div>
+                <ul className="space-y-4 text-sm text-muted-foreground">
+                  {v41Added.map((item, i) => (
+                    <li key={i}>
+                      <strong className="text-foreground">{item.label}:</strong> {item.detail}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="bg-card/40 border border-border/60 rounded-2xl p-6 backdrop-blur-sm">
+                <div className="flex items-center gap-2 text-blue-600 mb-5">
+                  <Wrench size={18} />
+                  <h3 className="font-semibold">Fixed</h3>
+                </div>
+                <ul className="space-y-4 text-sm text-muted-foreground">
+                  {v41Fixed.map((item, i) => (
+                    <li key={i}>
+                      <strong className="text-foreground">{item.label}:</strong> {item.detail}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* ── v4.0 Released ── */}
+          <section>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-2.5 h-2.5 rounded-full bg-violet-500" />
               <h2 className="text-xl font-bold text-foreground">v4.0.0 — Multi-Language Release</h2>
               <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
                 <Calendar size={12} />
@@ -120,7 +278,7 @@ export default function ChangelogPage() {
                   <h3 className="font-semibold">Added</h3>
                 </div>
                 <ul className="space-y-4 text-sm text-muted-foreground">
-                  {v4Added.map((item, i) => (
+                  {v40Added.map((item, i) => (
                     <li key={i}>
                       <strong className="text-foreground">{item.label}:</strong> {item.detail}
                     </li>
@@ -134,7 +292,7 @@ export default function ChangelogPage() {
                   <h3 className="font-semibold">Fixed</h3>
                 </div>
                 <ul className="space-y-4 text-sm text-muted-foreground">
-                  {v4Fixed.map((item, i) => (
+                  {v40Fixed.map((item, i) => (
                     <li key={i}>
                       <strong className="text-foreground">{item.label}:</strong> {item.detail}
                     </li>

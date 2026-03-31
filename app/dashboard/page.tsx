@@ -11,19 +11,20 @@ import { cn } from "@/lib/utils"
 // storageTitle must match exactly what LessonPlayer writes:
 // "opensyntax-progress-" + title.toLowerCase().replace(/\s+/g, "-")
 const courses = [
-  { slug: "web", title: "Web Engineering", storageTitle: "full-stack-web-engineering", color: "oklch(0.72 0.17 196)", lessons: 6 },
+  { slug: "foundations", title: "Foundations", storageTitle: "computing-foundations", color: "oklch(0.60 0.15 250)", lessons: 6 },
+  { slug: "web", title: "Web Engineering", storageTitle: "web-engineering", color: "oklch(0.72 0.17 196)", lessons: 9 },
+  { slug: "discord", title: "Discord Dev", storageTitle: "discord-development", color: "#7289DA", lessons: 11 },
+  { slug: "python", title: "Python & Data", storageTitle: "python-&-data-science", color: "#FFD43B", lessons: 19 },
+  { slug: "ai-ml", title: "AI/ML Engineering", storageTitle: "ai/ml-engineering", color: "oklch(0.70 0.20 300)", lessons: 10 },
+  { slug: "typescript", title: "TS Mastery", storageTitle: "typescript-mastery", color: "#3178C6", lessons: 13 },
+  { slug: "devops", title: "DevOps", storageTitle: "devops-&-cloud-engineering", color: "oklch(0.68 0.18 145)", lessons: 13 },
+  { slug: "databases", title: "Databases", storageTitle: "database-engineering", color: "oklch(0.65 0.15 230)", lessons: 8 },
+  { slug: "react-patterns", title: "React Patterns", storageTitle: "react-advanced-patterns", color: "#61DAFB", lessons: 12 },
+  { slug: "cybersecurity", title: "Cybersecurity", storageTitle: "cybersecurity-fundamentals", color: "oklch(0.63 0.20 25)", lessons: 9 },
+  { slug: "blockchain", title: "Web3/Blockchain", storageTitle: "blockchain-&-web3-engineering", color: "oklch(0.72 0.17 55)", lessons: 12 },
+  { slug: "mobile", title: "Mobile Apps", storageTitle: "mobile-engineering", color: "oklch(0.70 0.18 330)", lessons: 10 },
   { slug: "system-design", title: "System Design", storageTitle: "system-design", color: "#E44D26", lessons: 8 },
-  { slug: "rust", title: "Rust & Systems", storageTitle: "rust-&-systems-programming", color: "#DEA584", lessons: 10 },
-  { slug: "discord", title: "Discord Dev", storageTitle: "advanced-discord-development", color: "#7289DA", lessons: 5 },
-  { slug: "python", title: "Python & Data", storageTitle: "python-&-data-science", color: "#FFD43B", lessons: 6 },
-  { slug: "ai-ml", title: "AI/ML Engineering", storageTitle: "ai/ml-engineering", color: "oklch(0.70 0.20 300)", lessons: 5 },
-  { slug: "typescript", title: "TS Mastery", storageTitle: "typescript-mastery", color: "#3178C6", lessons: 5 },
-  { slug: "devops", title: "DevOps", storageTitle: "devops-&-cloud-engineering", color: "oklch(0.68 0.18 145)", lessons: 6 },
-  { slug: "databases", title: "Databases", storageTitle: "database-engineering", color: "oklch(0.65 0.15 230)", lessons: 5 },
-  { slug: "react-patterns", title: "React Patterns", storageTitle: "react-advanced-patterns", color: "#61DAFB", lessons: 5 },
-  { slug: "cybersecurity", title: "Cybersecurity", storageTitle: "cybersecurity-fundamentals", color: "oklch(0.63 0.20 25)", lessons: 4 },
-  { slug: "blockchain", title: "Web3/Blockchain", storageTitle: "blockchain-&-web3-engineering", color: "oklch(0.72 0.17 55)", lessons: 4 },
-  { slug: "mobile", title: "Mobile Apps", storageTitle: "mobile-engineering-·-react-native", color: "oklch(0.70 0.18 330)", lessons: 5 },
+  { slug: "rust", title: "Rust & Systems", storageTitle: "rust-&-systems-programming", color: "#DEA584", lessons: 4 },
 ]
 
 export default function DashboardPage() {
@@ -99,21 +100,7 @@ export default function DashboardPage() {
           </div>
         </header>
 
-        {/* Known Bug Alert Section */}
-        <section className="mb-10 animate-in fade-in slide-in-from-top-4 duration-700">
-           <Link href="/bugs" className="group flex items-center justify-between gap-4 p-4 bg-red-500/5 border border-red-500/10 rounded-2xl hover:bg-red-500/10 transition-all">
-              <div className="flex items-center gap-3">
-                 <div className="p-2 bg-red-500/20 rounded-lg text-red-600 group-hover:scale-110 transition-transform">
-                    <AlertCircle size={18} />
-                 </div>
-                 <div>
-                    <p className="text-xs font-bold text-red-600 uppercase tracking-widest mb-0.5">Known Platform Issue</p>
-                    <p className="text-sm text-red-600/80 font-medium leading-relaxed">Dashboard completion counts may occasionally lag behind course progress. We are standardizing keys in v3.1.0.</p>
-                 </div>
-              </div>
-              <ArrowRight size={20} className="text-red-500/40 group-hover:translate-x-1 transition-transform" />
-           </Link>
-        </section>
+
 
         <section className="mb-10 min-h-[4px] bg-secondary rounded-full overflow-hidden relative">
            <motion.div 
