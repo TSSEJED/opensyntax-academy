@@ -156,6 +156,44 @@ full_pipeline = Pipeline(steps=[('preprocessor', preprocessor),
       },
     ],
   },
+  {
+    id: "production-analytics", title: "Module 3 — Tier-3: Production-Grade Analytics",
+    lessons: [
+      {
+        id: "dask-distributed", title: "Big Data Processing with Dask", duration: "45 min",
+        description: "Scale beyond Pandas' memory constraints. Process terabytes of data using Dask's lazy evaluation and distributed task schedulers.",
+        content: `<h2>Scaling Out with Dask</h2>
+<p>Pandas is limited to processing data that fits entirely into RAM. <strong>Dask</strong> partitions vast datasets and distributes the workload across multiple CPU cores or clusters dynamically.</p>
+<pre><code class="language-python">import dask.dataframe as dd
+
+# Lazy load a massive CSV split across many files
+ddf = dd.read_csv('s3://massive-bucket/data-*.csv')
+
+# Perform distributed aggregations without loading into memory
+result = ddf.groupby('category').revenue.sum().compute()
+</code></pre>
+<p>Behind the scenes, Dask constructs a task graph and optimally schedules operations, minimizing memory spikes.</p>`
+      },
+      {
+        id: "slm-integration", title: "Integrating Local SLM Agents", duration: "50 min",
+        description: "Deploy offline Small Language Models (SLMs) locally via WebAssembly to power semantic routing and anomaly detection locally.",
+        content: `<h2>Local AI Inference with SLMs</h2>
+<p>Passing sensitive data to external API endpoints introduces latency and major zero-trust security flaws. We can compile local Small Language Models (like Llama 3 8B or Mistral) using GGML and execute inferences entirely offline using WebAssembly or localized Python bindings.</p>
+<pre><code class="language-python">from llama_cpp import Llama
+
+# Load quantized model (GGUF format)
+llm = Llama(model_path="./models/mistral-7b-v0.1.Q4_K_M.gguf", n_ctx=2048)
+
+response = llm(
+  "Identify anomalies in this server log: error: memory boundary overflow at 0x00FFF",
+  max_tokens=50
+)
+print(response['choices'][0]['text'])
+</code></pre>
+<p>By pairing local SLMs with Python's FastApi, you can spin up self-reliant, zero-telemetry ML pipelines.</p>`
+      }
+    ],
+  },
 ]
 
 export default function PythonCoursePage() {

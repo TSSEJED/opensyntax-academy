@@ -4,15 +4,17 @@
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Instagram](https://img.shields.io/badge/Instagram-Join_Community-E4405F?logo=instagram&logoColor=white)](https://www.instagram.com/http.sejed.official/)
-[![Version](https://img.shields.io/badge/version-4.0.0-violet)](https://opensyntax-academy.vercel.app/changelog)
+[![Version](https://img.shields.io/badge/version-4.2.0-violet)](https://opensyntax-academy.vercel.app/changelog)
 
 ---
 
-## About Version 4.0.0 — Multi-Language Release
+## About Version 4.2.0 — "Minus Zero to Hero" & PWA Tier-3 Optimization
 
-OpenSyntax 4.0.0 brings full **multi-language support** to the platform. Users can now switch between **English, Arabic (العربية), Tunisian Darija (تونسي), French (Français), and German (Deutsch)** via a globe-icon language switcher in the navbar. Arabic and Tunisian automatically apply a proper **RTL layout**. Language preference is persisted in `localStorage`.
+OpenSyntax 4.2.0 introduces the **"Minus Zero to Hero"** architectural curriculum upgrade alongside a new **PWA Install Prompt** and Tier-3 (Production-Grade) modules for Python. We have restructured the platform into a cohesive 3-Tier model (Foundations, Intermediate, Production-Grade), expanding courses up to advanced production pipelines like local SLMs.
 
-This release also ships critical bug fixes: the interactive terminal no longer scrolls the entire page on load, and the landing page now correctly shows the top of the hero on first render.
+This release also features a massive mobile optimization patch, safely removing the WebGL 3D Canvas on smaller viewports to guarantee 60FPS UI performance and eliminate rendering bottlenecks for low-end devices.
+
+*(Previously in v4.0.0: Full multi-language RTL support and global i18n implementation).*
 
 ---
 

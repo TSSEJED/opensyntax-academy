@@ -35,6 +35,7 @@ export default function PrivacyPage() {
               <li><strong className="text-foreground">Cookies:</strong> We do not set any first-party tracking cookies. Third-party services (e.g., Vercel) may set technical cookies necessary for platform operation.</li>
               <li><strong className="text-foreground">No Account System:</strong> OpenSyntax currently has no user registration. Your lesson progress is stored locally in your browser&apos;s localStorage only.</li>
               <li><strong className="text-foreground">Language Preference:</strong> Starting from v4.0.0, your selected UI language (English, Arabic, Tunisian, French, or German) is stored in <code className="text-accent text-xs">localStorage</code> under the key <code className="text-accent text-xs">opensyntax_locale</code>. This data never leaves your device and is not transmitted to any server.</li>
+              <li><strong className="text-foreground">AI & Local Models:</strong> Features involving AI integration and Small Language Models (SLMs) execute entirely locally on your device or via WebAssembly. No prompts or code telemetry are sent to external servers.</li>
             </ul>
           </section>
 

@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.2.0] — 2026-03-31 — Next-Level UX & PWA Optimization
+
+### Added
+- **Tier-3 Python Enhancements**: Deployed advanced Production-Grade module to the Python course covering Dask distributed dataframes and integrated local SLM inference via Llama.cpp and WebAssembly.
+- **PWA App Installation Prompts**: Integrated a new "Download the App" persistent popup into the `prompts` engine to encourage offline mobile usage.
+
+### Fixed
+- **[LDG-005] Mobile UI Lag Smoothing**: Conditionally removed heavy CSS `backdrop-blur-sm` instances in mobile viewing modes (Specifically the `LessonPlayer` sidebars) optimizing DOM repaints to eliminate FPS drops on smaller device screens.
+
+---
+
+## [4.1.0] — 2026-03-31 — "Minus Zero to Hero" Curriculum Upgrade & Mobile Optimization
+
+### Added
+- **"Minus Zero to Hero" Curriculum Architecture**: Completely restructured the platform's learning paths. The curriculum now properly accommodates absolute beginners with introductory hardware, networking, and terminal modules before bridging them into advanced tracks.
+- **3-Tier Track System**: All 11 core domains (Web, Discord, AI/ML, DevOps, PostgreSQL, TypeScript, React Patterns, Cybersecurity, Web3, Mobile, Python) are now explicitly tiered into Tier 1: Foundations, Tier 2: Intermediate, and Tier 3: Production-Grade.
+- **Bleeding-Edge Tier 3 Upgrades**: Pushed production tiers to include the latest patterns: Next.js Edge caching, K8s pod disruption budgets, TS conditional types, local SLMs, and woven OWASP security constraints.
+
+### Fixed
+- **[HRO-002] 3D Hero Stutter on Low-End Devices**: Drastically improved mobile landing page performance by conditionally disabling the `@react-three/fiber` Canvas on viewports `<768px`, falling back to an optimized CSS-blurred rendering. Eliminates frame drops and battery drain on mobile.
+
+---
+
 ## [4.0.0] — 2026-03-31 — Multi-Language Release
 
 ### Added

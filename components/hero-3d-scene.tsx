@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef } from "react"
+import { useRef, useState, useEffect } from "react"
 import { Canvas, useFrame } from "@react-three/fiber"
 import { Float, Environment, ContactShadows, MeshDistortMaterial } from "@react-three/drei"
 import * as THREE from "three"
@@ -35,6 +35,25 @@ function MorphingBlob() {
 }
 
 export function Hero3DScene() {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    handleResize()
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
+
+  if (isMobile) {
+    return (
+      <div className="absolute inset-0 -z-10 h-full w-full opacity-30 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] bg-violet-500 rounded-full blur-[100px]" />
+      </div>
+    )
+  }
+
   return (
     <div className="absolute inset-0 -z-10 h-full w-full opacity-60 pointer-events-none">
       <Canvas camera={{ position: [0, 0, 5], fov: 45 }} dpr={[1, 1.5]} performance={{ min: 0.5 }}>

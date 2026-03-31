@@ -19,6 +19,26 @@ const resolvedBugs = [
     plannedFix: "v4.0.0 ✓",
     resolvedIn: "v4.0.0",
   },
+  {
+    id: "LDG-005",
+    title: "Mobile UI Lag Smoothing",
+    severity: "Medium",
+    status: "Fixed",
+    description: "Heavy backdrop blurs on mobile sidebars caused extreme spikes in DOM repaints, lagging the device.",
+    workaround: "Fixed in v4.2.0 — Conditionally removed backdrop-blur-sm on mobile viewports (<768px).",
+    plannedFix: "v4.2.0 ✓",
+    resolvedIn: "v4.2.0",
+  },
+  {
+    id: "HRO-002",
+    title: "3D Hero Stutter on Low-End Devices",
+    severity: "Low",
+    status: "Fixed",
+    description: "On some older mobile devices, the 3D scene may cause frame drops despite existing DPR clamping.",
+    workaround: "Fixed in v4.1.0 — The 3D Canvas is completely disabled on mobile viewports (<768px) to guarantee smooth 60FPS performance, falling back to a CSS-based blurred element.",
+    plannedFix: "v4.1.0 ✓",
+    resolvedIn: "v4.1.0",
+  },
 ]
 
 const currentBugs = [
@@ -29,15 +49,6 @@ const currentBugs = [
     status: "Investigating",
     description: "In some browser configurations with strict privacy settings or storage partitioning (e.g., Firefox strict mode), the selected language may not persist across full page reloads because access to localStorage is blocked.",
     workaround: "Use a browser that supports localStorage, or set your browser's privacy level to Standard. The language switcher functions correctly on first selection within the session.",
-    plannedFix: "v4.0.x",
-  },
-  {
-    id: "HRO-002",
-    title: "3D Hero Stutter on Low-End Devices",
-    severity: "Low",
-    status: "Fixing",
-    description: "On some older mobile devices, the 3D scene may cause frame drops despite existing DPR clamping.",
-    workaround: "None required; the site remains functional, only the background animation is affected.",
     plannedFix: "v4.0.x",
   },
 ]
@@ -117,7 +128,7 @@ export default function BugsPage() {
         <div className="mb-14">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-500 text-[10px] font-bold uppercase tracking-widest mb-4">
             <AlertCircle size={12} />
-            Transparency Report · v4.0.0
+            Transparency Report · v4.2.0
           </div>
           <h1 className="text-4xl font-bold text-foreground text-balance mb-4 tracking-tight">Known Bugs</h1>
           <p className="text-sm text-muted-foreground max-w-xl">

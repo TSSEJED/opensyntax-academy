@@ -10,6 +10,14 @@ import { getTranslations, Locale, DEFAULT_LOCALE, I18N_STORAGE_KEY, LOCALES } fr
 
 export function Hero() {
   const [locale, setLocale] = useState<Locale>(DEFAULT_LOCALE)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
 
   useEffect(() => {
     try {
@@ -39,7 +47,7 @@ export function Hero() {
   return (
     <section className="relative flex flex-col items-center justify-center min-h-[90vh] px-6 pt-28 pb-20 text-center overflow-hidden">
       {/* 3D Scene Background */}
-      <Hero3DScene />
+      {!isMobile && <Hero3DScene />}
 
       {/* Light Mode Grid bg */}
       <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">

@@ -6,7 +6,7 @@ import { MessageSquare, Bug, LifeBuoy, X, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-type PromptType = "instagram" | "bugs" | "support"
+type PromptType = "instagram" | "bugs" | "support" | "pwa-app"
 
 interface PromptData {
   id: PromptType
@@ -49,6 +49,15 @@ const PROMPTS: PromptData[] = [
     external: true,
     accent: "oklch(0.72 0.17 196)",
   },
+  {
+    id: "pwa-app",
+    icon: ArrowRight,
+    title: "Download the App",
+    detail: "Install OpenSyntax for offline learning and zero mobile lag.",
+    action: "Install Now",
+    href: "/#pwa-install",
+    accent: "oklch(0.65 0.25 15)",
+  },
 ]
 
 const STORAGE_KEY = "opensyntax-dismissed-prompts"
@@ -78,11 +87,11 @@ export function Prompts() {
   useEffect(() => {
     const stored = getDismissed()
     const timer = setTimeout(() => {
-      let pick: PromptType = "instagram"
+      let pick: PromptType = "pwa-app"
       if (pathname === "/bugs") pick = "instagram"
       else if (pathname === "/dashboard") pick = "bugs"
-      else if (pathname === "/") pick = "support"
-      else pick = "instagram"
+      else if (pathname === "/") pick = "pwa-app"
+      else pick = "pwa-app"
 
       if (!stored.has(pick)) setActive(pick)
     }, 8000)
