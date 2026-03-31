@@ -7,6 +7,28 @@ export const metadata = {
   description: "Recent updates and architectural changes to the platform.",
 }
 
+// ── v4.0.0 ──
+const v4Added = [
+  { label: "Multi-Language Support (i18n)", detail: "The platform now fully supports English, Arabic (العربية), Tunisian Darija (تونسي), French (Français), and German (Deutsch). A globe-icon language switcher is embedded in the navbar and mobile menu. Locale preference is persisted in localStorage." },
+  { label: "RTL Layout Engine", detail: "Arabic and Tunisian Darija selections automatically apply dir=\"rtl\" to the HTML root, delivering a proper right-to-left reading experience across all translated UI surfaces." },
+  { label: "Language Switcher Component", detail: "New language-switcher.tsx dropdown component with locale flags, native language labels, and a localechange custom event bus that keeps the Navbar, Hero, Footer, and Terminal in sync without a full page reload." },
+  { label: "Known Bugs Page in Navigation", detail: "The /bugs Known Bugs transparency page is now directly accessible from the Navbar Resources dropdown and the mobile menu, with a distinct red accent to signal its importance." },
+  { label: "Terminal lang Command", detail: "Added a new 'lang' command to the interactive terminal that lists all 5 supported languages with their native names and directionality." },
+]
+
+const v4Fixed = [
+  { label: "[TRM-003] Terminal Scrolls Entire Page on Load", detail: "Removed autoFocus from the terminal input — this was causing the browser to scroll the full page down to the terminal on initial render, hiding the hero section. The scrollIntoView call was also replaced with direct container.scrollTop manipulation to prevent page-level scroll hijacking when users type commands." },
+  { label: "[LDG-004] Landing Page Top Not Visible on Load", detail: "Root cause traced to autoFocus on the terminal input combined with scrollIntoView. Removing both and scoping the scroll to the terminal's own container div fixes the issue permanently." },
+  { label: "Discord Link Audit", detail: "Performed a full codebase audit for any remaining discord.com or discord.gg links. All community-facing links now correctly point to the platform's Instagram profile (@http.sejed.official)." },
+]
+
+const v4Planned = [
+  "User authentication & persistent accounts (Cloud sync)",
+  "Community lesson submissions & review workflow",
+  "Comment threads on individual lessons",
+  "Auto-detect browser language for initial locale selection",
+]
+
 const v3Added = [
   { label: "Certificates System", detail: "New /certificates page for unlocking and generating digital, beautifully crafted, cryptographic-style completion certificates using SVG for all 13 courses. Features real-time local state syncing and a dashboard integration to \"View Awards\"." },
   { label: "Dashboard Synchronization", detail: "Upgraded /dashboard so all 13 courses (including System Design, Rust) seamlessly fetch user completion stats from active browser localStorage with corrected storage key mapping." },
@@ -28,9 +50,9 @@ const v3Added = [
 const v3Fixed = [
   { label: "[DSB-001] Dashboard Progress Desync", detail: "Fixed the critical dashboard sync bug by aligning localStorage key lookup (storageTitle) with the exact keys written by LessonPlayer. Dashboard now correctly reads completion progress from all 13 courses." },
   { label: "Mobile Sidebar Overlap", detail: "Fixed LessonPlayer mobile layout so the sidebar appears as an overlay with a backdrop rather than squishing the main reading content." },
-  { label: "Discord Popup Bounds", detail: "Refactored prompts.tsx notification to stay perfectly bounded within the screen width on mobile devices without causing horizontal overflow." },
+  { label: "Instagram Popup Bounds", detail: "Refactored prompts.tsx notification to stay perfectly bounded within the screen width on mobile devices without causing horizontal overflow." },
   { label: "Empty Category States", detail: "Added a gracefully styled \"Course in Development\" empty state fallback in the Course Catalog for categories that have no active courses." },
-  { label: "Discord Popup Persistence", detail: "Prompt popups now persist dismiss state in localStorage. Once dismissed, they stay dismissed across page reloads and navigation." },
+  { label: "Instagram Popup Persistence", detail: "Prompt popups now persist dismiss state in localStorage. Once dismissed, they stay dismissed across page reloads and navigation." },
   { label: "Stale Platform Stats", detail: "Updated hero section (13 courses, 250+ lessons), community CTA, and footer to reflect the correct course count. Changed misleading Watch Trailer button to Join Community." },
 ]
 
@@ -79,6 +101,63 @@ export default function ChangelogPage() {
         </div>
 
         <div className="space-y-20">
+
+          {/* ── v4.0 Released ── */}
+          <section>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-2.5 h-2.5 rounded-full bg-violet-500 animate-pulse" />
+              <h2 className="text-xl font-bold text-foreground">v4.0.0 — Multi-Language Release</h2>
+              <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                <Calendar size={12} />
+                <span>Released March 31, 2026</span>
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <div className="bg-card/40 border border-border/60 rounded-2xl p-6 backdrop-blur-sm">
+                <div className="flex items-center gap-2 text-emerald-600 mb-5">
+                  <Plus size={18} />
+                  <h3 className="font-semibold">Added</h3>
+                </div>
+                <ul className="space-y-4 text-sm text-muted-foreground">
+                  {v4Added.map((item, i) => (
+                    <li key={i}>
+                      <strong className="text-foreground">{item.label}:</strong> {item.detail}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="bg-card/40 border border-border/60 rounded-2xl p-6 backdrop-blur-sm">
+                <div className="flex items-center gap-2 text-blue-600 mb-5">
+                  <Wrench size={18} />
+                  <h3 className="font-semibold">Fixed</h3>
+                </div>
+                <ul className="space-y-4 text-sm text-muted-foreground">
+                  {v4Fixed.map((item, i) => (
+                    <li key={i}>
+                      <strong className="text-foreground">{item.label}:</strong> {item.detail}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="bg-card/40 border border-dashed border-accent/30 rounded-2xl p-6 backdrop-blur-sm">
+                <div className="flex items-center gap-2 text-accent mb-4">
+                  <Rocket size={16} />
+                  <h3 className="font-semibold text-sm">Planned for v4.x</h3>
+                </div>
+                <ul className="space-y-2 text-sm text-muted-foreground text-xs leading-relaxed">
+                  {v4Planned.map((item, i) => (
+                    <li key={i} className="flex items-start gap-2">
+                      <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent/40 flex-shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </section>
 
           {/* ── v3.0 Released ── */}
           <section>
@@ -209,7 +288,7 @@ export default function ChangelogPage() {
               <ul className="space-y-2 text-sm text-muted-foreground list-disc list-inside">
                 <li>Initial platform launch with Discord Development and Full-Stack Web Engineering paths.</li>
                 <li>Sidebar-driven lesson player with basic progress tracking.</li>
-                <li>Community Discord integration.</li>
+                <li>Community Instagram integration.</li>
                 <li>Apache 2.0 open-source license.</li>
               </ul>
             </div>

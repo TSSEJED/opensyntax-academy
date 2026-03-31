@@ -7,7 +7,7 @@ export const metadata = {
 }
 
 export default function TermsPage() {
-  const lastUpdated = "March 30, 2026"
+  const lastUpdated = "March 31, 2026"
   return (
     <div className="min-h-screen bg-background text-foreground font-sans">
       <Navbar />
@@ -22,14 +22,14 @@ export default function TermsPage() {
           <section>
             <h2 className="text-base font-semibold text-foreground mb-3">1. Acceptance of Terms</h2>
             <p>
-              By accessing or using the OpenSyntax platform (&quot;Service&quot;), you agree to be bound by these Terms of Service (&quot;Terms&quot;). If you do not agree to these Terms, you may not use the Service. OpenSyntax reserves the right to modify these Terms at any time, with notice provided via the platform or our Discord community server.
+              By accessing or using the OpenSyntax platform (&quot;Service&quot;), you agree to be bound by these Terms of Service (&quot;Terms&quot;). If you do not agree to these Terms, you may not use the Service. OpenSyntax reserves the right to modify these Terms at any time, with notice provided via the platform or our Instagram page.
             </p>
           </section>
 
           <section>
             <h2 className="text-base font-semibold text-foreground mb-3">2. Description of Service</h2>
             <p>
-              OpenSyntax is a free, open-source learning platform providing educational content on advanced software development topics, including Discord bot development and full-stack web engineering. Our platform features interactive lessons, immersive 3D interfaces, and detailed course metadata (including instructor attribution, prerequisites, and community-aggregated ratings). All content is provided &quot;as is&quot; for educational purposes only. OpenSyntax is community-funded and does not charge for access to any content.
+              OpenSyntax is a free, open-source learning platform providing educational content on advanced software development topics, including Discord bot development and full-stack web engineering. Our platform features interactive lessons, immersive 3D interfaces, detailed course metadata (including instructor attribution, prerequisites, and community-aggregated ratings), and multi-language support (English, Arabic, Tunisian Darija, French, German). All content is provided &quot;as is&quot; for educational purposes only. OpenSyntax is community-funded and does not charge for access to any content.
             </p>
           </section>
 
@@ -45,13 +45,13 @@ export default function TermsPage() {
 
           <section>
             <h2 className="text-base font-semibold text-foreground mb-3">4. User Conduct</h2>
-            <p>When using the Service and associated community spaces (Discord server), you agree to:</p>
+            <p>When using the Service and associated community spaces (Instagram profile), you agree to:</p>
             <ul className="mt-3 space-y-2 list-disc list-inside">
               <li>Treat all community members with respect and courtesy.</li>
               <li>Not engage in harassment, hate speech, discrimination, or targeted abuse.</li>
               <li>Not distribute malicious code, exploits, or unauthorized software.</li>
               <li>Not attempt to reverse-engineer, scrape, or automate access to the platform in unauthorized ways.</li>
-              <li>Comply with Discord&apos;s Terms of Service when participating in the community server.</li>
+              <li>Comply with Instagram&apos;s Terms of Service when participating in the Instagram page.</li>
             </ul>
           </section>
 
@@ -87,8 +87,8 @@ export default function TermsPage() {
             <h2 className="text-base font-semibold text-foreground mb-3">9. Contact</h2>
             <p>
               For questions about these Terms, please join our{" "}
-              <a href="https://discord.gg/66GA8MNPeB" target="_blank" rel="noopener noreferrer" className="text-accent underline underline-offset-2 hover:no-underline">
-                Discord community server
+              <a href="https://www.instagram.com/http.sejed.official/" target="_blank" rel="noopener noreferrer" className="text-accent underline underline-offset-2 hover:no-underline">
+                Instagram page
               </a>{" "}
               and reach out to the moderation team.
             </p>

@@ -374,11 +374,11 @@ export default function StatusPage() {
             </div>
             <ArrowUpRight size={16} className="text-muted-foreground group-hover:text-accent transition-colors" />
           </a>
-          <a href="https://discord.gg/66GA8MNPeB" target="_blank" rel="noopener noreferrer"
+          <a href="https://www.instagram.com/http.sejed.official/" target="_blank" rel="noopener noreferrer"
             className="flex items-center justify-between rounded-xl border border-border bg-card/50 p-4 hover:border-accent/30 hover:bg-secondary/50 transition-all group">
             <div>
               <p className="text-sm font-semibold">Report an Issue</p>
-              <p className="text-xs text-muted-foreground">Community Discord</p>
+              <p className="text-xs text-muted-foreground">Community Instagram</p>
             </div>
             <ArrowUpRight size={16} className="text-muted-foreground group-hover:text-accent transition-colors" />
           </a>

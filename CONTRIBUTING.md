@@ -110,4 +110,4 @@ Example: `feat: add Redis pub/sub lesson to discord path`
 
 ---
 
-Questions? Join us on Discord: [discord.gg/66GA8MNPeB](https://discord.gg/66GA8MNPeB)
+Questions? Join us on Discord: [@http.sejed.official](https://www.instagram.com/http.sejed.official/)

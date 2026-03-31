@@ -6,7 +6,7 @@ import { MessageSquare, Bug, LifeBuoy, X, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-type PromptType = "discord" | "bugs" | "support"
+type PromptType = "instagram" | "bugs" | "support"
 
 interface PromptData {
   id: PromptType
@@ -21,12 +21,12 @@ interface PromptData {
 
 const PROMPTS: PromptData[] = [
   {
-    id: "discord",
+    id: "instagram",
     icon: MessageSquare,
-    title: "Wanna discord this?",
+    title: "Connect on Instagram?",
     detail: "Join 2,500+ devs discussing lessons in real-time.",
     action: "Join Server",
-    href: "https://discord.gg/66GA8MNPeB",
+    href: "https://www.instagram.com/http.sejed.official/",
     external: true,
     accent: "oklch(0.60 0.22 295)",
   },
@@ -45,7 +45,7 @@ const PROMPTS: PromptData[] = [
     title: "Join our support server?",
     detail: "Direct access to instructors and maintainers.",
     action: "Get Help",
-    href: "https://discord.gg/66GA8MNPeB",
+    href: "https://www.instagram.com/http.sejed.official/",
     external: true,
     accent: "oklch(0.72 0.17 196)",
   },
@@ -78,11 +78,11 @@ export function Prompts() {
   useEffect(() => {
     const stored = getDismissed()
     const timer = setTimeout(() => {
-      let pick: PromptType = "discord"
-      if (pathname === "/bugs") pick = "discord"
+      let pick: PromptType = "instagram"
+      if (pathname === "/bugs") pick = "instagram"
       else if (pathname === "/dashboard") pick = "bugs"
       else if (pathname === "/") pick = "support"
-      else pick = "discord"
+      else pick = "instagram"
 
       if (!stored.has(pick)) setActive(pick)
     }, 8000)

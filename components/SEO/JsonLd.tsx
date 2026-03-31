@@ -20,12 +20,12 @@ export function OrganizationJsonLd({ url = "https://opensyntax-academy.vercel.ap
       "A free, open-source learning platform for advanced Discord development and full-stack web engineering.",
     sameAs: [
       "https://github.com/TSSEJED/opensyntax-academy",
-      "https://discord.gg/66GA8MNPeB",
+      "https://www.instagram.com/http.sejed.official/",
     ],
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "community support",
-      url: "https://discord.gg/66GA8MNPeB",
+      url: "https://www.instagram.com/http.sejed.official/",
     },
   }
 

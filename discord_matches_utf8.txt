@@ -1,0 +1,122 @@
+﻿CHANGELOG.md:34:- **Discord Popup Bounds**: Refactored `prompts.tsx` notification to stay perfectly bounded within the screen width on mobile devices without causing horizontal overflow.
+CHANGELOG.md:36:- **Discord Popup Persistence**: Prompt popups now persist dismiss state in `localStorage`. Once dismissed, they stay dismissed across page reloads and navigation, preventing UX friction and content overlap.
+CHANGELOG.md:39:- **Misleading CTA**: Changed "Watch Trailer" hero button to "Join Community" since it links to Discord, not a video.
+CHANGELOG.md:59:- **Interactive Knowledge Checks**: Lessons now feature optional end-of-lesson quizzes with instant feedback, correct/incorrect answer highlighting, and explanations. Shipped to Web, Discord, and Python tracks.
+CHANGELOG.md:64:- **Rich Social Presence**: Added `openGraph` and `twitter` card metadata for proper link previews on Discord, X, and LinkedIn.
+CHANGELOG.md:87:- Initial platform launch with Discord Development and Full-Stack Web Engineering paths.
+CHANGELOG.md:89:- Community Discord integration.
+CONTRIBUTING.md:28:- **Discord Path:** `app/courses/discord/page.tsx`
+CONTRIBUTING.md:99:Example: `feat: add Redis pub/sub lesson to discord path`
+CONTRIBUTING.md:113:Questions? Join us on Discord: [discord.gg/66GA8MNPeB](https://discord.gg/66GA8MNPeB)
+README.md:6:[![Discord](https://img.shields.io/badge/Discord-Join_Community-5865F2?logo=discord&logoColor=white)](https://discord.gg/66GA8MNPeB)
+README.md:12:OpenSyntax 2.0 represents a massive scale-up of the platform. We have moved beyond just Next.js and Discord bots into a comprehensive architectural academy. Features now include a rich **Bento-style course catalog**, an immersive **3D interactive hero**, a pristine enforced Light Mode aesthetic, and over **50 new lesson modules** spanning 11 core disciplines.
+README.md:20:- **11 Extensive Learning Paths** ΓÇö Web, Discord, Python, AI/ML, TypeScript, DevOps, Databases, React Patterns, Cybersecurity, Blockchain, and Mobile.
+README.md:34:2. **Discord Development (discord.py / AutoSharding)**
+README.md:83:Join the support server: [discord.gg/66GA8MNPeB](https://discord.gg/66GA8MNPeB)
+app/bugs/page.tsx:113:             href="https://discord.gg/66GA8MNPeB" 
+app/bugs/page.tsx:122:                 <p className="text-xs text-muted-foreground leading-relaxed">Join our Discord server and post in the #platform-bugs channel for immediate help.</p>
+app/certificates/page.tsx:14:  { slug: "discord", title: "Advanced Discord Development", lessons: 5 },
+app/changelog/page.tsx:31:  { label: "Discord Popup Bounds", detail: "Refactored prompts.tsx notification to stay perfectly bounded within the screen width on mobile devices without causing horizontal overflow." },
+app/changelog/page.tsx:33:  { label: "Discord Popup Persistence", detail: "Prompt popups now persist dismiss state in localStorage. Once dismissed, they stay dismissed across page reloads and navigation." },
+app/changelog/page.tsx:44:  { label: "Interactive Knowledge Checks", detail: "End-of-lesson quizzes with instant feedback, answer highlighting, and explanations on Web, Discord, and Python tracks." },
+app/changelog/page.tsx:49:  { label: "50+ Lesson Modules", detail: "Massive content injection across all 11 disciplines: Web, Discord, Python, AI/ML, TypeScript, DevOps, Databases, React, Cybersecurity, Blockchain, Mobile." },
+app/changelog/page.tsx:51:  { label: "Rich Social Presence", detail: "OpenGraph and Twitter card metadata for premium link previews on Discord, X, and LinkedIn." },
+app/changelog/page.tsx:210:                <li>Initial platform launch with Discord Development and Full-Stack Web Engineering paths.</li>
+app/changelog/page.tsx:212:                <li>Community Discord integration.</li>
+app/contributing/page.tsx:36:              Each learning path has its lesson data defined in its specific page file (e.g., <code>app/courses/discord/page.tsx</code>).
+app/contributing/page.tsx:154:            <a href="https://discord.gg/66GA8MNPeB" target="_blank" rel="noopener noreferrer"
+app/contributing/page.tsx:157:              Join the Discord
+app/courses/discord/page.tsx:6:  title: "Discord Bot Development ΓÇö discord.py, Sharding & asyncpg",
+app/courses/discord/page.tsx:7:  description: "Build production-grade Discord bots. Hot-reloadable Cogs, slash commands, PostgreSQL pooling with asyncpg, horizontal sharding, and Redis IPC.",
+app/courses/discord/page.tsx:8:  keywords: ["Discord Bot Course", "discord.py Tutorial", "Discord Bot Development", "Python Bot", "Slash Commands", "Bot Sharding"],
+app/courses/discord/page.tsx:11:const discordModules: Module[] = [
+app/courses/discord/page.tsx:13:    id: "discord-fundamentals", title: "Module 1 ΓÇö Bot Architecture",
+app/courses/discord/page.tsx:16:        id: "intro-discord-py", title: "Introduction to discord.py", duration: "15 min",
+app/courses/discord/page.tsx:18:        content: `<h2>Getting Started with discord.py</h2>
+app/courses/discord/page.tsx:19:<p>Modern Discord bot development relies on asynchronous Python. The <code>discord.py</code> library provides a comprehensive async API wrapping the Discord Gateway.</p>
+app/courses/discord/page.tsx:21:<pre><code class="language-python">import discord
+app/courses/discord/page.tsx:22:from discord.ext import commands
+app/courses/discord/page.tsx:26:        intents = discord.Intents.default()
+app/courses/discord/page.tsx:36:<p>Notice the use of <code>Intents</code>. Discord requires you to explicitly declare what events your bot needs (like reading messages or detecting member joins) to save bandwidth and improve privacy.</p>`
+app/courses/discord/page.tsx:45:import discord
+app/courses/discord/page.tsx:46:from discord.ext import commands
+app/courses/discord/page.tsx:54:    async def kick_user(self, ctx, member: discord.Member, *, reason=None):
+app/courses/discord/page.tsx:84:    id: "discord-advanced", title: "Module 2 ΓÇö Advanced Scaling",
+app/courses/discord/page.tsx:88:        description: "Migrate from text prefix commands to native Discord slash commands with autocomplete.",
+app/courses/discord/page.tsx:90:<p>Prefix commands are obsolete. Slash commands provide UI integration, type hinting, and autocomplete directly in the Discord client.</p>
+app/courses/discord/page.tsx:91:<pre><code class="language-python">from discord import app_commands
+app/courses/discord/page.tsx:98:    async def ping(self, interaction: discord.Interaction):
+app/courses/discord/page.tsx:104:    async def fruit(self, interaction: discord.Interaction, choice: str):
+app/courses/discord/page.tsx:108:    async def fruit_autocomplete(self, interaction: discord.Interaction, current: str):
+app/courses/discord/page.tsx:132:            database='discord_bot', host='127.0.0.1'
+app/courses/discord/page.tsx:144:<p>Discord enforces sharding (splitting the WebSocket connection) when a bot joins more than 2,500 servers. To manage this safely across multiple servers/processes, use <code>AutoShardedClient</code> and Redis.</p>
+app/courses/discord/page.tsx:150:            intents=discord.Intents.default(),
+app/courses/discord/page.tsx:151:            shard_count=10 # Explicitly set or let Discord calculate
+app/courses/discord/page.tsx:163:export default function DiscordCoursePage() {
+app/courses/discord/page.tsx:168:        title="Advanced Discord Development"
+app/courses/discord/page.tsx:169:        description="Production-grade Discord bot architecture with hot-reloadable Cogs, horizontal sharding via AutoShardedClient, connection pooling with asyncpg, Redis caching, and cross-shard IPC."
+app/courses/discord/page.tsx:170:        category="Discord"
+app/courses/discord/page.tsx:172:        modules={discordModules}
+app/dashboard/page.tsx:17:  { slug: "discord", title: "Discord Dev", storageTitle: "advanced-discord-development", color: "#7289DA", lessons: 5 },
+app/layout.tsx:20:    "Master Advanced Discord Development and Full-Stack Web Engineering. Free, community-funded, and open-source. Level up your programming career with 11 expert learning paths.",
+app/layout.tsx:22:    "discord bot development",
+app/layout.tsx:40:      "Master Advanced Discord Development and Full-Stack Web Engineering. Free, community-funded, and open-source. Level up your programming career.",
+app/layout.tsx:50:      "Master Advanced Discord Development and Full-Stack Web Engineering. Free, community-funded, and open-source.",
+app/privacy/page.tsx:51:              Our Discord community server is governed by <strong className="text-foreground">Discord&apos;s{" "}
+app/privacy/page.tsx:52:              <a href="https://discord.com/privacy" target="_blank" rel="noopener noreferrer" className="text-accent underline underline-offset-2">Privacy Policy</a></strong>.
+app/privacy/page.tsx:75:              As we collect no personal data, exercising these rights will typically result in confirmation that no data is held. To submit a request, contact us via Discord.
+app/privacy/page.tsx:96:              We may update this Privacy Policy periodically. Significant changes will be announced in our Discord community server. Continued use of the Service after changes constitutes acceptance of the updated policy.
+app/privacy/page.tsx:104:              <a href="https://discord.gg/66GA8MNPeB" target="_blank" rel="noopener noreferrer" className="text-accent underline underline-offset-2 hover:no-underline">
+app/privacy/page.tsx:105:                Discord server (discord.gg/66GA8MNPeB)
+app/sitemap.ts:18:  { slug: "discord",        title: "Advanced Discord Development"  },
+app/status/page.tsx:377:          <a href="https://discord.gg/66GA8MNPeB" target="_blank" rel="noopener noreferrer"
+app/status/page.tsx:381:              <p className="text-xs text-muted-foreground">Community Discord</p>
+app/terms/page.tsx:25:              By accessing or using the OpenSyntax platform (&quot;Service&quot;), you agree to be bound by these Terms of Service (&quot;Terms&quot;). If you do not agree to these Terms, you may not use the Service. OpenSyntax reserves the right to modify these Terms at any time, with notice provided via the platform or our Discord community server.
+app/terms/page.tsx:32:              OpenSyntax is a free, open-source learning platform providing educational content on advanced software development topics, including Discord bot development and full-stack web engineering. Our platform features interactive lessons, immersive 3D interfaces, and detailed course metadata (including instructor attribution, prerequisites, and community-aggregated ratings). All content is provided &quot;as is&quot; for educational purposes only. OpenSyntax is community-funded and does not charge for access to any content.
+app/terms/page.tsx:48:            <p>When using the Service and associated community spaces (Discord server), you agree to:</p>
+app/terms/page.tsx:54:              <li>Comply with Discord&apos;s Terms of Service when participating in the community server.</li>
+app/terms/page.tsx:90:              <a href="https://discord.gg/66GA8MNPeB" target="_blank" rel="noopener noreferrer" className="text-accent underline underline-offset-2 hover:no-underline">
+app/terms/page.tsx:91:                Discord community server
+components/SEO/JsonLd.tsx:20:      "A free, open-source learning platform for advanced Discord development and full-stack web engineering.",
+components/SEO/JsonLd.tsx:23:      "https://discord.gg/66GA8MNPeB",
+components/SEO/JsonLd.tsx:28:      url: "https://discord.gg/66GA8MNPeB",
+components/SEO/JsonLd.tsx:73:      "Premium open-source learning platform covering Discord development, Web Engineering, AI/ML, TypeScript, DevOps, Databases, and more.",
+components/community-cta.tsx:25:              Join the OpenSyntax Discord to get help, share your projects, and connect with developers building real things.
+components/community-cta.tsx:29:              href="https://discord.gg/66GA8MNPeB"
+components/community-cta.tsx:35:              Join discord.gg/66GA8MNPeB
+components/courses-catalog.tsx:42:    href: "/courses/discord",
+components/courses-catalog.tsx:43:    title: "Advanced Discord Development",
+components/courses-catalog.tsx:44:    subtitle: "discord.py ┬╖ Cogs ┬╖ Sharding ┬╖ PostgreSQL",
+components/courses-catalog.tsx:45:    description: "Production-grade Discord bot architecture with hot-reloadable Cogs, horizontal sharding via AutoShardedClient, connection pooling with asyncpg, Redis caching, and cross-shard IPC.",
+components/courses-catalog.tsx:47:    category: "Discord", difficulty: "Advanced",
+components/courses-catalog.tsx:49:    tags: ["Python", "discord.py", "PostgreSQL", "Redis", "Docker"],
+components/courses-catalog.tsx:193:const CATEGORIES = ["All", "Web", "AI & Data", "DevOps", "Systems", "Security", "Blockchain", "Mobile", "Discord"]
+components/courses-catalog.tsx:325:                  href="https://discord.gg/66GA8MNPeB"
+components/courses-catalog.tsx:330:                  Request on Discord
+components/features-section.tsx:9:  { icon: Layers,   title: "11 Learning Paths",           description: "Web, Discord, AI/ML, DevOps, Security, Blockchain, Mobile, and more ΓÇö master what matters." },
+components/footer.tsx:5:  { href: "/courses/discord",       label: "Discord Development" },
+components/footer.tsx:33:          <a href="https://discord.gg/66GA8MNPeB" target="_blank" rel="noopener noreferrer"
+components/footer.tsx:36:            Join discord.gg/66GA8MNPeB
+components/footer.tsx:59:          <a href="https://discord.gg/66GA8MNPeB" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-foreground transition-colors">Discord Server</a>
+components/footer.tsx:81:          <p>Built on the success of <a href="https://discord-blueprint.vercel.app/" target="_blank" rel="noopener noreferrer" className="hover:text-foreground underline underline-offset-2 transition-colors">Discord Blueprint</a>.</p>
+components/hero.tsx:75:          <a href="https://discord.gg/66GA8MNPeB" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center gap-2 rounded-2xl bg-white px-8 py-4 text-base font-bold border-2 border-border text-foreground hover:border-discord hover:text-discord shadow-sm transition-all duration-300 hover:shadow-lg">
+components/interactive-terminal.tsx:75:          <p>6. Advanced Discord Development</p>
+components/navbar.tsx:9:  { href: "/courses/discord",       label: "Discord Development",   tag: "discord.py"   },
+components/navbar.tsx:110:          <a href="https://discord.gg/66GA8MNPeB" target="_blank" rel="noopener noreferrer"
+components/navbar.tsx:170:          <a href="https://discord.gg/66GA8MNPeB" target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center py-4 rounded-xl bg-foreground text-background font-bold text-sm shadow-lg">Join Community</a>
+components/prompts.tsx:9:type PromptType = "discord" | "bugs" | "support"
+components/prompts.tsx:24:    id: "discord",
+components/prompts.tsx:26:    title: "Wanna discord this?",
+components/prompts.tsx:29:    href: "https://discord.gg/66GA8MNPeB",
+components/prompts.tsx:48:    href: "https://discord.gg/66GA8MNPeB",
+components/prompts.tsx:81:      let pick: PromptType = "discord"
+components/prompts.tsx:82:      if (pathname === "/bugs") pick = "discord"
+components/prompts.tsx:85:      else pick = "discord"
+components/testimonials-section.tsx:23:    role: "Discord Bot Developer",
+components/testimonials-section.tsx:24:    quote: "I went from basic discord.py scripts to a sharded, production-ready bot serving 50k users. The PostgreSQL + Redis lessons were game-changing.",
+lib/search-data.ts:19:  // ΓöÇΓöÇ Discord Development ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+lib/search-data.ts:20:  { id: "intro-discord-py", title: "Introduction to discord.py", description: "Set up your bot token, permissions, and build a basic event loop.", courseTitle: "Advanced Discord Development", courseSlug: "discord", category: "Discord", accentColor: "#7289DA" },
+lib/search-data.ts:21:  { id: "cogs-extensions", title: "Cogs & Hot-reloading", description: "Organize your bot into modular classes that reload without restarting.", courseTitle: "Advanced Discord Development", courseSlug: "discord", category: "Discord", accentColor: "#7289DA" },
+lib/search-data.ts:22:  { id: "slash-commands", title: "Application/Slash Commands", description: "Migrate to native Discord slash commands with autocomplete.", courseTitle: "Advanced Discord Development", courseSlug: "discord", category: "Discord", accentColor: "#7289DA" },
+lib/search-data.ts:23:  { id: "postgresql-asyncpg", title: "Database Integration with asyncpg", description: "Connect your bot to PostgreSQL using high-performance async pooling.", courseTitle: "Advanced Discord Development", courseSlug: "discord", category: "Discord", accentColor: "#7289DA" },
+lib/search-data.ts:24:  { id: "sharding-ipc", title: "Sharding & Redis IPC", description: "Scale your bot beyond 2,500 servers using AutoShardedClient.", courseTitle: "Advanced Discord Development", courseSlug: "discord", category: "Discord", accentColor: "#7289DA" },

@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import { Terminal } from "lucide-react"
+import { getTranslations, Locale, DEFAULT_LOCALE, I18N_STORAGE_KEY, LOCALES } from "@/lib/i18n"
 
 type Command = {
   cmd: string
@@ -26,12 +27,34 @@ const HISTORY: Command[] = [
 export function InteractiveTerminal() {
   const [history, setHistory] = useState<Command[]>(HISTORY)
   const [input, setInput] = useState("")
-  const bottomRef = useRef<HTMLDivElement>(null)
+  const [locale, setLocale] = useState<Locale>(DEFAULT_LOCALE)
+
+  // Ref for the scroll container (the terminal body div), NOT bottomRef
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
+  // Listen for locale changes
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" })
+    try {
+      const stored = localStorage.getItem(I18N_STORAGE_KEY) as Locale | null
+      if (stored && LOCALES.find(l => l.code === stored)) setLocale(stored)
+    } catch {}
+    const handler = (e: Event) => setLocale((e as CustomEvent<Locale>).detail)
+    window.addEventListener("localechange", handler)
+    return () => window.removeEventListener("localechange", handler)
+  }, [])
+
+  // Scroll ONLY the terminal container — NOT the whole page
+  // Only scroll when user has actually typed something (history.length > 1)
+  useEffect(() => {
+    if (history.length <= 1) return
+    const container = scrollContainerRef.current
+    if (container) {
+      container.scrollTop = container.scrollHeight
+    }
   }, [history])
+
+  const t = getTranslations(locale)
 
   const handleCommand = (e: React.FormEvent) => {
     e.preventDefault()
@@ -57,6 +80,7 @@ export function InteractiveTerminal() {
             <li><span className="text-emerald-300 font-bold">about</span> - About OpenSyntax Academy</li>
             <li><span className="text-emerald-300 font-bold">latest</span> - Latest platform updates</li>
             <li><span className="text-emerald-300 font-bold">version</span> - Show platform version</li>
+            <li><span className="text-emerald-300 font-bold">lang</span> - Show supported languages</li>
             <li><span className="text-emerald-300 font-bold">enroll</span> - Start your journey</li>
             <li><span className="text-emerald-300 font-bold">clear</span> - Clear the terminal</li>
           </ul>
@@ -69,9 +93,9 @@ export function InteractiveTerminal() {
         <div className="text-yellow-200">
           <p>1. Web Engineering (Next.js, Edge)</p>
           <p>2. System Design (Kafka, Redis, Sharding)</p>
-          <p>3. Rust & Systems Programming</p>
+          <p>3. Rust &amp; Systems Programming</p>
           <p>4. AI/ML Engineering</p>
-          <p>5. DevOps & Cloud</p>
+          <p>5. DevOps &amp; Cloud</p>
           <p>6. Advanced Discord Development</p>
           <p>7. Database Engineering</p>
           <p className="text-gray-400 italic mt-1">...and 6 more. 13 paths total.</p>
@@ -84,6 +108,7 @@ export function InteractiveTerminal() {
           <p className="mt-1">  Courses:    <span className="text-emerald-300 font-bold">13</span></p>
           <p>  Lessons:    <span className="text-emerald-300 font-bold">250+</span></p>
           <p>  Content:    <span className="text-emerald-300 font-bold">50h+</span></p>
+          <p>  Languages:  <span className="text-emerald-300 font-bold">5 (EN/AR/TN/FR/DE)</span></p>
           <p>  License:    <span className="text-emerald-300 font-bold">Apache 2.0</span></p>
           <p>  Price:      <span className="text-emerald-300 font-bold">$0 forever</span></p>
         </div>
@@ -95,26 +120,40 @@ export function InteractiveTerminal() {
           <p className="mt-1">A premium, completely free platform built to elevate your</p>
           <p>development skills. Community-funded, open-source, and</p>
           <p>designed for real-world engineering — not toy examples.</p>
-          <p className="mt-2 text-gray-400">→ https://opensyntax-academy.vercel.app</p>
+          <p className="mt-1 text-emerald-300">Now supports: EN · AR · TN · FR · DE</p>
+          <p className="mt-1 text-gray-400">→ https://opensyntax-academy.vercel.app</p>
         </div>
       )
     } else if (trimmed === "latest") {
       output = (
         <div className="text-amber-200">
-          <p className="text-white font-bold">🚀 v3.0.0 — Latest Updates</p>
-          <p className="mt-1 text-emerald-300">+ Testimonials section with social proof</p>
-          <p className="text-emerald-300">+ Dashboard progress desync fixed (DSB-001)</p>
-          <p className="text-emerald-300">+ Scroll-to-top navigation button</p>
-          <p className="text-emerald-300">+ Reading progress bar in lessons</p>
-          <p className="text-emerald-300">+ Enhanced terminal commands</p>
-          <p className="text-gray-400 italic mt-1">Run 'enroll' to start learning.</p>
+          <p className="text-white font-bold">🚀 v4.0.0 — Multi-Language Release</p>
+          <p className="mt-1 text-emerald-300">+ Multi-language support (EN, AR, TN, FR, DE)</p>
+          <p className="text-emerald-300">+ RTL layout for Arabic & Tunisian</p>
+          <p className="text-emerald-300">+ Known Bugs page added to nav</p>
+          <p className="text-emerald-300">+ Terminal scroll page-hijack fixed</p>
+          <p className="text-emerald-300">+ Landing page top visibility fixed</p>
+          <p className="text-gray-400 italic mt-1">Run &apos;enroll&apos; to start learning.</p>
         </div>
       )
     } else if (trimmed === "version") {
       output = (
         <div className="text-purple-300">
-          <p>OpenSyntax OS <span className="text-white font-bold">v3.0.0</span></p>
+          <p>OpenSyntax OS <span className="text-white font-bold">v4.0.0</span></p>
           <p className="text-gray-500 text-xs mt-1">Built with Next.js 16 · React 19 · Framer Motion</p>
+          <p className="text-gray-500 text-xs">i18n: EN · AR (RTL) · TN (RTL) · FR · DE</p>
+        </div>
+      )
+    } else if (trimmed === "lang") {
+      output = (
+        <div className="text-pink-300">
+          <p className="text-white font-bold">🌐 Supported Languages</p>
+          <p className="mt-1">  <span className="text-emerald-300">en</span> — English</p>
+          <p>  <span className="text-emerald-300">ar</span> — العربية (Arabic · RTL)</p>
+          <p>  <span className="text-emerald-300">tn</span> — تونسي (Tunisian Darija · RTL)</p>
+          <p>  <span className="text-emerald-300">fr</span> — Français (French)</p>
+          <p>  <span className="text-emerald-300">de</span> — Deutsch (German)</p>
+          <p className="text-gray-400 italic mt-1">Use the globe icon in the navbar to switch.</p>
         </div>
       )
     } else if (trimmed === "enroll") {
@@ -125,7 +164,7 @@ export function InteractiveTerminal() {
     } else if (trimmed.startsWith("echo ")) {
       output = <span className="text-white">{trimmed.substring(5)}</span>
     } else if (trimmed === "sudo") {
-      output = <span className="text-red-500 font-bold">Nice try. But you don't have root privileges here.</span>
+      output = <span className="text-red-500 font-bold">Nice try. But you don&apos;t have root privileges here.</span>
     }
 
     setHistory(prev => [...prev, { cmd: trimmed, output }])
@@ -133,7 +172,7 @@ export function InteractiveTerminal() {
   }
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.2 }}
@@ -154,17 +193,18 @@ export function InteractiveTerminal() {
           <Terminal size={12} />
           <span>bash — opensyntax-cli</span>
         </div>
-        <div className="w-12" /> {/* Spacer for balance */}
+        <div className="w-12" />
       </div>
 
-      {/* Terminal Body */}
-      <div 
+      {/* Terminal Body — scroll is contained here, NOT the page */}
+      <div
+        ref={scrollContainerRef}
         className="p-5 font-mono text-sm h-[320px] overflow-y-auto custom-scrollbar"
         onClick={() => inputRef.current?.focus()}
       >
         <div className="text-gray-400 mb-4">
-          <p>Welcome to OpenSyntax OS v3.0.0.</p>
-          <p>Type <span className="text-emerald-400 font-bold">'help'</span> to see available commands.</p>
+          <p>{t.terminal_welcome_1}</p>
+          <p>Type <span className="text-emerald-400 font-bold">&apos;help&apos;</span> to see available commands.</p>
         </div>
 
         {history.map((h, i) => (
@@ -190,10 +230,9 @@ export function InteractiveTerminal() {
             placeholder="Type a command..."
             spellCheck={false}
             autoComplete="off"
-            autoFocus
+            // autoFocus REMOVED — was causing the page to scroll down on load
           />
         </form>
-        <div ref={bottomRef} className="h-2" />
       </div>
     </motion.div>
   )

@@ -7,7 +7,7 @@ export const metadata = {
 }
 
 export default function PrivacyPage() {
-  const lastUpdated = "March 30, 2026"
+  const lastUpdated = "March 31, 2026"
   return (
     <div className="min-h-screen bg-background text-foreground font-sans">
       <Navbar />
@@ -33,7 +33,8 @@ export default function PrivacyPage() {
               <li><strong className="text-foreground">Usage Analytics:</strong> Anonymous, aggregated page view data via Vercel Analytics. No personally identifiable information is collected.</li>
               <li><strong className="text-foreground">Interactive Features:</strong> We do not track individual interactions (clicks, hovers) with our 3D assets, animated bento-box layouts, or course catalog filters. These are rendered purely on your local device.</li>
               <li><strong className="text-foreground">Cookies:</strong> We do not set any first-party tracking cookies. Third-party services (e.g., Vercel) may set technical cookies necessary for platform operation.</li>
-              <li><strong className="text-foreground">No Account System:</strong> OpenSyntax currently has no user registration. Your lesson progress is stored locally in your browser&apos;s session state only.</li>
+              <li><strong className="text-foreground">No Account System:</strong> OpenSyntax currently has no user registration. Your lesson progress is stored locally in your browser&apos;s localStorage only.</li>
+              <li><strong className="text-foreground">Language Preference:</strong> Starting from v4.0.0, your selected UI language (English, Arabic, Tunisian, French, or German) is stored in <code className="text-accent text-xs">localStorage</code> under the key <code className="text-accent text-xs">opensyntax_locale</code>. This data never leaves your device and is not transmitted to any server.</li>
             </ul>
           </section>
 
@@ -48,8 +49,8 @@ export default function PrivacyPage() {
             <h2 className="text-base font-semibold text-foreground mb-3">4. Third-Party Services</h2>
             <p>OpenSyntax is hosted on <strong className="text-foreground">Vercel</strong>. By using the platform, you are subject to Vercel&apos;s{" "}
               <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-accent underline underline-offset-2">Privacy Policy</a>.
-              Our Discord community server is governed by <strong className="text-foreground">Discord&apos;s{" "}
-              <a href="https://discord.com/privacy" target="_blank" rel="noopener noreferrer" className="text-accent underline underline-offset-2">Privacy Policy</a></strong>.
+              Our Instagram page is governed by <strong className="text-foreground">Instagram&apos;s{" "}
+              <a href="https://privacycenter.instagram.com/policy/" target="_blank" rel="noopener noreferrer" className="text-accent underline underline-offset-2">Privacy Policy</a></strong>.
               We are not responsible for data practices of third-party services.
             </p>
           </section>
@@ -72,7 +73,7 @@ export default function PrivacyPage() {
               <li><strong className="text-foreground">Right to Data Portability</strong> — Receive your data in a machine-readable format.</li>
             </ul>
             <p className="mt-3">
-              As we collect no personal data, exercising these rights will typically result in confirmation that no data is held. To submit a request, contact us via Discord.
+              As we collect no personal data, exercising these rights will typically result in confirmation that no data is held. To submit a request, contact us via Instagram.
             </p>
           </section>
 
@@ -93,7 +94,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-base font-semibold text-foreground mb-3">9. Changes to This Policy</h2>
             <p>
-              We may update this Privacy Policy periodically. Significant changes will be announced in our Discord community server. Continued use of the Service after changes constitutes acceptance of the updated policy.
+              We may update this Privacy Policy periodically. Significant changes will be announced in our Instagram page. Continued use of the Service after changes constitutes acceptance of the updated policy.
             </p>
           </section>
 
@@ -101,8 +102,8 @@ export default function PrivacyPage() {
             <h2 className="text-base font-semibold text-foreground mb-3">10. Contact & Data Controller</h2>
             <p>
               OpenSyntax is an open-source community project. For privacy-related inquiries, please contact the project maintainers via our{" "}
-              <a href="https://discord.gg/66GA8MNPeB" target="_blank" rel="noopener noreferrer" className="text-accent underline underline-offset-2 hover:no-underline">
-                Discord server (discord.gg/66GA8MNPeB)
+              <a href="https://www.instagram.com/http.sejed.official/" target="_blank" rel="noopener noreferrer" className="text-accent underline underline-offset-2 hover:no-underline">
+                Instagram profile (@http.sejed.official)
               </a>.
             </p>
           </section>

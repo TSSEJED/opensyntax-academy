@@ -322,12 +322,12 @@ export function CoursesCatalog() {
                   We are currently crafting high-quality lessons for the <span className="font-bold text-foreground">{activeCategory}</span> category. Want to speed things up or request a specific topic?
                 </p>
                 <a
-                  href="https://discord.gg/66GA8MNPeB"
+                  href="https://www.instagram.com/http.sejed.official/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
                 >
-                  Request on Discord
+                  Request on Instagram
                 </a>
               </motion.div>
             )}
