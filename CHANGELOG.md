@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.3.0] — 2026-03-31 — "Minus Zero" & PWA Install Engine
+
+### Added
+- **"Minus Zero" Foundations Track**: Introduced a mandatory onboarding track (`/courses/foundations`) covering Hardware Logic, CPU Architecture, TCP/IP Networking, and POSIX Terminal internals to bridge absolute beginners.
+- **Functional PWA Installation**: Implemented a custom `usePwaInstall` hook and integrated it into the platform's prompt system. Users can now trigger a native browser installation dialog directly from the "Download the App" popup.
+- **Universal 3-Tier Curriculum**: All 11 core domain tracks (Web, Discord, AI/ML, DevOps, Databases, TypeScript, React Patterns, Cybersecurity, Blockchain, Mobile, Python) have been fully restructured into a synchronized 3-Tier model (Tier 1: Foundations, Tier 2: Intermediate, Tier 3: Production).
+
+### Changed
+- **Course Catalog Update**: Expanded the catalog categories to include "Foundations" and prioritized the new onboarding track for new users.
+- **Platform-wide Documentation**: Updated Terms, Privacy, and README to reflect the hierarchical curriculum changes and local AI processing standards.
+
+---
+
 ## [4.2.0] — 2026-03-31 — Next-Level UX & PWA Optimization
 
 ### Added

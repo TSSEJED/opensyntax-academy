@@ -27,6 +27,18 @@ type Course = {
 
 const COURSES: Course[] = [
   {
+    href: "/courses/foundations",
+    title: "Computing Foundations",
+    subtitle: "Hardware Logic · TCP/IP · POSIX Terminal",
+    description: "The 'Minus Zero' onboarding. Start from absolute zero: CPU architecture, memory management, how the internet routes packets, and mastering the professional terminal & Git internals.",
+    icon: "⬡", iconColor: "#60A5FA",
+    category: "Foundations", difficulty: "Beginner",
+    duration: "4h 30m", modules: 3, lessons: 6,
+    tags: ["Hardware", "Networking", "Terminal", "Git"],
+    instructor: "OpenSyntax Academy", rating: 5.0, reviewCount: 450,
+    prerequisites: ["None"], lastUpdated: "Mar 2026"
+  },
+  {
     href: "/courses/web",
     title: "Full-Stack Web Engineering",
     subtitle: "Next.js 16 · Server Actions · Edge · PWA",
@@ -190,7 +202,7 @@ const DIFFICULTY_STYLES = {
   Advanced:     "bg-orange-50 text-orange-600 border-orange-200",
 }
 
-const CATEGORIES = ["All", "Web", "AI & Data", "DevOps", "Systems", "Security", "Blockchain", "Mobile", "Discord"]
+const CATEGORIES = ["All", "Foundations", "Web", "AI & Data", "DevOps", "Systems", "Security", "Blockchain", "Mobile", "Discord"]
 
 export function CoursesCatalog() {
   const [activeCategory, setActiveCategory] = useState("All")

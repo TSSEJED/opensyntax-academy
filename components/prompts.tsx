@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { MessageSquare, Bug, LifeBuoy, X, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { usePwaInstall } from "@/hooks/use-pwa-install"
 
 type PromptType = "instagram" | "bugs" | "support" | "pwa-app"
 
@@ -79,6 +80,7 @@ export function Prompts() {
   const [active, setActive] = useState<PromptType | null>(null)
   const [dismissed, setDismissed] = useState<Set<string>>(new Set())
   const pathname = usePathname()
+  const { available, installPwa } = usePwaInstall()
 
   useEffect(() => {
     setDismissed(getDismissed())
@@ -93,7 +95,14 @@ export function Prompts() {
       else if (pathname === "/") pick = "pwa-app"
       else pick = "pwa-app"
 
-      if (!stored.has(pick)) setActive(pick)
+      if (!stored.has(pick)) {
+        if (pick === "pwa-app" && !available) {
+          // Fallback to instagram if PWA not available for install
+          setActive("instagram")
+        } else {
+          setActive(pick)
+        }
+      }
     }, 8000)
 
     return () => clearTimeout(timer)
@@ -110,6 +119,16 @@ export function Prompts() {
   }
 
   const current = PROMPTS.find(p => p.id === active && !dismissed.has(p.id))
+
+  const handleAction = (e: React.MouseEvent) => {
+    if (active === "pwa-app") {
+      e.preventDefault()
+      installPwa()
+      dismiss()
+    } else {
+      dismiss()
+    }
+  }
 
   return (
     <AnimatePresence>
@@ -144,7 +163,7 @@ export function Prompts() {
                   href={current.href}
                   target={current.external ? "_blank" : undefined}
                   rel={current.external ? "noopener noreferrer" : undefined}
-                  onClick={dismiss}
+                  onClick={handleAction}
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-foreground text-background text-[10px] font-bold transition-all hover:gap-3 shadow-lg"
                 >
                   {current.action}

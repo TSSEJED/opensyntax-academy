@@ -4,23 +4,23 @@
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Instagram](https://img.shields.io/badge/Instagram-Join_Community-E4405F?logo=instagram&logoColor=white)](https://www.instagram.com/http.sejed.official/)
-[![Version](https://img.shields.io/badge/version-4.2.0-violet)](https://opensyntax-academy.vercel.app/changelog)
+[![Version](https://img.shields.io/badge/version-4.3.0-violet)](https://opensyntax-academy.vercel.app/changelog)
 
 ---
 
-## About Version 4.2.0 — "Minus Zero to Hero" & PWA Tier-3 Optimization
+## About Version 4.3.0 — The "Minus Zero" & PWA Install Engine
 
-OpenSyntax 4.2.0 introduces the **"Minus Zero to Hero"** architectural curriculum upgrade alongside a new **PWA Install Prompt** and Tier-3 (Production-Grade) modules for Python. We have restructured the platform into a cohesive 3-Tier model (Foundations, Intermediate, Production-Grade), expanding courses up to advanced production pipelines like local SLMs.
+OpenSyntax 4.3.0 marks a milestone in platform usability and onboarding. We have introduced the **"Minus Zero" Foundations** track — a mandatory onboarding layer for absolute beginners covering hardware logic, internet protocols, and terminal internals. 
 
-This release also features a massive mobile optimization patch, safely removing the WebGL 3D Canvas on smaller viewports to guarantee 60FPS UI performance and eliminate rendering bottlenecks for low-end devices.
+This release also features a **Functional PWA Installation Engine**. Users can now install the OpenSyntax Academy app directly from the platform via a native browser prompt. Furthermore, all 11 core domain tracks have been fully restructured into a synchronized **3-Tier Architecture** (Foundations, Intermediate, Production), ensuring a consistent pedagogical journey from syntax to scaling.
 
-*(Previously in v4.0.0: Full multi-language RTL support and global i18n implementation).*
+*(Previously in v4.2.0: Mobile lag optimization and initial 3-Tier structuring for Python).*
 
 ---
 
 ## Features
 
-- **13 Extensive Learning Paths** — Web, Discord, Python, AI/ML, TypeScript, DevOps, Databases, React Patterns, Cybersecurity, Blockchain, Mobile, System Design, and Rust.
+- **14 Extensive Learning Paths** — Computing Foundations (Minus Zero), Web, Discord, Python, AI/ML, TypeScript, DevOps, Databases, React Patterns, Cybersecurity, Blockchain, Mobile, System Design, and Rust.
 - **Multi-Language UI** — EN · AR (RTL) · TN (RTL) · FR · DE with localStorage persistence.
 - **Premium Bento-box UI** — powered by `framer-motion` for stagger animations and layout transitions.
 - **WebGL Hero Scene** — driven by `@react-three/fiber` for an immersive, zero-lag 3D physics interaction.
@@ -36,8 +36,9 @@ This release also features a massive mobile optimization patch, safely removing 
 
 ## The Curriculum Paths
 
-Our courses are organized directly in the filesystem (`app/courses/[category]/page.tsx`). Each path boasts a dynamic set of lessons and modules spanning:
+Our courses are organized directly in the filesystem (`app/courses/[category]/page.tsx`). Each path is strictly structured into **Tier 1 (Foundations)**, **Tier 2 (Intermediate)**, and **Tier 3 (Production)**:
 
+0. **Computing Foundations (The 'Minus Zero' Track)**
 1. **Web Engineering (Next.js 16)**
 2. **Discord Development (discord.py / AutoSharding)**
 3. **Python & Data Science (Pandas, ML Pipelines)**

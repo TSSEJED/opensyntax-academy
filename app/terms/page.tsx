@@ -29,7 +29,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-base font-semibold text-foreground mb-3">2. Description of Service</h2>
             <p>
-              OpenSyntax is a free, open-source learning platform built around a &quot;Minus Zero to Hero&quot; architecture, providing educational content from absolute computing fundamentals up to bleeding-edge tier-3 production-grade software development. Our platform features interactive lessons, immersive 3D interfaces, detailed course metadata, multi-language support, and integration with local Small Language Models (SLMs) for AI-assisted curriculum execution. All content is provided &quot;as is&quot; for educational purposes only. OpenSyntax is community-funded and does not charge for access to any content.
+              OpenSyntax is a free, open-source learning platform built around a &quot;Minus Zero&quot; 3-Tier architecture. The Service provides structured educational content starting from absolute computing fundamentals (Tier 1) through specialized framework mastery (Tier 2) to production-grade engineering (Tier 3), including local AI processing and professional environment setup. The Service includes a Progressive Web App (PWA) installation feature to enable offline access and a centralized student dashboard to track progress across 14 distinct learning paths. All content is provided &quot;as is&quot; for educational purposes only. OpenSyntax is community-funded and does not charge for access.
             </p>
           </section>
 

@@ -10,6 +10,26 @@ export const metadata = {
 
 const resolvedBugs = [
   {
+    id: "CUR-430",
+    title: "Curriculum Consistency Upgrade",
+    severity: "Low",
+    status: "Fixed",
+    description: "Previous tracks lacked a unified progression structure, making it difficult for absolute beginners to find an entry point.",
+    workaround: "Fixed in v4.3.0 — All 11 core tracks restructured into a 3-Tier model (Foundations, Intermediate, Production) and a new 'Foundations' track added.",
+    plannedFix: "v4.3.0 ✓",
+    resolvedIn: "v4.3.0",
+  },
+  {
+    id: "PWA-430",
+    title: "Functional PWA Installation Engine",
+    severity: "Low",
+    status: "Fixed",
+    description: "The previous PWA prompt was only informational and did not trigger a native installation event.",
+    workaround: "Fixed in v4.3.0 — Introduced usePwaInstall hook and connected it to the native 'beforeinstallprompt' event.",
+    plannedFix: "v4.3.0 ✓",
+    resolvedIn: "v4.3.0",
+  },
+  {
     id: "TRM-003",
     title: "Terminal Scrolls Entire Page on Load",
     severity: "Medium",
@@ -128,7 +148,7 @@ export default function BugsPage() {
         <div className="mb-14">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-500 text-[10px] font-bold uppercase tracking-widest mb-4">
             <AlertCircle size={12} />
-            Transparency Report · v4.2.0
+            Transparency Report · v4.3.0
           </div>
           <h1 className="text-4xl font-bold text-foreground text-balance mb-4 tracking-tight">Known Bugs</h1>
           <p className="text-sm text-muted-foreground max-w-xl">
